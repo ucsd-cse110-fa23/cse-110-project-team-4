@@ -2,24 +2,26 @@
     "java.project.referencedLibraries": {
         "include": [
             "lib/**/*.jar",
-            "javafx-sdk-21\\lib\\javafx.base.jar",
-            "javafx-sdk-21\\lib\\javafx.controls.jar",
-            "javafx-sdk-21\\lib\\javafx.fxml.jar",
-            "javafx-sdk-21\\lib\\javafx.graphics.jar",
-            "javafx-sdk-21\\lib\\javafx.media.jar",
-            "javafx-sdk-21\\lib\\javafx.swing.jar",
-            "javafx-sdk-21\\lib\\javafx.web.jar",
-            "javafx-sdk-21\\lib\\javafx-swt.jar"
+            "lib\\javafx-sdk-21\\lib\\javafx.base.jar",
+            "lib\\javafx-sdk-21\\lib\\javafx.controls.jar",
+            "lib\\javafx-sdk-21\\lib\\javafx.fxml.jar",
+            "lib\\javafx-sdk-21\\lib\\javafx.graphics.jar",
+            "lib\\javafx-sdk-21\\lib\\javafx.media.jar",
+            "lib\\javafx-sdk-21\\lib\\javafx.swing.jar",
+            "lib\\javafx-sdk-21\\lib\\javafx.web.jar",
+            "lib\\javafx-sdk-21\\lib\\javafx-swt.jar",
+            "lib\\org.json.jar\\org.json.jar"
         ],
         "exclude": [
-            "javafx-sdk-21/lib/javafx-swt.jar",
-            "javafx-sdk-21/lib/javafx.base.jar",
-            "javafx-sdk-21/lib/javafx.web.jar",
-            "javafx-sdk-21/lib/javafx.swing.jar",
-            "javafx-sdk-21/lib/javafx.media.jar",
-            "javafx-sdk-21/lib/javafx.graphics.jar",
-            "javafx-sdk-21/lib/javafx.fxml.jar",
-            "javafx-sdk-21/lib/javafx.controls.jar"
+            "lib\\javafx-sdk-21/lib/javafx-swt.jar",
+            "lib\\javafx-sdk-21/lib/javafx.base.jar",
+            "lib\\javafx-sdk-21/lib/javafx.web.jar",
+            "lib\\javafx-sdk-21/lib/javafx.swing.jar",
+            "lib\\javafx-sdk-21/lib/javafx.media.jar",
+            "lib\\javafx-sdk-21/lib/javafx.graphics.jar",
+            "lib\\javafx-sdk-21/lib/javafx.fxml.jar",
+            "lib\\javafx-sdk-21/lib/javafx.controls.jar",
+            "lib\\org.json.jar\\org.json.jar"
         ]
     }
 }

@@ -5,8 +5,7 @@ import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.util.*;
 import java.util.concurrent.*;
-import models;
-
+import models.Recipe;
 
 public class Server {
 
@@ -19,7 +18,7 @@ public class Server {
         // create a thread pool to handle requests
         ThreadPoolExecutor threadPoolExecutor = (ThreadPoolExecutor) Executors.newFixedThreadPool(10);
 
-        HashMap<UUID, Recipe> data;
+        HashMap<String, Recipe> data = new HashMap<>();
 
         // create a server
         HttpServer server = HttpServer.create(

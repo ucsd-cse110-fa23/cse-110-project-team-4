@@ -4,17 +4,20 @@ import com.sun.net.httpserver.*;
 import java.io.*;
 import java.net.*;
 import java.util.*;
+import org.json.JSONArray;
+import org.json.JSONObject;  
+import models.Recipe;
 
 public class RecipeRepository {
 
     private final Map<String, Recipe> data;
 
-    public RecipeRepository(Map<String, String> data) {
+    public RecipeRepository(Map<String, Recipe> data) {
         this.data = data;
     }
 
-    public JSONObject getRecipe(String uuid){
-        Recipe recipe = data[uuid];
+    public JSONObject getRecipe(String uuid) throws Exception{
+        Recipe recipe = data.get(uuid);
 
         JSONObject recipeJSON = new JSONObject();
         recipeJSON.put("uuid", recipe.uuid);
@@ -23,19 +26,20 @@ public class RecipeRepository {
         return recipeJSON;
     }
 
-    public JSONObject createRecipe(Recipe recipe){
-        data[recipe.uuid] = recipe;
-        Recipe recipe = data[uuid];
+    public JSONObject createRecipe(Recipe recipe) throws Exception {
+        data.put(recipe.uuid, recipe);
+        Recipe recipeResponse = data.get(recipe.uuid);
         
         JSONObject recipeJSON = new JSONObject();
-        recipeJSON.put("uuid", recipe.uuid);
-        recipeJSON.put("name", recipe.name);
-        recipeJSON.put("details", recipe.details);
+        recipeJSON.put("uuid", recipeResponse.uuid);
+        recipeJSON.put("name", recipeResponse.name);
+        recipeJSON.put("details", recipeResponse.details);
+        return recipeJSON;
     }
 
-    public JSONObject editRecipe(JSONObject recipeEdit){
+    public JSONObject editRecipe(JSONObject recipeEdit) throws Exception{
         JSONObject recipeJSON = new JSONObject();
-        Recipe recipe = data[recipeEdit.getString("uuid")];
+        Recipe recipe = data.get(recipeEdit.getString("uuid"));
         recipe.name = recipeEdit.getString("name");
         recipe.details = recipeEdit.getString("details");
         return recipeEdit;
