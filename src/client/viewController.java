@@ -3,6 +3,6 @@ package client;
 /**
  * viewController
  */
-public interface viewController { 
+public interface ViewController { 
     public void display();
 }

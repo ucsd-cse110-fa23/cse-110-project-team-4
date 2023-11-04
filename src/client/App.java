@@ -15,7 +15,7 @@ public class App extends Application {
         
         // Setting the Layout of the Window- Should contain a Header, Footer and the
         // TaskList
-        mainViewController root = new mainViewController();
+        MainViewController root = new MainViewController();
 
 
 

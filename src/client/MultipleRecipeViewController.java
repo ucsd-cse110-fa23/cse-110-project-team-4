@@ -4,7 +4,7 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-public class MultipleRecipeViewController implements viewController{
+public class MultipleRecipeViewController implements ViewController{
     Stage mrvcStage;
     MultipleRecipeViewController(Stage primaryStage){
         this.mrvcStage = primaryStage;

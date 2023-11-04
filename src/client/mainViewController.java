@@ -4,10 +4,10 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-public class mainViewController {
+public class MainViewController {
     Stage mpvcStage = new Stage();
     Stage drvStage = new Stage();
-    mainViewController() {
+    MainViewController() {
         // Set the title of the app
 
         MultipleRecipeViewController mpv = new MultipleRecipeViewController(mpvcStage);
