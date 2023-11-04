@@ -1,13 +1,7 @@
 plugins {
     id 'java'
-    id 'application'
-    id 'org.openjfx.javafxplugin' version '0.1.0'
 }
 
-javafx {
-    version = "21.0.1"
-    modules = [ 'javafx.controls', 'javafx.base', 'javafx.graphics']
-}
 
 java {
     toolchain {
@@ -21,7 +15,9 @@ repositories {
 
 dependencies {
     def junitVersion = '5.8.1'
-    
+    implementation fileTree(include: ['*.jar'], dir: 'javafx-sdk-21/lib')
+    // Your might already have other librarires/dependencies here you should leave them 
+    // as they are and just add your on new line
     // This provides the JUnit API.
     testImplementation "org.junit.jupiter:junit-jupiter-api:$junitVersion"
     // This provides the TestEngine to actually run the tests.
