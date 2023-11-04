@@ -21,5 +21,6 @@
             "javafx-sdk-21/lib/javafx.fxml.jar",
             "javafx-sdk-21/lib/javafx.controls.jar"
         ]
-    }
+    },
+    "java.configuration.updateBuildConfiguration": "interactive"
 }
