@@ -1,5 +1,12 @@
 plugins {
     id 'java'
+    id 'application'
+    id 'org.openjfx.javafxplugin' version '0.1.0'
+}
+
+javafx {
+    version = "21.0.1"
+    modules = [ 'javafx.controls', 'javafx.base', 'javafx.graphics']
 }
 
 java {
@@ -24,3 +31,5 @@ dependencies {
 test {
     useJUnitPlatform()
 }
+
+sourceSets.test.java.srcDirs = ['src']
