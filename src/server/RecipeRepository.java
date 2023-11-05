@@ -16,7 +16,15 @@ public class RecipeRepository {
         this.data = data;
     }
 
-    public JSONObject getRecipe(String uuid) throws Exception{
+    public JSONObject getRecipeList(String uuid){
+        ArrayList<Recipe> recipeList = data.valueSet();
+
+        JSONObject recipeJSON = new JSONObject();
+        recipeJSON.put("RecipeList", recipeList);
+        return recipeJSON;
+    }
+
+    public JSONObject getRecipe(String uuid){
         Recipe recipe = data.get(uuid);
 
         JSONObject recipeJSON = new JSONObject();

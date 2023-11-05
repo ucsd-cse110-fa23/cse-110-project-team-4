@@ -2,6 +2,7 @@ package models;
 
 import java.util.Date;
 import java.util.UUID;
+import org.java.JSONObejct;
 
 public class Recipe {
 
@@ -15,6 +16,10 @@ public class Recipe {
         this.name = name;
         this.details = details;
         this.createdOn = System.currentTimeMillis();
+    }
+
+    public JSONObejct toJSON(){
+
     }
 
 }

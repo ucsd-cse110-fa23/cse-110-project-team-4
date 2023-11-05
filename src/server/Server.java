@@ -27,6 +27,7 @@ public class Server {
         );
 
         server.createContext("/recipe", new RecipeHandler(data));
+        server.createContext("/RecipeList", new RecipeListHandler(data));
         server.setExecutor(threadPoolExecutor);
         server.start();
         
