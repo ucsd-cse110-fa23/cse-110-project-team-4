@@ -12,11 +12,15 @@ import javafx.geometry.Pos;
 
 
 public class GenerateRecipesView extends BorderPane{
+
     private Header header;
     private Footer footer;
     Button startButton;
     Button stopButton;
     Button generateButton;
+    GenerateRecipesBody grb;
+
+
     GenerateRecipesView() {
         // Initialise the header Object
         header = new Header();
@@ -46,13 +50,22 @@ public class GenerateRecipesView extends BorderPane{
         footer.getChildren().add(buttons);
         footer.setAlignment(Pos.CENTER);
 
-        GenerateRecipesBody grv = new GenerateRecipesBody();
-        this.setCenter(grv);
+        this.grb = new GenerateRecipesBody();
+        this.setCenter(grb);
         // Add header to the top of the BorderPane
         this.setTop(header);
         // Add scroller to the centre of the BorderPane
 
         // Add footer to the bottom of the BorderPane
         this.setBottom(footer);
+
+        this.addListeners();
+    }
+
+    public void addListeners() {
+        generateButton.setOnAction(e -> {
+            GenerateRecipeHandler grh = new GenerateRecipeHandler("What is velocity in agile development?");
+            this.grb.setRecipeText(grh.makeRequest());
+        });
     }
 }

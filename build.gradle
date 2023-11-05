@@ -16,6 +16,7 @@ repositories {
 dependencies {
     def junitVersion = '5.8.1'
     implementation fileTree(include: ['*.jar'], dir: 'javafx-sdk-21/lib')
+    implementation fileTree(include: ['*.jar'], dir: 'javafx-sdk-21/json-20230227.jar')
     // Your might already have other librarires/dependencies here you should leave them 
     // as they are and just add your on new line
     // This provides the JUnit API.

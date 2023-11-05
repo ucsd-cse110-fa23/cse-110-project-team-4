@@ -50,4 +50,8 @@ public class GenerateRecipesBody extends VBox{
         return this.recipeText.getText();
     }
 
+    public void setRecipeText(String newRecipeText) {
+        this.recipeText.setText(newRecipeText);
+    }
+
 }
