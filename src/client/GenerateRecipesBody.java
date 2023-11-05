@@ -22,7 +22,7 @@ public class GenerateRecipesBody extends VBox{
         microphoneImage = new Image("./client/images/SeekPng.com_microphone-icon-png_458366.png");
         imageView.setImage(microphoneImage);
 
-        recipeText = new Label("The bowl was filled with fruit. It seemed to be an overabundance of strawberries, but it also included blueberries, raspberries, grapes, and banana slices. This was the meal Sarah had every morning to start her day since she could remember. Why she decided to add chocolate as an option today was still a bit of a surprise, but she had been in the process of deciding she wanted to change her routine. This was a baby step to begin that start.");
+        recipeText = new Label("Generated Recipe Will Go Here");
 
         recipeText.setPadding(new Insets(100, 50, 10, 50));
         recipeText.setWrapText(true);
