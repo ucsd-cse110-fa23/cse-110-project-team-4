@@ -17,5 +17,4 @@ class Footer extends HBox {
         this.setSpacing(15);
     }
 
-
 }
