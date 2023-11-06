@@ -12,10 +12,10 @@ import javafx.geometry.Pos;
 
 
 public class GenerateRecipesBody extends VBox{
-    Image microphoneImage;
-    ImageView imageView;
-    Label transcription;
-    HBox body;
+    private Image microphoneImage;
+    private ImageView imageView;
+    private Label transcription;
+    private HBox body;
 
     ScrollPane sp;
 

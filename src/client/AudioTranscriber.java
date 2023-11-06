@@ -125,6 +125,7 @@ public class AudioTranscriber {
 
         // Disconnect connection
         connection.disconnect();
+        // Return null if HTTP response was not successful
         return null;
     }
 

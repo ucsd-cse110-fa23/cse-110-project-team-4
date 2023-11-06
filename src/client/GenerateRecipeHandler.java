@@ -35,8 +35,6 @@ public class GenerateRecipeHandler {
 
         this.client = HttpClient.newHttpClient();
 
-        // Create the request object
-
     }
 
     public String makeRequest() {
@@ -64,7 +62,7 @@ public class GenerateRecipeHandler {
             this.generatedText = generatedText;
 
         } catch (Exception e) {
-            System.out.println(e.toString());
+            e.printStackTrace();
         }
         return this.generatedText;
     }

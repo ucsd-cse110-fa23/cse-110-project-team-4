@@ -14,15 +14,15 @@ public class GenerateRecipesView extends BorderPane {
 
     private Header header;
     private Footer footer;
-    Button startButton;
-    Button stopButton;
-    Button generateButton;
-    GenerateRecipesBody grb;
-    ScrollPane sp;
+    
+    private Button startButton;
+    private Button stopButton;
+    private Button generateButton;
+    private GenerateRecipesBody grb;
 
-    AudioRecorder ar;
-    AudioTranscriber at;
-    String prompt;
+    private AudioRecorder ar;
+    private AudioTranscriber at;
+    private String prompt;
 
     GenerateRecipesView() {
         // Initialise the header Object
@@ -35,31 +35,23 @@ public class GenerateRecipesView extends BorderPane {
         footer = new Footer();
 
         startButton = new Button("START");
-
         startButton.setPadding(new Insets(10, 10, 10, 10));
 
         stopButton = new Button("STOP");
-
         stopButton.setPadding(new Insets(10, 10, 10, 10));
 
         generateButton = new Button("GENERATE");
-
         generateButton.setPadding(new Insets(10, 10, 10, 10));
 
         HBox buttons = new HBox();
         buttons.getChildren().addAll(startButton, stopButton, generateButton);
         buttons.setAlignment(Pos.CENTER);
-
         buttons.setSpacing(15);
 
         footer.getChildren().add(buttons);
         footer.setAlignment(Pos.CENTER);
 
         this.grb = new GenerateRecipesBody();
-        sp = new ScrollPane();
-        sp.setContent(grb);
-
-        sp.setVbarPolicy(ScrollBarPolicy.ALWAYS);
 
         this.setCenter(grb);
         // Add header to the top of the BorderPane
@@ -80,7 +72,7 @@ public class GenerateRecipesView extends BorderPane {
                 GenerateRecipeHandler grh = new GenerateRecipeHandler(this.prompt);
                 grh.makeRequest();
             } catch (Exception ex) {
-
+                ex.printStackTrace();
             }
 
         });
@@ -89,7 +81,6 @@ public class GenerateRecipesView extends BorderPane {
             ar = new AudioRecorder();
             Thread thread = new Thread(ar);
             thread.start();
-            // ar.call();
         });
 
         stopButton.setOnAction(e -> {
@@ -102,7 +93,7 @@ public class GenerateRecipesView extends BorderPane {
     
                 this.grb.setTranscription(prompt);
             } catch (Exception ex) {
-
+                ex.printStackTrace();
             }
             
         });

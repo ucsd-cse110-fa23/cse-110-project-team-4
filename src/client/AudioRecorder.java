@@ -7,8 +7,6 @@ import javafx.concurrent.Task;
 import java.io.*;
 
 public class AudioRecorder extends Task<Void> {
-    // record duration, in milliseconds
-    //static final long RECORD_TIME = 10000;  // 1 minute
  
     // path of the wav file
     File wavFile = new File("src/client/audio/RecordAudio.wav");
@@ -76,31 +74,5 @@ public class AudioRecorder extends Task<Void> {
         line.close();
         System.out.println("Finished");
     }
- 
-    /**
-     * Entry to run the program
-     */
-    /* 
-    public static void runRecorder() {
-        final AudioRecorder recorder = new AudioRecorder();
- 
-        // creates a new thread that waits for a specified
-        // of time before stopping
-        Thread stopper = new Thread(new Runnable() {
-            public void run() {
-                try {
-                    Thread.sleep(RECORD_TIME);
-                } catch (InterruptedException ex) {
-                    ex.printStackTrace();
-                }
-                recorder.finish();
-            }
-        });
- 
-        stopper.start();
- 
-        // start recording
-        recorder.start();
-    }
-    */
+
 }
