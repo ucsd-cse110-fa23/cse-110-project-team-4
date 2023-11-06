@@ -5,17 +5,13 @@ import javafx.stage.Stage;
 
 public class DetailedViewController implements ViewController{
     Stage dvcStage;
-    int screenSizeWidth;
-    int screenSizeHeight;
-    DetailedViewController(Stage primaryStage,int screenSizeWidth,int screenSizeHeight){
+    DetailedViewController(Stage primaryStage){
         this.dvcStage = primaryStage;
-        this.screenSizeWidth = screenSizeWidth;
-        this.screenSizeHeight = screenSizeHeight;
     }
 
     public void display(){
-        DetailedRecipeView drv = new DetailedRecipeView(this);
-        dvcStage.setScene(new Scene(drv, this.screenSizeWidth, this.screenSizeHeight));
+        DetailedRecipeView drv = new DetailedRecipeView();
+        dvcStage.setScene(new Scene(drv, 1000, 600));
         dvcStage.setTitle("PantryPal");
         dvcStage.show();
     }
