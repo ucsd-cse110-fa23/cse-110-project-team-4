@@ -33,14 +33,8 @@ public class DetailedRecipeInfoBody extends VBox {
     }
 
     public void textFieldEditable(boolean b) {
-        for (javafx.scene.Node n : this.getChildren()) {
-            if (n instanceof TextField) {
-                ((TextField) n).setEditable(b);
-            }
-            if (n instanceof TextArea) {
-                ((TextArea) n).setEditable(b);
-            }
-        }
+        recipeName.setEditable(b);
+        recipeContent.setEditable(b);
     }
 
     public String getRecipeName(){
