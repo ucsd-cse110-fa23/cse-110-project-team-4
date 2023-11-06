@@ -3,14 +3,13 @@ package server;
 import com.sun.net.httpserver.*;
 import java.io.*;
 import java.util.*;
-import models.*;
 
 public class RecipeListHandler implements HttpHandler {
 
     private final RecipeRepository recipeRepository;
 
-    public RecipeListHandler(Map<String, Recipe> data) {
-        this.recipeRepository = new RecipeRepository(data);
+    public RecipeListHandler(RecipeRepository recipeRepository) {
+        this.recipeRepository = recipeRepository;
     }
 
     public void handle(HttpExchange httpExchange) throws IOException {
@@ -41,7 +40,7 @@ public class RecipeListHandler implements HttpHandler {
         String response = "";
         ArrayList<String> recipeList = recipeRepository.getRecipeList();
         for(String s:recipeList){
-            response += s + ",";
+            response += s + ";";
         }
         return response;
     }     

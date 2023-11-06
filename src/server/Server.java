@@ -18,7 +18,9 @@ public class Server {
         // create a thread pool to handle requests
         ThreadPoolExecutor threadPoolExecutor = (ThreadPoolExecutor) Executors.newFixedThreadPool(10);
 
-        HashMap<String, Recipe> data = new HashMap<>();
+        HashMap<UUID, Recipe> data = new HashMap<>();
+        HashMap<String, UUID> nameIndex = new HashMap<>();
+        RecipeRepository recipeRepository = new RecipeRepository(data, nameIndex);
 
         // create a server
         HttpServer server = HttpServer.create(
@@ -26,8 +28,8 @@ public class Server {
             0
         );
 
-        server.createContext("/recipeList", new RecipeListHandler(data));
-        server.createContext("/recipe", new RecipeHandler(data));
+        server.createContext("/recipeList", new RecipeListHandler(recipeRepository));
+        server.createContext("/recipe", new RecipeHandler(recipeRepository));
         server.setExecutor(threadPoolExecutor);
         server.start();
         
