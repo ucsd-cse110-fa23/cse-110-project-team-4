@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "AudioRecorder",
+            "request": "launch",
+            "mainClass": "client.AudioRecorder",
+            "projectName": "cse-110-project-team-4"
+        },
+        {
+            "type": "java",
             "name": "Current File",
             "request": "launch",
             "mainClass": "${file}"

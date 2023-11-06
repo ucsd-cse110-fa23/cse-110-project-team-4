@@ -17,6 +17,8 @@ public class GenerateRecipesBody extends VBox{
     Label recipeText;
     HBox body;
 
+    ScrollPane sp;
+
     GenerateRecipesBody() {
         imageView = new ImageView();
         microphoneImage = new Image("./client/images/SeekPng.com_microphone-icon-png_458366.png");
@@ -24,22 +26,30 @@ public class GenerateRecipesBody extends VBox{
 
         recipeText = new Label("Generated Recipe Will Go Here");
 
-        recipeText.setPadding(new Insets(100, 50, 10, 50));
+        recipeText.setPadding(new Insets(10, 50, 10, 50));
         recipeText.setWrapText(true);
+
+        recipeText.setMinHeight(300);
+        recipeText.setMinWidth(200);
 
         imageView.setFitHeight(300);
         imageView.setFitWidth(200);
 
         HBox hb1 = new HBox();
-        HBox hb2 = new HBox();
+        VBox vb1 = new VBox();
 
         hb1.getChildren().add(imageView);
-        hb2.getChildren().add(recipeText);
+        vb1.getChildren().add(recipeText);
+
+        sp = new ScrollPane();
+        sp.setContent(vb1);
+
         
         hb1.setPadding(new Insets(10, 50, 10, 50));
 
+
         body = new HBox();
-        body.getChildren().addAll(hb1, hb2);
+        body.getChildren().addAll(hb1,sp);
         body.setAlignment(Pos.CENTER);
 
         this.getChildren().add(body);
@@ -52,6 +62,10 @@ public class GenerateRecipesBody extends VBox{
 
     public void setRecipeText(String newRecipeText) {
         this.recipeText.setText(newRecipeText);
+    }
+
+    public VBox getRecipeTextVBox()  {
+        return (VBox) this.body.getChildren().get(1);
     }
 
 }

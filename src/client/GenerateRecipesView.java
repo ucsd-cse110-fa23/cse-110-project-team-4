@@ -5,6 +5,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
+import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import javafx.geometry.Pos;
@@ -19,6 +20,9 @@ public class GenerateRecipesView extends BorderPane{
     Button stopButton;
     Button generateButton;
     GenerateRecipesBody grb;
+    ScrollPane sp;
+
+    AudioRecorder ar;
 
 
     GenerateRecipesView() {
@@ -47,10 +51,17 @@ public class GenerateRecipesView extends BorderPane{
         buttons.getChildren().addAll(startButton, stopButton, generateButton);
         buttons.setAlignment(Pos.CENTER);
 
+        buttons.setSpacing(15);
+
         footer.getChildren().add(buttons);
         footer.setAlignment(Pos.CENTER);
 
         this.grb = new GenerateRecipesBody();
+        sp = new ScrollPane();
+        sp.setContent(grb);
+
+        sp.setVbarPolicy(ScrollBarPolicy.ALWAYS);
+
         this.setCenter(grb);
         // Add header to the top of the BorderPane
         this.setTop(header);
@@ -59,13 +70,27 @@ public class GenerateRecipesView extends BorderPane{
         // Add footer to the bottom of the BorderPane
         this.setBottom(footer);
 
+        //ar = new AudioRecorder();
+
         this.addListeners();
     }
 
     public void addListeners() {
         generateButton.setOnAction(e -> {
-            GenerateRecipeHandler grh = new GenerateRecipeHandler("What is velocity in agile development?");
+            GenerateRecipeHandler grh = new GenerateRecipeHandler("Give me a dinner recipe for mashed potatoes.");
             this.grb.setRecipeText(grh.makeRequest());
+        });
+
+        startButton.setOnAction(e -> {
+            ar = new AudioRecorder();
+            Thread thread = new Thread(ar);
+            thread.start();
+            //ar.call();
+        });
+
+        stopButton.setOnAction(e -> {
+            ar.finish();
+            ar.cancel();
         });
     }
 }

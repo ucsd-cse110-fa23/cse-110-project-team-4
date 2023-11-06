@@ -24,7 +24,7 @@ public class GenerateRecipeHandler {
     GenerateRecipeHandler(String prompt) {
         // Set request parameters
         this.prompt = prompt;
-        this.maxTokens = 100;
+        this.maxTokens = 500;
 
         // Create a request body which you will pass into request object
         this.requestBody = new JSONObject();
