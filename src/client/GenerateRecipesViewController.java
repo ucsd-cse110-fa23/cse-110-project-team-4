@@ -16,4 +16,8 @@ public class GenerateRecipesViewController implements ViewController{
         grvcStage.setTitle("PantryPal");
         grvcStage.show();
     }
+
+    public void closeDisplay() {
+        grvcStage.close();
+    }
 }

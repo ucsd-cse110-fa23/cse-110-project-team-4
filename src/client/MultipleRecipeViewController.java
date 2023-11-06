@@ -16,4 +16,8 @@ public class MultipleRecipeViewController implements ViewController{
         mrvcStage.setTitle("PantryPal");
         mrvcStage.show();
     }
+
+    public void closeDisplay() {
+        mrvcStage.close();
+    }
 }

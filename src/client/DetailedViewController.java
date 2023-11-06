@@ -15,4 +15,8 @@ public class DetailedViewController implements ViewController{
         dvcStage.setTitle("PantryPal");
         dvcStage.show();
     }
+
+    public void closeDisplay() {
+        dvcStage.close();
+    }
 }
