@@ -6,13 +6,17 @@ import javafx.stage.Stage;
 
 public class GenerateRecipesViewController implements ViewController{
     Stage grvcStage;
-    GenerateRecipesViewController(Stage primaryStage){
+    int screenSizeWidth;
+    int screenSizeHeight;
+    GenerateRecipesViewController(Stage primaryStage,int screenSizeWidth,int screenSizeHeight){
         this.grvcStage = primaryStage;
+        this.screenSizeWidth = screenSizeWidth;
+        this.screenSizeHeight = screenSizeHeight;
     }
 
     public void display(){
         GenerateRecipesView grv = new GenerateRecipesView();
-        grvcStage.setScene(new Scene(grv, 1000, 600));
+        grvcStage.setScene(new Scene(grv, screenSizeWidth, screenSizeHeight));
         grvcStage.setTitle("PantryPal");
         grvcStage.show();
     }

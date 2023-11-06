@@ -29,11 +29,11 @@ public class GenerateRecipesBody extends VBox{
         transcription.setPadding(new Insets(10, 50, 10, 50));
         transcription.setWrapText(true);
 
-        transcription.setMinHeight(300);
-        transcription.setMinWidth(200);
+        transcription.setMinHeight(200);
+        transcription.setMinWidth(120);
 
-        imageView.setFitHeight(300);
-        imageView.setFitWidth(200);
+        imageView.setFitHeight(200);
+        imageView.setFitWidth(120);
 
         HBox hb1 = new HBox();
         VBox vb1 = new VBox();
