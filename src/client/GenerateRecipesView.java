@@ -10,9 +10,7 @@ import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import javafx.geometry.Pos;
 
-
-
-public class GenerateRecipesView extends BorderPane{
+public class GenerateRecipesView extends BorderPane {
 
     private Header header;
     private Footer footer;
@@ -23,7 +21,8 @@ public class GenerateRecipesView extends BorderPane{
     ScrollPane sp;
 
     AudioRecorder ar;
-
+    AudioTranscriber at;
+    String prompt;
 
     GenerateRecipesView() {
         // Initialise the header Object
@@ -70,27 +69,42 @@ public class GenerateRecipesView extends BorderPane{
         // Add footer to the bottom of the BorderPane
         this.setBottom(footer);
 
-        //ar = new AudioRecorder();
+        // ar = new AudioRecorder();
 
         this.addListeners();
     }
 
     public void addListeners() {
         generateButton.setOnAction(e -> {
-            GenerateRecipeHandler grh = new GenerateRecipeHandler("Give me a dinner recipe for mashed potatoes.");
-            this.grb.setRecipeText(grh.makeRequest());
+            try {
+                GenerateRecipeHandler grh = new GenerateRecipeHandler(this.prompt);
+                grh.makeRequest();
+            } catch (Exception ex) {
+
+            }
+
         });
 
         startButton.setOnAction(e -> {
             ar = new AudioRecorder();
             Thread thread = new Thread(ar);
             thread.start();
-            //ar.call();
+            // ar.call();
         });
 
         stopButton.setOnAction(e -> {
             ar.finish();
             ar.cancel();
+
+            at = new AudioTranscriber();
+            try {
+                this.prompt = at.generateTranscription();
+    
+                this.grb.setTranscription(prompt);
+            } catch (Exception ex) {
+
+            }
+            
         });
     }
 }

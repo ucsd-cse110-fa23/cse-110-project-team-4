@@ -14,7 +14,7 @@ import javafx.geometry.Pos;
 public class GenerateRecipesBody extends VBox{
     Image microphoneImage;
     ImageView imageView;
-    Label recipeText;
+    Label transcription;
     HBox body;
 
     ScrollPane sp;
@@ -24,13 +24,13 @@ public class GenerateRecipesBody extends VBox{
         microphoneImage = new Image("./client/images/SeekPng.com_microphone-icon-png_458366.png");
         imageView.setImage(microphoneImage);
 
-        recipeText = new Label("Generated Recipe Will Go Here");
+        transcription = new Label("Transcribed Audio Will Go Here");
 
-        recipeText.setPadding(new Insets(10, 50, 10, 50));
-        recipeText.setWrapText(true);
+        transcription.setPadding(new Insets(10, 50, 10, 50));
+        transcription.setWrapText(true);
 
-        recipeText.setMinHeight(300);
-        recipeText.setMinWidth(200);
+        transcription.setMinHeight(300);
+        transcription.setMinWidth(200);
 
         imageView.setFitHeight(300);
         imageView.setFitWidth(200);
@@ -39,7 +39,7 @@ public class GenerateRecipesBody extends VBox{
         VBox vb1 = new VBox();
 
         hb1.getChildren().add(imageView);
-        vb1.getChildren().add(recipeText);
+        vb1.getChildren().add(transcription);
 
         sp = new ScrollPane();
         sp.setContent(vb1);
@@ -56,15 +56,15 @@ public class GenerateRecipesBody extends VBox{
         this.setAlignment(Pos.CENTER);
     }
 
-    public String getRecipeText() {
-        return this.recipeText.getText();
+    public String getTranscription() {
+        return this.transcription.getText();
     }
 
-    public void setRecipeText(String newRecipeText) {
-        this.recipeText.setText(newRecipeText);
+    public void setTranscription(String newTranscription) {
+        this.transcription.setText(newTranscription);
     }
 
-    public VBox getRecipeTextVBox()  {
+    public VBox getTranscriptionVBox()  {
         return (VBox) this.body.getChildren().get(1);
     }
 
