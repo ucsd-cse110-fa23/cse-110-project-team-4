@@ -10,14 +10,23 @@ import org.junit.jupiter.api.BeforeEach;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import org.junit.jupiter.api.BeforeAll;
+
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-
+import javafx.application.Platform;
 
 public class GenerateRecipesTest {
-   
+
+    @BeforeAll
+    static void initJfxRuntime() {
+        Platform.startup(() -> {
+        });
+    }
+
     String sampleAudioFilePath = "src/client/audio/RecordAudio.wav";
 
     @Test
@@ -28,13 +37,15 @@ public class GenerateRecipesTest {
         String sampleRecipe = grh.makeFakeRequest();
 
         assertNotNull(sampleRecipe);
-        assertEquals("Here is a recipe for 'I want a dinner recipe for peas, carrots, and rice': Fried Rice", sampleRecipe);
+        assertEquals("Here is a recipe for 'I want a dinner recipe for peas, carrots, and rice': Fried Rice",
+                sampleRecipe);
     }
 
-    @Test 
+    @Test
     void test2() {
         JFXPanel jfxpanel = new JFXPanel();
         GenerateRecipesBody grb = new GenerateRecipesBody();
+
     }
 
 }
