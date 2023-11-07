@@ -43,6 +43,7 @@ public class GenerateRecipesTest {
 
     @Test
     void test2() {
+        App.main(null);
         JFXPanel jfxpanel = new JFXPanel();
         GenerateRecipesBody grb = new GenerateRecipesBody();
 
