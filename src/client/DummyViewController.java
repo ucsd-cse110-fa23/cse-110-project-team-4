@@ -1,12 +1,9 @@
-package client.test;
-
-import client.DetailedRecipeView;
-import client.ViewController;
+package client;
 
 public class DummyViewController implements ViewController {
-    Boolean screenVisbleStatus;
+    public Boolean screenVisbleStatus;
     
-    DummyViewController(){
+    public DummyViewController(){
         ;
     }
 
