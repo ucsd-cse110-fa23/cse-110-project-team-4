@@ -1,6 +1,9 @@
 package client.test;
 
 import org.junit.jupiter.api.Test;
+
+import client.DummyViewController;
+
 import org.junit.jupiter.api.BeforeEach;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
