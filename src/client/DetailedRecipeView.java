@@ -7,6 +7,7 @@ import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
+import models.Model;
 import javafx.geometry.Pos;
 
 
@@ -20,7 +21,11 @@ public class DetailedRecipeView extends BorderPane{
     private Button editButton;
     private Button deleteButton;
     private DetailedViewController vc;
+    private boolean inEditMode;
+
+    private Model model;
     DetailedRecipeView(DetailedViewController vc) {
+        this.model = new Model();
         this.vc = vc;
         // Initialise the header Object
         header = new Header();
@@ -77,11 +82,25 @@ public class DetailedRecipeView extends BorderPane{
 
     public void addListeners() {
         backButton.setOnAction(e -> {
-            this.vc.closeDisplay();
+            if(!inEditMode){
+                this.vc.closeDisplay();
+            }
+            else{
+                //popup window
+            }
         });
 
         editButton.setOnAction(e -> {
             detailedInfo.textFieldEditable(true);
+            inEditMode = true;
+        });
+
+        saveButton.setOnAction(e->{
+            if (inEditMode) {
+                //popup window
+            }
+            String response = model.performRequest("PUT", this.detailedInfo.getRecipeName(), this.detailedInfo.getRecipeContent(), null);
+            System.out.println(response);    
         });
     }
 }

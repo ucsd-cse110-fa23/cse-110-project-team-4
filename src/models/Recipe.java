@@ -15,8 +15,9 @@ public class Recipe {
         this.createdAt = System.nanoTime();
     }
 
-    public Recipe(String recipe){
-        String[] recipeStrings = recipe.split(";", 5);
+    public Recipe(String recipeData){
+        String[] recipeStrings = recipeData.split(";", 5);
+        System.out.println(recipeStrings[0]);
         this.uuid = UUID.fromString(recipeStrings[0]);
         this.name = recipeStrings[1];
         this.details = recipeStrings[2];

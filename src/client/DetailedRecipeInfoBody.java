@@ -32,6 +32,25 @@ public class DetailedRecipeInfoBody extends VBox {
 
     }
 
+    DetailedRecipeInfoBody(String name, String content) {
+
+        recipeName = new TextField();
+        recipeName.setText(name);
+        recipeName.setPrefSize(40, 40);
+        recipeName.setAlignment(Pos.CENTER);
+        recipeName.setEditable(false);
+        this.getChildren().add(recipeName);
+
+        recipeContent = new TextArea();
+        recipeContent.setText(content);
+        recipeContent.setWrapText(true);
+        VBox.setVgrow(recipeContent, Priority.SOMETIMES);
+        // recipeName.setAlignment(TextAlignment.CENTER);
+        recipeContent.setEditable(false);
+        this.getChildren().add(recipeContent);
+
+    }
+
     public void textFieldEditable(boolean b) {
         recipeName.setEditable(b);
         recipeContent.setEditable(b);
@@ -60,7 +79,4 @@ public class DetailedRecipeInfoBody extends VBox {
     public void setId(int id){
         this.id = id;
     }
-
-    
-    
 }
