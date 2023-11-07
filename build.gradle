@@ -1,0 +1,31 @@
+plugins {
+    id 'java'
+}
+
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    def junitVersion = '5.8.1'
+    implementation fileTree(include: ['*.jar'], dir: 'javafx-sdk-21/lib')
+    // Your might already have other librarires/dependencies here you should leave them 
+    // as they are and just add your on new line
+    // This provides the JUnit API.
+    testImplementation "org.junit.jupiter:junit-jupiter-api:$junitVersion"
+    // This provides the TestEngine to actually run the tests.
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:$junitVersion"
+}
+
+test {
+    useJUnitPlatform()
+}
+
+sourceSets.test.java.srcDirs = ['src']
