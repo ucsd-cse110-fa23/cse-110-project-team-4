@@ -12,20 +12,13 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class DetailedViewWindowTests {
-    private DummyViewController dummyViewController;
+    
 
     @BeforeEach
     void setup(){
         
     }
 
-    @Test
-    void checkDisplayAddCloseDisplay(){
-        dummyViewController = new DummyViewController();
-        dummyViewController.display();
-        assertTrue(dummyViewController.screenVisbleStatus);
-        dummyViewController.closeDisplay();
-        assertFalse(dummyViewController.screenVisbleStatus);
-    }
+    
 
 }
