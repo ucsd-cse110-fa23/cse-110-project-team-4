@@ -11,7 +11,7 @@ import javafx.geometry.Pos;
 
 
 
-public class DetailedRecipeView extends BorderPane{
+public class DetailedRecipeView /*extends BorderPane*/{
     
     //private Header header;
     //private Footer footer;

@@ -16,7 +16,7 @@ public class DetailedViewController implements ViewController{
     public void display(){
         DetailedRecipeView drv = new DetailedRecipeView(this);
         //drv.createUIWindow("Ramen", "Step 1,Step 2");
-        dvcStage.setScene(new Scene(drv, this.screenSizeWidth, this.screenSizeHeight));
+        //dvcStage.setScene(new Scene(drv, this.screenSizeWidth, this.screenSizeHeight));
         dvcStage.setTitle("PantryPal");
         dvcStage.show();
     }
