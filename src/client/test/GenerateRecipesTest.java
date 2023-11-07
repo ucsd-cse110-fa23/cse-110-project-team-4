@@ -34,13 +34,4 @@ public class GenerateRecipesTest {
         assertEquals("Here is a recipe for 'I want a dinner recipe for peas, carrots, and rice': Fried Rice",
                 sampleRecipe);
     }
-
-    @Test
-    void test2() {
-        App.main(null);
-        JFXPanel jfxpanel = new JFXPanel();
-        GenerateRecipesBody grb = new GenerateRecipesBody();
-
-    }
-
 }
