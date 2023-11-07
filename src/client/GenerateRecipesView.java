@@ -24,9 +24,9 @@ public class GenerateRecipesView extends BorderPane {
     private AudioTranscriber at;
     private String prompt;
 
-    private Boolean validPromptFlag;
+    private boolean validPromptFlag;
 
-    GenerateRecipesView() {
+    public GenerateRecipesView() {
         // Initialise the header Object
         header = new Header();
         header.setHeaderText("Generate Recipes");
@@ -88,6 +88,7 @@ public class GenerateRecipesView extends BorderPane {
 
         startButton.setOnAction(e -> {
             ar = new AudioRecorder();
+            // ar.startRecording();
             Thread thread = new Thread(ar);
             thread.start();
         });
@@ -96,15 +97,14 @@ public class GenerateRecipesView extends BorderPane {
             ar.finish();
             ar.cancel();
 
-            at = new AudioTranscriber();
+            at = new AudioTranscriber("src/client/audio/RecordAudio.wav");
             try {
                 this.prompt = at.generateTranscription();
                 if (prompt.contains("dinner") || prompt.contains("Dinner") || prompt.contains("breakfast") ||
                         prompt.contains("Breakfast") || prompt.contains("lunch") || prompt.contains("Lunch")) {
                     this.validPromptFlag = true;
                     this.grb.setTranscription(prompt);
-                }
-                else {
+                } else {
                     String noMealType = "Please Specify A Meal Type In Your Voice Prompt";
                     grb.setTranscription(noMealType);
                 }
@@ -114,5 +114,10 @@ public class GenerateRecipesView extends BorderPane {
             }
 
         });
+
+    }
+
+    public boolean getValidPromptFlag() {
+        return this.validPromptFlag;
     }
 }

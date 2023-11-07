@@ -8,7 +8,11 @@ public class AudioTranscriber {
     private static final String API_ENDPOINT = "https://api.openai.com/v1/audio/transcriptions";
     private static final String TOKEN = "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";
     private static final String MODEL = "whisper-1";
-    private static final String FILE_PATH = "src/client/audio/RecordAudio.wav";
+    private String FILE_PATH;
+
+    public AudioTranscriber(String audioFile) {
+        this.FILE_PATH = audioFile;
+    }
 
     // Helper method to write a parameter to the output stream in multipart form
     // data format
@@ -127,6 +131,10 @@ public class AudioTranscriber {
         connection.disconnect();
         // Return null if HTTP response was not successful
         return null;
+    }
+
+    public String generateFakeTranscription() {
+        return "I want a dinner recipe for peas, carrots, and rice";
     }
 
 }

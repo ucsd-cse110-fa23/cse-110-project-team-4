@@ -21,7 +21,7 @@ public class GenerateRecipeHandler {
 
     int maxTokens;
 
-    GenerateRecipeHandler(String prompt) {
+    public GenerateRecipeHandler(String prompt) {
         // Set request parameters
         this.prompt = prompt;
         this.maxTokens = 500;
@@ -63,6 +63,11 @@ public class GenerateRecipeHandler {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return this.generatedText;
+    }
+
+    public String makeFakeRequest() {
+        this.generatedText = String.format("Here is a recipe for '%s': Fried Rice", this.prompt);
         return this.generatedText;
     }
 
