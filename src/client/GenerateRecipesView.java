@@ -14,7 +14,7 @@ public class GenerateRecipesView extends BorderPane {
 
     private Header header;
     private Footer footer;
-    
+
     private Button startButton;
     private Button stopButton;
     private Button generateButton;
@@ -23,6 +23,8 @@ public class GenerateRecipesView extends BorderPane {
     private AudioRecorder ar;
     private AudioTranscriber at;
     private String prompt;
+
+    private Boolean validPromptFlag;
 
     GenerateRecipesView() {
         // Initialise the header Object
@@ -61,6 +63,8 @@ public class GenerateRecipesView extends BorderPane {
         // Add footer to the bottom of the BorderPane
         this.setBottom(footer);
 
+        validPromptFlag = false;
+
         // ar = new AudioRecorder();
 
         this.addListeners();
@@ -68,13 +72,18 @@ public class GenerateRecipesView extends BorderPane {
 
     public void addListeners() {
         generateButton.setOnAction(e -> {
-            try {
-                GenerateRecipeHandler grh = new GenerateRecipeHandler(this.prompt);
-                grh.makeRequest();
-            } catch (Exception ex) {
-                ex.printStackTrace();
-            }
+            if (!validPromptFlag) {
+                String cannotGenerateNow = "Cannot Generate Recipe Without Valid Voice Prompt";
+                this.grb.setTranscription(cannotGenerateNow);
+            } else {
+                try {
+                    GenerateRecipeHandler grh = new GenerateRecipeHandler(this.prompt);
+                    grh.makeRequest();
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
 
+            }
         });
 
         startButton.setOnAction(e -> {
@@ -90,12 +99,20 @@ public class GenerateRecipesView extends BorderPane {
             at = new AudioTranscriber();
             try {
                 this.prompt = at.generateTranscription();
-    
-                this.grb.setTranscription(prompt);
+                if (prompt.contains("dinner") || prompt.contains("Dinner") || prompt.contains("breakfast") ||
+                        prompt.contains("Breakfast") || prompt.contains("lunch") || prompt.contains("Lunch")) {
+                    this.validPromptFlag = true;
+                    this.grb.setTranscription(prompt);
+                }
+                else {
+                    String noMealType = "Please Specify A Meal Type In Your Voice Prompt";
+                    grb.setTranscription(noMealType);
+                }
+
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
-            
+
         });
     }
 }

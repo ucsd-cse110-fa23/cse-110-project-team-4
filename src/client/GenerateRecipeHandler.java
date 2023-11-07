@@ -56,7 +56,6 @@ public class GenerateRecipeHandler {
             String responseBody = response.body();
 
             JSONObject responseJson = new JSONObject(responseBody);
-            // System.out.println("no");
             JSONArray choices = responseJson.getJSONArray("choices");
             String generatedText = choices.getJSONObject(0).getString("text");
             this.generatedText = generatedText;
