@@ -14,14 +14,19 @@ import javafx.geometry.Pos;
 public class DetailedRecipeView extends BorderPane{
     private Header header;
     private Footer footer;
-    private DetailedRecipeInfoBody detailedInfo;
+    private VBox detailedInfo;
     private Button backButton;
     private Button saveButton;
     private Button editButton;
     private Button deleteButton;
-    private DetailedViewController vc;
-    DetailedRecipeView(DetailedViewController vc) {
+    private TextField recipeName;
+    private TextArea recipeContent;
+    private ViewController vc;
+    public DetailedRecipeView(ViewController vc) {
         this.vc = vc;
+    }
+    public void makePage(){
+        
         // Initialise the header Object
         header = new Header();
         // Initialise the Footer Object
@@ -32,17 +37,15 @@ public class DetailedRecipeView extends BorderPane{
         
         this.addHeaderComponents();
 
-        detailedInfo = new DetailedRecipeInfoBody();
+        
 
         // Add header to the top of the BorderPane
         this.setTop(header);
         // Add scroller to the centre of the BorderPane
-        this.setCenter(detailedInfo);
         // Add footer to the bottom of the BorderPane
         this.setBottom(footer);
         addListeners();
     }
-
     private void makeButtons(){
         String defaultButtonStyle = "-fx-font-style: italic; -fx-background-color: #FFFFFF;  -fx-font-weight: bold; -fx-font: 11 arial;";
         backButton = new Button("BACK");
@@ -75,13 +78,35 @@ public class DetailedRecipeView extends BorderPane{
         header.getChildren().add(rBox);
     }
 
+    public void makeBody(String name, String content){
+        VBox v = new VBox();
+        recipeName = new TextField();
+        recipeName.setText(name);
+        recipeName.setPrefSize(40, 40);
+        recipeName.setAlignment(Pos.CENTER);
+        recipeName.setEditable(false);
+        this.getChildren().add(recipeName);
+
+        recipeContent = new TextArea();
+        recipeContent.setText(content);
+        recipeContent.setWrapText(true);
+        VBox.setVgrow(recipeContent, Priority.SOMETIMES);
+        // recipeName.setAlignment(TextAlignment.CENTER);
+        recipeContent.setEditable(false);
+        this.getChildren().add(recipeContent);
+
+        this.setCenter(v);
+        detailedInfo = v;
+    }
+
     public void addListeners() {
         backButton.setOnAction(e -> {
             this.vc.closeDisplay();
         });
 
         editButton.setOnAction(e -> {
-            detailedInfo.textFieldEditable(true);
+            recipeName.setEditable(true);
+        recipeContent.setEditable(true);
         });
     }
 }
