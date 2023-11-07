@@ -19,9 +19,12 @@ public class DetailedRecipeView extends BorderPane{
     private Button saveButton;
     private Button editButton;
     private Button deleteButton;
-    private DetailedViewController vc;
-    DetailedRecipeView(DetailedViewController vc) {
+    private ViewController vc;
+    public DetailedRecipeView(ViewController vc) {
         this.vc = vc;
+    }
+
+    public void createUIWindow(String recipeName, String recipeContent){
         // Initialise the header Object
         header = new Header();
         // Initialise the Footer Object
@@ -32,8 +35,8 @@ public class DetailedRecipeView extends BorderPane{
         
         this.addHeaderComponents();
 
-        detailedInfo = new DetailedRecipeInfoBody();
-
+        detailedInfo = new DetailedRecipeInfoBody(recipeName,recipeContent);
+        detailedInfo.createUIBody();
         // Add header to the top of the BorderPane
         this.setTop(header);
         // Add scroller to the centre of the BorderPane

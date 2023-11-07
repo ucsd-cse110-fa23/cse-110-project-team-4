@@ -1,60 +1,63 @@
 package client;
 
 import javafx.geometry.Pos;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.TextAlignment;
 
 public class DetailedRecipeInfoBody extends VBox {
-    private TextField recipeName;
-    private TextArea recipeContent;
+    private String recipeNameStr;
+    private String recipeContentStr;
     private int id;
+    private TextField recipeNameTF;
+    private TextArea recipeContentTA;
 
-    DetailedRecipeInfoBody() {
+    DetailedRecipeInfoBody(String recipeNameStr, String recipeContentStr) {
+        this.recipeNameStr = recipeNameStr;
+        this.recipeContentStr = recipeContentStr;
+    }
 
-        recipeName = new TextField();
-        recipeName.setText("Ramen");
-        recipeName.setPrefSize(40, 40);
-        recipeName.setAlignment(Pos.CENTER);
-        recipeName.setEditable(false);
-        this.getChildren().add(recipeName);
+    public void createUIBody(){
+        recipeNameTF = new TextField();
+        recipeNameTF.setText("Ramen");
+        recipeNameTF.setPrefSize(40, 40);
+        recipeNameTF.setAlignment(Pos.CENTER);
+        recipeNameTF.setEditable(false);
+        this.getChildren().add(recipeNameTF);
 
-        recipeContent = new TextArea();
-        recipeContent.setText("Ramenjhewgaojhfaedfjhikgbliausdbfgiuabdslifgblkadfbgilayrsdbgljkhaebdfjhgbajlkhdyfbglkahdbfgiohyavbdfuioyhgbakldjhfbgihadvbfyuihgbsldjkhfgbkajhbfihgbaslekfgbklajebyrhijkbaeioujbhfipuoaedrbyhiojuaeubn");
-        recipeContent.setWrapText(true);
-        VBox.setVgrow(recipeContent, Priority.SOMETIMES);
+        recipeContentTA = new TextArea();
+        recipeContentTA.setText("Ramenjhewgaojhfaedfjhikgbliausdbfgiuabdslifgblkadfbgilayrsdbgljkhaebdfjhgbajlkhdyfbglkahdbfgiohyavbdfuioyhgbakldjhfbgihadvbfyuihgbsldjkhfgbkajhbfihgbaslekfgbklajebyrhijkbaeioujbhfipuoaedrbyhiojuaeubn");
+        recipeContentTA.setWrapText(true);
+        VBox.setVgrow(recipeContentTA, Priority.SOMETIMES);
         // recipeName.setAlignment(TextAlignment.CENTER);
-        recipeContent.setEditable(false);
-        this.getChildren().add(recipeContent);
-
+        recipeContentTA.setEditable(false);
+        this.getChildren().add(recipeContentTA);
     }
 
     public void textFieldEditable(boolean b) {
-        recipeName.setEditable(b);
-        recipeContent.setEditable(b);
+        recipeNameTF.setEditable(b);
+        recipeContentTA.setEditable(b);
     }
 
     public String getRecipeName(){
-        return recipeName.getText();
+        return recipeNameStr;
     }
 
     public String getRecipeContent(){
-        return recipeContent.getText();
+        return recipeContentStr;
     }
 
     public int getID(){
             return this.id;
     }
 
-    public void setRecipeNAme(String s){
-        this.recipeName.setText(s);
+    public void setRecipeName(String s){
+        this.recipeNameTF.setText(s);
     }
 
     public void setRecipeContext(String s){
-        this.recipeContent.setText(s);
+        this.recipeContentTA.setText(s);
     }
 
     public void setId(int id){

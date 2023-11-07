@@ -10,7 +10,7 @@ public class MainViewController {
     final int screenSizeWidth = 500;
     final int screenSizeHeight = 750;
 
-    MainViewController() {
+    public MainViewController() {
         // Set the title of the app
 
         MultipleRecipeViewController mpv = new MultipleRecipeViewController(mpvcStage,screenSizeWidth,screenSizeHeight);
