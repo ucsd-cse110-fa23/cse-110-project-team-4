@@ -21,12 +21,6 @@ import javafx.application.Platform;
 
 public class GenerateRecipesTest {
 
-    @BeforeAll
-    static void initJfxRuntime() {
-        Platform.startup(() -> {
-        });
-    }
-
     String sampleAudioFilePath = "src/client/audio/RecordAudio.wav";
 
     @Test
