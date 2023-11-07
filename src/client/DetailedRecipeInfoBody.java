@@ -13,7 +13,7 @@ public class DetailedRecipeInfoBody extends VBox {
     private TextField recipeNameTF;
     private TextArea recipeContentTA;
 
-    DetailedRecipeInfoBody(String recipeNameStr, String recipeContentStr) {
+    public DetailedRecipeInfoBody(String recipeNameStr, String recipeContentStr) {
         this.recipeNameStr = recipeNameStr;
         this.recipeContentStr = recipeContentStr;
     }
