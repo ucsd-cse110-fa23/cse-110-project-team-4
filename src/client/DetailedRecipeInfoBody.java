@@ -27,7 +27,7 @@ public class DetailedRecipeInfoBody extends VBox {
         this.getChildren().add(recipeNameTF);
 
         recipeContentTA = new TextArea();
-        recipeContentTA.setText("Ramenjhewgaojhfaedfjhikgbliausdbfgiuabdslifgblkadfbgilayrsdbgljkhaebdfjhgbajlkhdyfbglkahdbfgiohyavbdfuioyhgbakldjhfbgihadvbfyuihgbsldjkhfgbkajhbfihgbaslekfgbklajebyrhijkbaeioujbhfipuoaedrbyhiojuaeubn");
+        recipeContentTA.setText("jhewgaojhfaedfjhikgbliausdbfgiuabdslifgblkadfbgilayrsdbgljkhaebdfjhgbajlkhdyfbglkahdbfgiohyavbdfuioyhgbakldjhfbgihadvbfyuihgbsldjkhfgbkajhbfihgbaslekfgbklajebyrhijkbaeioujbhfipuoaedrbyhiojuaeubn");
         recipeContentTA.setWrapText(true);
         VBox.setVgrow(recipeContentTA, Priority.SOMETIMES);
         // recipeName.setAlignment(TextAlignment.CENTER);
