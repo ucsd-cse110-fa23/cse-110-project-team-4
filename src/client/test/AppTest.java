@@ -14,4 +14,8 @@ public class AppTest {
     void sampleTest() {
         assertEquals(4, 2*2);
     }
+    @Test
+    void sampleTest2() {
+        assertEquals(3, 1*3);
+    }
 }
