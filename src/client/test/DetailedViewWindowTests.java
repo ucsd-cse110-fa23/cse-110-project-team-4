@@ -27,6 +27,7 @@ public class DetailedViewWindowTests {
         //dummyViewController.display();
         //assertTrue(dummyViewController.screenVisbleStatus);
         drib = new DetailedRecipeInfoBody("Ramen","Steps");
+        assertEquals(drib.getRecipeName(), "Ramen");
 
 
     }
