@@ -12,19 +12,20 @@ import javafx.geometry.Pos;
 
 
 public class DetailedRecipeView extends BorderPane{
-    private Header header;
-    private Footer footer;
-    private DetailedRecipeInfoBody detailedInfo;
-    private Button backButton;
-    private Button saveButton;
-    private Button editButton;
-    private Button deleteButton;
-    private ViewController vc;
     
+    //private Header header;
+    //private Footer footer;
+    //private DetailedRecipeInfoBody detailedInfo;
+    //private Button backButton;
+    //private Button saveButton;
+    //private Button editButton;
+    //private Button deleteButton;
+    private ViewController vc;
+
     public DetailedRecipeView(ViewController vc) {
         this.vc = vc;
     }
-
+    /* 
     public void createUIWindow(String recipeName, String recipeContent){
         // Initialise the header Object
         header = new Header();
@@ -88,4 +89,5 @@ public class DetailedRecipeView extends BorderPane{
             detailedInfo.textFieldEditable(true);
         });
     }
+    */
 }
