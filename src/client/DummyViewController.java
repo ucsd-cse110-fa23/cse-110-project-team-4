@@ -8,7 +8,7 @@ public class DummyViewController implements ViewController {
     }
 
     public void display() {
-        DetailedRecipeView drv = new DetailedRecipeView(this);
+        //DetailedRecipeView drv = new DetailedRecipeView(this);
         screenVisbleStatus = true;
     }
 
