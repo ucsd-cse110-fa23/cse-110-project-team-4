@@ -20,10 +20,7 @@ public class DetailedViewController implements ViewController{
         dvcStage.show();
     }
 
-    public void closeDisplay(){
+    public void closeDisplay() {
         dvcStage.close();
     }
-
-
-    
 }

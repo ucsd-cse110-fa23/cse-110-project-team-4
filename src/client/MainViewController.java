@@ -7,6 +7,7 @@ import javafx.stage.Stage;
 public class MainViewController {
     Stage mpvcStage = new Stage();
     Stage drvStage = new Stage();
+    Stage grvStage = new Stage();
     final int screenSizeWidth = 500;
     final int screenSizeHeight = 750;
 
@@ -15,9 +16,10 @@ public class MainViewController {
 
         MultipleRecipeViewController mpv = new MultipleRecipeViewController(mpvcStage,screenSizeWidth,screenSizeHeight);
         DetailedViewController dvc = new DetailedViewController(drvStage,screenSizeWidth,screenSizeHeight);
-        
-        
-        mpv.display();
+        GenerateRecipesViewController grvc = new GenerateRecipesViewController(grvStage, screenSizeWidth,screenSizeHeight);
+        //
+                grvc.display();
+        //mpv.display();
         dvc.display();
     }
 }
