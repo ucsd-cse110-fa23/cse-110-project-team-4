@@ -19,7 +19,7 @@ public class GenerateRecipesBody extends VBox{
 
     ScrollPane sp;
 
-    GenerateRecipesBody() {
+    public GenerateRecipesBody() {
         imageView = new ImageView();
         microphoneImage = new Image("./client/images/SeekPng.com_microphone-icon-png_458366.png");
         imageView.setImage(microphoneImage);

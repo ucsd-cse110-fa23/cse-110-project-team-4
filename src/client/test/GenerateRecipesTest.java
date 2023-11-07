@@ -3,6 +3,7 @@ package client.test;
 import org.junit.jupiter.api.Test;
 
 import client.*;
+import javafx.embed.swing.JFXPanel;
 import javafx.stage.Stage;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -12,6 +13,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+
+
 
 public class GenerateRecipesTest {
    
@@ -28,5 +31,10 @@ public class GenerateRecipesTest {
         assertEquals("Here is a recipe for 'I want a dinner recipe for peas, carrots, and rice': Fried Rice", sampleRecipe);
     }
 
+    @Test 
+    void test2() {
+        JFXPanel jfxpanel = new JFXPanel();
+        GenerateRecipesBody grb = new GenerateRecipesBody();
+    }
 
 }
