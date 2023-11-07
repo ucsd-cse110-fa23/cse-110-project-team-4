@@ -20,6 +20,7 @@ public class DetailedRecipeView extends BorderPane{
     private Button editButton;
     private Button deleteButton;
     private ViewController vc;
+    
     public DetailedRecipeView(ViewController vc) {
         this.vc = vc;
     }
