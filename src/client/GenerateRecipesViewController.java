@@ -8,14 +8,16 @@ public class GenerateRecipesViewController implements ViewController{
     Stage grvcStage;
     int screenSizeWidth;
     int screenSizeHeight;
-    GenerateRecipesViewController(Stage primaryStage,int screenSizeWidth,int screenSizeHeight){
+    MainViewController mvc;
+    GenerateRecipesViewController(Stage primaryStage,int screenSizeWidth,int screenSizeHeight, MainViewController mvc){
         this.grvcStage = primaryStage;
         this.screenSizeWidth = screenSizeWidth;
         this.screenSizeHeight = screenSizeHeight;
+        this.mvc = mvc;
     }
 
     public void display(){
-        GenerateRecipesView grv = new GenerateRecipesView();
+        GenerateRecipesView grv = new GenerateRecipesView(this);
         grvcStage.setScene(new Scene(grv, screenSizeWidth, screenSizeHeight));
         grvcStage.setTitle("PantryPal");
         grvcStage.show();

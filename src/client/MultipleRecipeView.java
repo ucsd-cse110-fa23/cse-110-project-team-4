@@ -15,7 +15,9 @@ public class MultipleRecipeView extends BorderPane {
     private RecipeList recipeList;
     private Button addButton;
 
-    MultipleRecipeView() {
+    MultipleRecipeViewController mrvc;
+
+    MultipleRecipeView(MultipleRecipeViewController mrvc) {
         // Initialise the header Object
         header = new Header();
         header.setHeaderText("PantryPal");
@@ -39,6 +41,8 @@ public class MultipleRecipeView extends BorderPane {
         // Add footer to the bottom of the BorderPane
         this.setBottom(footer);
 
+        this.mrvc = mrvc;
+
         // Call event listner for the button
         addListeners();
     }
@@ -54,9 +58,10 @@ public class MultipleRecipeView extends BorderPane {
 
     public void addListeners() {
         addButton.setOnAction(e -> {
-            Recipe recipe = new Recipe();
-            recipe.setRecipeName("Recipe Name");
-            recipeList.getChildren().add(recipe);
+            // Recipe recipe = new Recipe();
+            // recipe.setRecipeName("Recipe Name");
+            // recipeList.getChildren().add(recipe);
+            this.mrvc.mvc.closeMultipleOpenGenerate();
         });
     }
 

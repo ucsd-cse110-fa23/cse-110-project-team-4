@@ -84,4 +84,8 @@ public class DetailedRecipeView extends BorderPane{
             detailedInfo.textFieldEditable(true);
         });
     }
+
+    public DetailedRecipeInfoBody getDetailedRecipeInfoBody() {
+        return this.detailedInfo;
+    }
 }
