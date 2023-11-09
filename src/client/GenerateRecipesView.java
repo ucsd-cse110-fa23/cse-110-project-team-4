@@ -82,7 +82,8 @@ public class GenerateRecipesView extends BorderPane {
                 this.grb.setTranscription(cannotGenerateNow);
             } else {
                 try {
-                    GenerateRecipeHandler grh = new GenerateRecipeHandler(this.prompt);
+                    GenerateRecipeHandler grh = new GenerateRecipeHandler(this.prompt + 
+                    "in the format of title followed by ingredients, and then instructions for a recipe.");
                     String recipeInfo = grh.makeRequest();
                     String[] recipeInfoSplit = recipeInfo.split("\n");
                     String recipeName = recipeInfoSplit[2];
