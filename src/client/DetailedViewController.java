@@ -8,7 +8,9 @@ public class DetailedViewController implements ViewController{
     int screenSizeWidth;
     int screenSizeHeight;
     DetailedRecipeView drv;
-    DetailedViewController(Stage primaryStage,int screenSizeWidth,int screenSizeHeight){
+    MainViewController mc;
+    DetailedViewController(Stage primaryStage,int screenSizeWidth,int screenSizeHeight,MainViewController mc){
+        this.mc = mc;
         this.dvcStage = primaryStage;
         this.screenSizeWidth = screenSizeWidth;
         this.screenSizeHeight = screenSizeHeight;
@@ -19,6 +21,11 @@ public class DetailedViewController implements ViewController{
 
     public void display(){
         
+        dvcStage.show();
+    }
+
+    public void display(String uuid){
+        drv.getAndSetInfo(uuid);
         dvcStage.show();
     }
 

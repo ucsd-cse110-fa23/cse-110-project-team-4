@@ -11,7 +11,7 @@ import javafx.scene.text.TextAlignment;
 public class DetailedRecipeInfoBody extends VBox {
     private TextField recipeName;
     private TextArea recipeContent;
-    private int id;
+    private String uuid;
 
     DetailedRecipeInfoBody() {
 
@@ -45,8 +45,8 @@ public class DetailedRecipeInfoBody extends VBox {
         return recipeContent.getText();
     }
 
-    public int getID(){
-            return this.id;
+    public String getUUID(){
+            return this.uuid;
     }
 
     public void setRecipeNAme(String s){
@@ -57,8 +57,8 @@ public class DetailedRecipeInfoBody extends VBox {
         this.recipeContent.setText(s);
     }
 
-    public void setId(int id){
-        this.id = id;
+    public void setUUId(String uuid){
+        this.uuid = uuid;
     }
 
     

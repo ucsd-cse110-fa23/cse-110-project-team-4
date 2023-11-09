@@ -19,13 +19,13 @@ public class MainViewController {
         // Set the title of the app
 
         this.mpvc = new MultipleRecipeViewController(mpvcStage,screenSizeWidth,screenSizeHeight,this);
-        this.dvc = new DetailedViewController(drvStage,screenSizeWidth,screenSizeHeight);
+        this.dvc = new DetailedViewController(drvStage,screenSizeWidth,screenSizeHeight,this);
         this.grvc = new GenerateRecipesViewController(grvStage, screenSizeWidth,screenSizeHeight, this);
         //
         //grvc.display();
         mpvc.display();
         
-        // dvc.display();
+        dvc.display();
     }
 
     public void closeGenerateOpenDetailed() {
@@ -36,5 +36,15 @@ public class MainViewController {
     public void closeMultipleOpenGenerate() {
         this.mpvc.closeDisplay();
         this.grvc.display();
+    }
+
+    public void closeDetailedOpenMultiple() {
+        this.dvc.closeDisplay();
+        this.mpvc.display();
+    }
+
+    public void closeMultipleOpenDetailed(String uuid){
+        this.mpvc.closeDisplay();
+        this.dvc.display(uuid);
     }
 }

@@ -9,18 +9,19 @@ public class MultipleRecipeViewController implements ViewController{
     int screenSizeWidth;
     int screenSizeHeight;
     MainViewController mvc;
+    MultipleRecipeView mrv;
     MultipleRecipeViewController(Stage primaryStage,int screenSizeWidth,int screenSizeHeight, MainViewController mvc){
         this.mrvcStage = primaryStage;
         this.screenSizeWidth = screenSizeWidth;
         this.screenSizeHeight = screenSizeHeight;
         this.mvc = mvc;
-        MultipleRecipeView mrv = new MultipleRecipeView(this);
+        this.mrv = new MultipleRecipeView(this);
         mrvcStage.setScene(new Scene(mrv,this.screenSizeWidth, this.screenSizeHeight));
         mrvcStage.setTitle("PantryPal");
     }
 
     public void display(){
-        
+        this.mrv.loadRecipeList();
         mrvcStage.show();
     }
 

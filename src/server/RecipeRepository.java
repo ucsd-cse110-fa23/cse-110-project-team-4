@@ -17,7 +17,7 @@ public class RecipeRepository {
         ArrayList<String> recipeList = new ArrayList<String>();
 
         for (Recipe recipe : data.values())  
-            recipeList.add(recipe.name); 
+            recipeList.add(recipe.uuid+","+recipe.name); 
 
         return recipeList;
     }
