@@ -14,12 +14,14 @@ public class RecipeRepository {
     }
 
     public ArrayList<String> getRecipeList(){
-        ArrayList<String> recipeList = new ArrayList<String>();
-
+        ArrayList<String> recipeListNameUUID = new ArrayList<String>();
+        ArrayList<Recipe> recipeList = new ArrayList<Recipe>();
         for (Recipe recipe : data.values())  
-            recipeList.add(recipe.uuid+","+recipe.name); 
-
-        return recipeList;
+            recipeList.add(recipe); 
+        Collections.sort(recipeList);
+        for (Recipe recipe : recipeList)  
+            recipeListNameUUID.add(recipe.uuid+","+recipe.name);
+        return recipeListNameUUID;
     }
 
     public void createRecipe(Recipe recipe){

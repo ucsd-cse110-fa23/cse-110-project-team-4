@@ -2,7 +2,7 @@ package models;
 
 import java.util.*;
 
-public class Recipe {
+public class Recipe implements Comparable<Recipe>{
     public UUID uuid;
     public String name;
     public String details;
@@ -12,7 +12,7 @@ public class Recipe {
         this.uuid = UUID.randomUUID();
         this.name = name;
         this.details = details;
-        this.createdAt = System.nanoTime();
+        this.createdAt = System.currentTimeMillis();
     }
 
     public Recipe(String recipe){
@@ -25,6 +25,15 @@ public class Recipe {
 
     public String toString(){
         return String.format("%s;%s;%s;%d;",uuid.toString(), name, details, createdAt);
+    }
+
+    @Override
+    public int compareTo(Recipe r) {
+        if (r.createdAt > this.createdAt){
+            return 0;
+        }else{
+            return 1;
+        }
     }
 
 }
