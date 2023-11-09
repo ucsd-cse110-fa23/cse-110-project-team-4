@@ -89,9 +89,12 @@ public class RecipeHandler implements HttpHandler {
         InputStream inStream = httpExchange.getRequestBody();
         Scanner scanner = new Scanner(inStream);
         String[] postData = scanner.nextLine().split(";");
-        String details=postData[1];
+        String details="";
+        if(postData.length>1){
+            details=postData[1];
+        }
         while(scanner.hasNextLine()){
-            details+= "\n"+scanner.nextLine() ;
+            details+= "\\n"+scanner.nextLine() ;
         }
         Recipe r = new Recipe(postData[0], details);
         this.recipeRepository.createRecipe(r);
