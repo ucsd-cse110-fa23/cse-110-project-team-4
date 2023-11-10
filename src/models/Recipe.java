@@ -24,7 +24,7 @@ public class Recipe {
     }
 
     public String toString(){
-        return String.format("%s;%s;%s;%d;",uuid.toString(), name, details, createdAt);
+        return String.format("%s;%s;%s;%d",uuid.toString(), name, details, createdAt);
     }
 
 }
