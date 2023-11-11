@@ -19,6 +19,8 @@ public class RecipeRepository {
         for (Recipe recipe : data.values())  
             recipeList.add(recipe.name); 
 
+        Collections.sort(recipeList, (a,b) -> (Long.compare(this.getRecipe(a).createdAt, this.getRecipe(b).createdAt)));
+
         return recipeList;
     }
 

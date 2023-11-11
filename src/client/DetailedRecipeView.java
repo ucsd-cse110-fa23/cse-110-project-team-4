@@ -1,12 +1,7 @@
 package client;
 
-import javafx.scene.text.*;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
-import javafx.stage.Stage;
 import javafx.geometry.Pos;
 
 
@@ -44,7 +39,7 @@ public class DetailedRecipeView extends BorderPane{
     }
 
     private void makeButtons(){
-        String defaultButtonStyle = "-fx-font-style: italic; -fx-background-color: #FFFFFF;  -fx-font-weight: bold; -fx-font: 11 arial;";
+        // String defaultButtonStyle = "-fx-font-style: italic; -fx-background-color: #FFFFFF;  -fx-font-weight: bold; -fx-font: 11 arial;";
         backButton = new Button("BACK");
         //backButton.setStyle(defaultButtonStyle);
         saveButton = new Button("SAVE");

@@ -1,7 +1,5 @@
 package client;
 
-import javafx.application.Application;
-import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class MainViewController {
@@ -18,7 +16,7 @@ public class MainViewController {
         DetailedViewController dvc = new DetailedViewController(drvStage,screenSizeWidth,screenSizeHeight);
         GenerateRecipesViewController grvc = new GenerateRecipesViewController(grvStage, screenSizeWidth,screenSizeHeight);
         //
-                grvc.display();
+        grvc.display();
         //mpv.display();
         dvc.display();
     }
