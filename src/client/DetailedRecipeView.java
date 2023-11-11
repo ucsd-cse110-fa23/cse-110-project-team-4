@@ -94,10 +94,10 @@ public class DetailedRecipeView extends BorderPane{
 
     public void getAndSetInfo(String uuid){
         String data = model.performGETRequestForRecipe(uuid);
-        System.out.println(data);
-        detailedInfo.setUUId(data.split(";")[0]);
-        detailedInfo.setRecipeNAme(data.split(";")[1]);
-        detailedInfo.setRecipeContext(data.split(";")[2].replace("\\n", "\n"));
+        String[] dataSplit = data.split(";");
+        detailedInfo.setUUId(dataSplit[0]);
+        detailedInfo.setRecipeNAme(dataSplit[1]);
+        detailedInfo.setRecipeContext(dataSplit[2].replace("\\n", "\n"));
     }
 
     public DetailedRecipeInfoBody getDetailedRecipeInfoBody() {

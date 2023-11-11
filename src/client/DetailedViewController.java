@@ -20,11 +20,12 @@ public class DetailedViewController implements ViewController{
     }
 
     public void display(){
-        
+        this.drv.getDetailedRecipeInfoBody().textFieldEditable(false);
         dvcStage.show();
     }
 
     public void display(String uuid){
+        this.drv.getDetailedRecipeInfoBody().textFieldEditable(false);
         drv.getAndSetInfo(uuid);
         dvcStage.show();
     }
