@@ -51,4 +51,25 @@ public class Model {
             return "Error: " + ex.getMessage();
         }
     }
+
+    public String listRequest(String method) {
+        // Implement your HTTP request logic here and return the response
+
+        try {
+            String urlString = "http://localhost:8100/recipeList";
+
+            URL url = new URI(urlString).toURL();
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod(method);
+            conn.setDoOutput(true);
+
+            BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+            String response = in.readLine();
+            in.close();
+            return response;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return "Error: " + ex.getMessage();
+        }
+    }
 }
