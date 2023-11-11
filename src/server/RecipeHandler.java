@@ -26,6 +26,8 @@ public class RecipeHandler implements HttpHandler {
                 response = handleGet(httpExchange);
             } else if (method.equals("PUT")) {
                 response = handlePut(httpExchange);
+            } else if (method.equals("DELETE")) {
+                response = handleDelete(httpExchange);
             } else {
               throw new Exception("Not Valid Request Method");
             }
@@ -85,4 +87,19 @@ public class RecipeHandler implements HttpHandler {
         return r.toString();
     }   
 
+    private String handleDelete(HttpExchange httpExchange) throws IOException {
+
+        InputStream inStream = httpExchange.getRequestBody();
+        Scanner scanner = new Scanner(inStream);
+        String query = scanner.nextLine();
+        scanner.close();
+
+        Recipe r;
+        if (isUUID(query)) {
+            r = this.recipeRepository.deleteRecipe(UUID.fromString(query));    
+        } else {
+            r = this.recipeRepository.deleteRecipe(query);    
+        }
+        return r.toString();
+    }    
 }
