@@ -32,6 +32,7 @@ public class GenerateRecipesViewController implements ViewController{
         DetailedRecipeInfoBody drb = dvc.drv.getDetailedRecipeInfoBody();
         drb.setRecipeNAme(recipeName);
         drb.setRecipeContext(recipeDetails);
+        drb.setIsNewRecipe(true);
     }
 
     public void transitionToDetailed() {

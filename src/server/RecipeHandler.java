@@ -105,7 +105,20 @@ public class RecipeHandler implements HttpHandler {
     private String handlePut(HttpExchange httpExchange) throws IOException {
         InputStream inStream = httpExchange.getRequestBody();
         Scanner scanner = new Scanner(inStream);
-        Recipe r = new Recipe(scanner.nextLine());
+        String putData = "";
+        while(scanner.hasNextLine()) {
+            putData += scanner.nextLine() + "\\n";
+        }
+        //detailedInfo.setRecipeContext(dataSplit[2].replace("\\n", "\n"));
+        
+        String[] putDataSplit = putData.split(";");
+        putDataSplit[3] = putDataSplit[3].replace("\\n", "");
+
+        putData = String.join(";", putDataSplit);
+        // putData.replace("\\n", "\n");
+        System.out.println("yes" + putData);
+
+        Recipe r = new Recipe(putData);
         this.recipeRepository.editRecipe(r);
         scanner.close();
         return r.toString();

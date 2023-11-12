@@ -25,7 +25,7 @@ public class MainViewController {
         //grvc.display();
         mpvc.display();
         
-        //dvc.display();
+        dvc.display();
     }
 
     public void closeGenerateOpenDetailed() {
