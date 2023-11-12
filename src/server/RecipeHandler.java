@@ -27,6 +27,8 @@ public class RecipeHandler implements HttpHandler {
                 response = handleGet(httpExchange);
             } else if (method.equals("PUT")) {
                 response = handlePut(httpExchange);
+            } else if (method.equals("DELETE")) {
+                response = handleDelete(httpExchange);
             } else {
               throw new Exception("Not Valid Request Method");
             }
@@ -116,12 +118,31 @@ public class RecipeHandler implements HttpHandler {
 
         putData = String.join(";", putDataSplit);
         // putData.replace("\\n", "\n");
-        System.out.println("yes" + putData);
 
         Recipe r = new Recipe(putData);
         this.recipeRepository.editRecipe(r);
         scanner.close();
         return r.toString();
     }   
+
+    private String handleDelete(HttpExchange httpExchange) {
+        String response = "Invalid DELETE request";
+        URI uri = httpExchange.getRequestURI();
+        String query = uri.getRawQuery();
+        if (query != null) {
+            String recipeName = query.substring(query.indexOf("=") + 1);
+            Recipe r = this.recipeRepository.getRecipe(UUID.fromString(recipeName));
+            if(r != null) {
+                this.recipeRepository.deleteRecipe(UUID.fromString(recipeName));
+                response = "Deleted entry {" + recipeName + ", " + r.toString() + "}";
+                System.out.println(response);
+            }
+            else {
+                response = "No data found for " + recipeName;
+                System.out.println(response);
+            }
+        }
+        return response;
+    }
 
 }

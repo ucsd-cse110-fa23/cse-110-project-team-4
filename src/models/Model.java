@@ -7,7 +7,6 @@ import java.net.HttpURLConnection;
 import java.net.URI;
 import java.net.URL;
 
-
 public class Model {
     public String performPOSTRequestForRecipe(String recipeName, String recipeContent) {
         // Implement your HTTP request logic here and return the response
@@ -19,12 +18,10 @@ public class Model {
             conn.setRequestMethod("POST");
             conn.setDoOutput(true);
 
-            
             OutputStreamWriter out = new OutputStreamWriter(conn.getOutputStream());
             out.write(recipeName + ";" + recipeContent);
             out.flush();
             out.close();
-            
 
             BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
             String response = in.readLine();
@@ -35,12 +32,18 @@ public class Model {
             return "Error: " + ex.getMessage();
         }
     }
-    
+
     public String recipeRequest(String method, String uuid, String name, String details, String createdAt) {
         // Implement your HTTP request logic here and return the response
 
         try {
             String urlString = "http://localhost:8100/recipe";
+
+            if(method.equals("GET") || method.equals("DELETE")) {
+                if (uuid != null) {
+                    urlString += "?=" + uuid;
+                }
+            }
 
             URL url = new URI(urlString).toURL();
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -79,13 +82,12 @@ public class Model {
         }
     }
 
-
     public String performGETRequestForList() {
         // Implement your HTTP request logic here and return the response
 
         try {
             String urlString = "http://localhost:8100/recipeList";
-            
+
             URL url = new URI(urlString).toURL();
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("GET");
@@ -100,6 +102,9 @@ public class Model {
             return "Error: " + ex.getMessage();
         }
     }
+
+    
+
     public String performGETRequestForRecipe(String query) {
         // Implement your HTTP request logic here and return the response
 
