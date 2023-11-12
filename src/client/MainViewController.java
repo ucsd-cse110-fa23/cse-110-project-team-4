@@ -25,7 +25,7 @@ public class MainViewController {
         //grvc.display();
         mpvc.display();
         
-        dvc.display();
+        //dvc.display();
     }
 
     public void closeGenerateOpenDetailed() {
@@ -46,5 +46,9 @@ public class MainViewController {
     public void closeMultipleOpenDetailed(String uuid){
         this.mpvc.closeDisplay();
         this.dvc.display(uuid);
+    }
+
+    public DetailedViewController getDetailedViewController() {
+        return this.dvc;
     }
 }

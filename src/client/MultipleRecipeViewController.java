@@ -28,4 +28,12 @@ public class MultipleRecipeViewController implements ViewController{
     public void closeDisplay(){
         mrvcStage.close();
     }
+
+    public void transitionToDetailed(String uuid) {
+        this.mvc.closeMultipleOpenDetailed(uuid);
+    }
+
+    public void transitionToGenerate() {
+        this.mvc.closeMultipleOpenGenerate();
+    }
 }

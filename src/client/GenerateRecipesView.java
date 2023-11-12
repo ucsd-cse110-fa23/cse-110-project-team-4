@@ -84,13 +84,14 @@ public class GenerateRecipesView extends BorderPane {
                 try {
                     GenerateRecipeHandler grh = new GenerateRecipeHandler(this.prompt + 
                     "in the format of title followed by ingredients, and then instructions for a recipe.");
+                    
                     String recipeInfo = grh.makeRequest();
                     String[] recipeInfoSplit = recipeInfo.split("\n");
                     String recipeName = recipeInfoSplit[2];
                     String recipeDetails = String.join("\n", Arrays.copyOfRange(recipeInfoSplit, 3, recipeInfoSplit.length));
-                    this.grvc.mvc.dvc.drv.getDetailedRecipeInfoBody().setRecipeNAme(recipeName);
-                    this.grvc.mvc.dvc.drv.getDetailedRecipeInfoBody().setRecipeContext(recipeDetails);
-                    this.grvc.mvc.closeGenerateOpenDetailed();
+
+                    this.grvc.exportRecipeToDetailed(recipeName, recipeDetails);
+                    this.grvc.transitionToDetailed();
                 } catch (Exception ex) {
                     ex.printStackTrace();
                 }

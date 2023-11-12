@@ -88,7 +88,7 @@ public class DetailedRecipeView extends BorderPane{
         });
 
         saveButton.setOnAction(e -> {
-            model.performPUTRequestForRecipe(this.detailedInfo.getRecipeName(),this.detailedInfo.getRecipeContent());
+            model.performPOSTRequestForRecipe(this.detailedInfo.getRecipeName(),this.detailedInfo.getRecipeContent());
         });
     }
 

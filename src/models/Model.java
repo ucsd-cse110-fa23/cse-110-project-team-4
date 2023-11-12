@@ -9,7 +9,7 @@ import java.net.URL;
 
 
 public class Model {
-    public String performPUTRequestForRecipe(String recipeName, String recipeContent) {
+    public String performPOSTRequestForRecipe(String recipeName, String recipeContent) {
         // Implement your HTTP request logic here and return the response
 
         try {

@@ -88,7 +88,7 @@ public class MultipleRecipeView extends BorderPane {
             // Recipe recipe = new Recipe();
             // recipe.setRecipeName("Recipe Name");
             // recipeList.getChildren().add(recipe);
-            this.mrvc.mvc.closeMultipleOpenGenerate();
+            this.mrvc.transitionToGenerate();
         });
     }
 
@@ -98,7 +98,8 @@ public class MultipleRecipeView extends BorderPane {
                 RecipeButton rb = (RecipeButton) this.recipeListBody.getChildren().get(i);
                 rb.recipeName.setOnAction(e -> {
                     System.out.println(rb.recipeName.getText());
-                    mrvc.mvc.closeMultipleOpenDetailed(rb.uuid);
+                    // mrvc.mvc.closeMultipleOpenDetailed(rb.uuid);
+                    this.mrvc.transitionToDetailed(rb.uuid);
                 });
             }
         }

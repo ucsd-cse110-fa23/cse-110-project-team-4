@@ -26,4 +26,15 @@ public class GenerateRecipesViewController implements ViewController{
     public void closeDisplay() {
         grvcStage.close();
     }
+
+    public void exportRecipeToDetailed(String recipeName, String recipeDetails) {
+        DetailedViewController dvc = this.mvc.getDetailedViewController();
+        DetailedRecipeInfoBody drb = dvc.drv.getDetailedRecipeInfoBody();
+        drb.setRecipeNAme(recipeName);
+        drb.setRecipeContext(recipeDetails);
+    }
+
+    public void transitionToDetailed() {
+        this.mvc.closeGenerateOpenDetailed();
+    }
 }
