@@ -18,7 +18,7 @@ public class RecipeRepository {
 
         for (Recipe recipe : data.values())
             recipeList.add(recipe.uuid + "," + recipe.name);
-            
+
         Collections.sort(recipeList,
                 (a, b) -> (Long.compare(this.getRecipe(a).createdAt, this.getRecipe(b).createdAt) * -1));
 
@@ -35,14 +35,13 @@ public class RecipeRepository {
     }
 
     // public Recipe getRecipe(String name) {
-    //     return data.get(nameIndex.get(name));
+    // return data.get(nameIndex.get(name));
     // }
 
     public Recipe getRecipe(String uuidAndName) {
         String name = uuidAndName.split(",")[1];
         return data.get(nameIndex.get(name));
     }
-    
 
     public Recipe editRecipe(Recipe recipe) {
         Recipe oldRecipe = data.get(recipe.uuid);

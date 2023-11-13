@@ -12,6 +12,7 @@ import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import models.Model;
 import javafx.geometry.Pos;
+import client.RecipeButton;
 
 public class MultipleRecipeView extends BorderPane {
     private Header header;
@@ -58,7 +59,7 @@ public class MultipleRecipeView extends BorderPane {
     public void loadRecipeList() {
         recipeListBody.getChildren().clear();
         String response = model.performGETRequestForList();
-        //System.out.println(response);
+        // System.out.println(response);
         if (response != null) {
             recipeList = response.split(";");
             for (String name : recipeList) {
@@ -92,9 +93,9 @@ public class MultipleRecipeView extends BorderPane {
         });
     }
 
-    public void addListenersForButtons(){
+    public void addListenersForButtons() {
         for (int i = 0; i < recipeListBody.getChildren().size(); i++) {
-            if(this.recipeListBody.getChildren().get(i) instanceof RecipeButton){
+            if (this.recipeListBody.getChildren().get(i) instanceof RecipeButton) {
                 RecipeButton rb = (RecipeButton) this.recipeListBody.getChildren().get(i);
                 rb.recipeName.setOnAction(e -> {
                     System.out.println(rb.recipeName.getText());
