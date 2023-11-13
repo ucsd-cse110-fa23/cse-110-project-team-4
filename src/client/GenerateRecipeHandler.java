@@ -7,6 +7,10 @@ import java.net.http.HttpResponse;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+/*
+ * Class to generate a response from ChatGPT based on a given prompt. Code taken from Lab 4.
+ */
+
 public class GenerateRecipeHandler {
 
     private static final String API_ENDPOINT = "https://api.openai.com/v1/completions";

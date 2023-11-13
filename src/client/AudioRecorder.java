@@ -6,16 +6,33 @@ import javafx.concurrent.Task;
 
 import java.io.*;
 
+/*
+ * Code from this file mostly borrowed from https://www.codejava.net/coding/capture-and-record-sound-into-wav-file-with-java-sound-api,
+ * but very similar to the code from the AudioRecorder in Lab 5.
+ */
 public class AudioRecorder extends Task<Void> {
 
     // path of the wav file
-    private File wavFile = new File("src/client/audio/RecordAudio.wav");
+    private File wavFile;
 
     // format of audio file
-    private AudioFileFormat.Type fileType = AudioFileFormat.Type.WAVE;
-
+    private AudioFileFormat.Type fileType;
     // the line from which audio data is captured
     private TargetDataLine line;
+
+    public AudioRecorder() {
+        wavFile = new File("src\\client\\audio\\RecordAudio.wav");
+        fileType = AudioFileFormat.Type.WAVE;
+        try {
+            DataLine.Info dataLineInfo = new DataLine.Info(
+                    TargetDataLine.class,
+                    getAudioFormat());
+            this.line = (TargetDataLine) AudioSystem.getLine(dataLineInfo);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
 
     /**
      * Defines an audio format
@@ -66,7 +83,6 @@ public class AudioRecorder extends Task<Void> {
         return null;
     }
 
-
     /**
      * Closes the target data line to finish capturing and recording
      */
@@ -84,7 +100,12 @@ public class AudioRecorder extends Task<Void> {
         return this.wavFile.getPath();
     }
 
-    public boolean getTargetDataLineOpenStatus() {
-        return this.line.isOpen();
+    public TargetDataLine getTargetDataLine() {
+        try {
+            this.line.open(getAudioFormat());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return this.line;
     }
 }

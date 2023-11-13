@@ -10,17 +10,19 @@ import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import javafx.geometry.Pos;
 
-
+/*
+ * Class for the body of the Generate Recipes Window, containing the transcription of the voice recording.
+ */
 public class GenerateRecipesBody extends VBox{
-    private Image microphoneImage;
-    private ImageView imageView;
+    // private Image microphoneImage;
+    // private ImageView imageView;
     private Label transcription;
     private HBox body;
 
     ScrollPane sp;
 
     public GenerateRecipesBody() {
-        imageView = new ImageView();
+        // imageView = new ImageView();
 
         //microphoneImage = new Image("./client/images/SeekPng.com_microphone-icon-png_458366.png");
         //imageView.setImage(microphoneImage);
