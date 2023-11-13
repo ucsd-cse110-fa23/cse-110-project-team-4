@@ -16,4 +16,8 @@ public class AudioTranscriberMock implements Transcriber{
         return "I want a dinner recipe for peas, carrots, and rice";
     }
 
+    public String generateBadTranscription() {
+        return "Peas, carrots, and rice";
+    }
+
 }
