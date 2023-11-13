@@ -3,23 +3,15 @@ package client.test;
 import org.junit.jupiter.api.Test;
 
 import client.*;
-import javafx.embed.swing.JFXPanel;
-import javafx.stage.Stage;
-
-import org.junit.jupiter.api.BeforeEach;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.junit.jupiter.api.BeforeAll;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-
-import javafx.application.Platform;
 
 public class GenerateRecipesTest {
 
