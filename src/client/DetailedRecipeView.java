@@ -96,6 +96,11 @@ public class DetailedRecipeView extends BorderPane {
             }
 
         });
+
+        deleteButton.setOnAction(e -> {
+            model.recipeRequest("DELETE", this.detailedInfo.getUUID(), this.detailedInfo.getRecipeName(),
+                        this.detailedInfo.getRecipeContent(), this.detailedInfo.getCreatedAt());
+        });
     }
 
     public void getAndSetInfo(String uuid) {

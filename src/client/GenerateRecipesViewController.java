@@ -4,6 +4,11 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+/*
+ * Class for opening and closing the Generate Recipes Window as well as transitioning 
+ * between it and other windows.
+ */
+
 public class GenerateRecipesViewController implements ViewController{
     Stage grvcStage;
     int screenSizeWidth;

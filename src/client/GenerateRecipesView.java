@@ -13,6 +13,10 @@ import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import javafx.geometry.Pos;
 
+/*
+ * Class for all the contents of the Generate Recipes Window -- Header, body, and footer with buttons and their listeners
+ */
+
 public class GenerateRecipesView extends BorderPane {
 
     private Header header;
@@ -23,12 +27,7 @@ public class GenerateRecipesView extends BorderPane {
     private Button generateButton;
     private GenerateRecipesBody grb;
 
-    private AudioRecorder ar;
-    private AudioTranscriber at;
-    private String prompt;
-
-    private boolean validPromptFlag;
-    private GenerateRecipesViewController grvc;
+    private GenerateRecipesLogic grl;
 
     public GenerateRecipesView(GenerateRecipesViewController grvc) {
         // Initialise the header Object
@@ -67,70 +66,23 @@ public class GenerateRecipesView extends BorderPane {
         // Add footer to the bottom of the BorderPane
         this.setBottom(footer);
 
-        validPromptFlag = false;
-
-        // ar = new AudioRecorder();
-        this.grvc = grvc;
+        this.grl = new GenerateRecipesLogic(grvc, grb);
 
         this.addListeners();
     }
 
     public void addListeners() {
         generateButton.setOnAction(e -> {
-            if (!validPromptFlag) {
-                String cannotGenerateNow = "Cannot Generate Recipe Without Valid Voice Prompt";
-                this.grb.setTranscription(cannotGenerateNow);
-            } else {
-                try {
-                    GenerateRecipeHandler grh = new GenerateRecipeHandler("Give me a recipe with" + this.prompt + 
-                    "in the format of title followed by ingredients, and then instructions for a recipe.");
-                    
-                    String recipeInfo = grh.makeRequest();
-                    String[] recipeInfoSplit = recipeInfo.split("\n");
-                    String recipeName = recipeInfoSplit[2];
-                    String recipeDetails = String.join("\n", Arrays.copyOfRange(recipeInfoSplit, 3, recipeInfoSplit.length));
-
-                    this.grvc.exportRecipeToDetailed(recipeName, recipeDetails);
-                    this.grvc.transitionToDetailed();
-                } catch (Exception ex) {
-                    ex.printStackTrace();
-                }
-
-            }
+            this.grl.performGenerateButtonAction();
         });
 
         startButton.setOnAction(e -> {
-            ar = new AudioRecorder();
-            // ar.startRecording();
-            Thread thread = new Thread(ar);
-            thread.start();
+            this.grl.performStartButtonAction();
         });
 
         stopButton.setOnAction(e -> {
-            ar.finish();
-            ar.cancel();
-
-            at = new AudioTranscriber("src/client/audio/RecordAudio.wav");
-            try {
-                this.prompt = at.generateTranscription();
-                if (prompt.contains("dinner") || prompt.contains("Dinner") || prompt.contains("breakfast") ||
-                        prompt.contains("Breakfast") || prompt.contains("lunch") || prompt.contains("Lunch")) {
-                    this.validPromptFlag = true;
-                    this.grb.setTranscription(prompt);
-                } else {
-                    String noMealType = "Please Specify A Meal Type In Your Voice Prompt";
-                    grb.setTranscription(noMealType);
-                }
-
-            } catch (Exception ex) {
-                ex.printStackTrace();
-            }
-
+           this.grl.performStopButtonAction();
         });
 
-    }
-
-    public boolean getValidPromptFlag() {
-        return this.validPromptFlag;
     }
 }

@@ -4,6 +4,9 @@ import java.io.*;
 import java.net.*;
 import org.json.*;
 
+/*
+ * Class to create a transcription of an audio recording. Code taken from Lab 4.
+ */
 public class AudioTranscriber {
     private static final String API_ENDPOINT = "https://api.openai.com/v1/audio/transcriptions";
     private static final String TOKEN = "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";
