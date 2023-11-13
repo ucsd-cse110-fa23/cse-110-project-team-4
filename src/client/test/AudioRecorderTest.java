@@ -21,20 +21,20 @@ public class AudioRecorderTest {
         thread.start();
     }
 
-    // @Test
-    // void testAudioRecorderFile() {
-
-    //     assertEquals("RecordAudio.wav", sampleAR.getAudioFile().getName());
-    //     assertEquals("src/client/audio/RecordAudio.wav", sampleAR.getAudioFile().getPath());
-    //     assertEquals("src/client/audio/RecordAudio.wav", sampleAR.getAudioFilePath());
-     
-    // }
-
     @Test
-    void testAudioRecorderCall() {
-        assertTrue(sampleAR.getTargetDataLine().isOpen());
-        sampleAR.finish();
-        
+    void testAudioRecorderFile() {
+
+        assertEquals("RecordAudio.wav", sampleAR.getAudioFile().getName());
+        assertEquals("src/client/audio/RecordAudio.wav", sampleAR.getAudioFile().getPath());
+        assertEquals("src/client/audio/RecordAudio.wav", sampleAR.getAudioFilePath());
+     
     }
+
+    // @Test
+    // void testAudioRecorderCall() {
+    //     assertTrue(sampleAR.getTargetDataLine().isOpen());
+    //     sampleAR.finish();
+        
+    // }
 
 }
