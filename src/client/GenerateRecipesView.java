@@ -62,6 +62,7 @@ public class GenerateRecipesView extends BorderPane {
 
         this.grl = new GenerateRecipesLogic();
 
+        this.grvc = grvc;
         this.addListeners();
     }
 
