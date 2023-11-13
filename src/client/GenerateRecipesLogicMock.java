@@ -2,20 +2,16 @@ package client;
 
 import java.util.Arrays;
 
-
-/*
- * Class containing the logic necessary to 
- */
-public class GenerateRecipesLogic {
-
+public class GenerateRecipesLogicMock {
+    
     private AudioRecorder ar;
-    private AudioTranscriber at;
+    private AudioTranscriberMock at;
     private String prompt;
 
     private boolean validPromptFlag;
     
 
-    public GenerateRecipesLogic() {
+    public GenerateRecipesLogicMock() {
         validPromptFlag = false;
     }
 
@@ -24,16 +20,9 @@ public class GenerateRecipesLogic {
             return null;
         } else {
             try {
-                GenerateRecipeHandler grh = new GenerateRecipeHandler("Give me a recipe with no semicolons or commas" + this.prompt +
-                        "in the format of title followed by ingredients, and then instructions for a recipe.");
-                String recipeInfo = grh.makeRequest();
-                String[] recipeInfoSplit = recipeInfo.split("\n");
-                String recipeName = recipeInfoSplit[2];
-                String recipeDetails = String.join("\n",
-                        Arrays.copyOfRange(recipeInfoSplit, 3, recipeInfoSplit.length));
                 String[] toReturn = {"", ""};
-                toReturn[0] = recipeName;
-                toReturn[1] = recipeDetails;
+                toReturn[0] = "Fried Rice";
+                toReturn[1] = "Peas, carrots, and rice";
                 return toReturn;
             } catch (Exception ex) {
                 ex.printStackTrace();
@@ -48,13 +37,18 @@ public class GenerateRecipesLogic {
         thread.start();
     }
 
-    public String performStopButtonAction() {
-        ar.finish();
-        ar.cancel();
+    public String performStopButtonAction(boolean badPrompt) {
+        // ar.finish();
+        // ar.cancel();
 
-        at = new AudioTranscriber("src/client/audio/RecordAudio.wav");
+        at = new AudioTranscriberMock("src/client/audio/RecordAudio.wav");
         try {
-            this.prompt = at.generateTranscription();
+            if(badPrompt) {
+                this.prompt = at.generateBadTranscription();
+            }
+            else {
+                this.prompt = at.generateTranscription();
+            }
             if (prompt.contains("dinner") || prompt.contains("Dinner") || prompt.contains("breakfast") ||
                     prompt.contains("Breakfast") || prompt.contains("lunch") || prompt.contains("Lunch")) {
                 this.validPromptFlag = true;
@@ -72,4 +66,5 @@ public class GenerateRecipesLogic {
     public boolean getValidPromptFlag() {
         return this.validPromptFlag;
     }
+
 }

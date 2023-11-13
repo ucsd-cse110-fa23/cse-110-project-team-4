@@ -7,7 +7,7 @@ import org.json.*;
 /*
  * Class to create a transcription of an audio recording. Code taken from Lab 4.
  */
-public class AudioTranscriber {
+public class AudioTranscriber implements Transcriber{
     private static final String API_ENDPOINT = "https://api.openai.com/v1/audio/transcriptions";
     private static final String TOKEN = "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";
     private static final String MODEL = "whisper-1";
@@ -134,10 +134,6 @@ public class AudioTranscriber {
         connection.disconnect();
         // Return null if HTTP response was not successful
         return null;
-    }
-
-    public String generateFakeTranscription() {
-        return "I want a dinner recipe for peas, carrots, and rice";
     }
 
 }
