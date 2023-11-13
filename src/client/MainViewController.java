@@ -7,7 +7,7 @@ public class MainViewController {
     Stage drvStage = new Stage();
     Stage grvStage = new Stage();
     final int screenSizeWidth = 500;
-    final int screenSizeHeight = 750;
+    final int screenSizeHeight = 700;
 
     MultipleRecipeViewController mpvc;
     DetailedViewController dvc;
