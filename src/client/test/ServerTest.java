@@ -40,7 +40,7 @@ public class ServerTest {
 
     @Test
     void testGetList() {
-        List<String> recipeNames = Arrays.asList(new String[] {"Huli Huli Chicken", "Yum Yum Bowl"});
+        List<String> recipeNames = Arrays.asList(new String[] {"898d61b3-5598-4dfc-b8a2-2eb962354e3a,Yum Yum Bowl","b1a00706-1883-4c88-b3f8-b59d76e329bf,Huli Huli Chicken"});
         assertEquals(recipeNames, recipeRepository.getRecipeList());
     }
 
@@ -52,14 +52,14 @@ public class ServerTest {
 
     @Test
     void testGetByName() {
-        assertEquals(recipe1, recipeRepository.getRecipe("Huli Huli Chicken"));
-        assertEquals(recipe2, recipeRepository.getRecipe("Yum Yum Bowl"));
+        assertEquals(recipe1, recipeRepository.getRecipe(recipe1.uuid+","+"Huli Huli Chicken"));
+        assertEquals(recipe2, recipeRepository.getRecipe(recipe2.uuid+","+"Yum Yum Bowl"));
     }
 
     @Test
     void testCreate() {
         Recipe newRecipe = new Recipe("Makai Bowl", "poke bowl with stuff");
         recipeRepository.createRecipe(newRecipe);
-        assertEquals(newRecipe, recipeRepository.getRecipe("Makai Bowl"));
+        assertEquals(newRecipe, recipeRepository.getRecipe(newRecipe.uuid+","+"Makai Bowl"));
     }
 }
