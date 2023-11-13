@@ -90,6 +90,7 @@ public class DetailedRecipeView extends BorderPane {
             if (this.detailedInfo.getIsNewRecipe()) {
                 model.performPOSTRequestForRecipe(this.detailedInfo.getRecipeName(),
                         this.detailedInfo.getRecipeContent());
+                this.detailedInfo.setIsNewRecipe(false);
             } else {
                 model.recipeRequest("PUT", this.detailedInfo.getUUID(), this.detailedInfo.getRecipeName(),
                         this.detailedInfo.getRecipeContent(), this.detailedInfo.getCreatedAt());
