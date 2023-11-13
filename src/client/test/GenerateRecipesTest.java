@@ -24,14 +24,26 @@ public class GenerateRecipesTest {
     String sampleAudioFilePath = "src/client/audio/RecordAudio.wav";
 
     @Test
-    void testGenerateRecipe() {
-        AudioTranscriber at = new AudioTranscriber(sampleAudioFilePath);
-        String sampleTranscription = at.generateFakeTranscription();
-        GenerateRecipeHandler grh = new GenerateRecipeHandler(sampleTranscription);
-        String sampleRecipe = grh.makeFakeRequest();
+    void testGenerateMockRecipe() {
+        AudioTranscriberMock at = new AudioTranscriberMock(sampleAudioFilePath);
 
-        assertNotNull(sampleRecipe);
-        assertEquals("Here is a recipe for 'I want a dinner recipe for peas, carrots, and rice': Fried Rice",
-                sampleRecipe);
+        try {
+            String sampleTranscription = at.generateTranscription();
+
+            GenerateRecipeHandlerMock grh = new GenerateRecipeHandlerMock(sampleTranscription);
+            String sampleRecipe = grh.makeRequest();
+
+            assertNotNull(sampleRecipe);
+            assertEquals("Here is a recipe for 'I want a dinner recipe for peas, carrots, and rice': Fried Rice",
+                    sampleRecipe);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    @Test
+    void testGenerateButtonLogic() {
+
     }
 }

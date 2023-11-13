@@ -11,7 +11,7 @@ import org.json.JSONObject;
  * Class to generate a response from ChatGPT based on a given prompt. Code taken from Lab 4.
  */
 
-public class GenerateRecipeHandler {
+public class GenerateRecipeHandler implements ChatGPTHandler {
 
     private static final String API_ENDPOINT = "https://api.openai.com/v1/completions";
     private static final String API_KEY = "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";
@@ -67,11 +67,6 @@ public class GenerateRecipeHandler {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return this.generatedText;
-    }
-
-    public String makeFakeRequest() {
-        this.generatedText = String.format("Here is a recipe for '%s': Fried Rice", this.prompt);
         return this.generatedText;
     }
 

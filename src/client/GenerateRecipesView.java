@@ -29,6 +29,8 @@ public class GenerateRecipesView extends BorderPane {
 
     private GenerateRecipesLogic grl;
 
+    private GenerateRecipesViewController grvc;
+
     public GenerateRecipesView(GenerateRecipesViewController grvc) {
         // Initialise the header Object
         header = new Header();
@@ -66,14 +68,22 @@ public class GenerateRecipesView extends BorderPane {
         // Add footer to the bottom of the BorderPane
         this.setBottom(footer);
 
-        this.grl = new GenerateRecipesLogic(grvc, grb);
+        this.grl = new GenerateRecipesLogic();
 
         this.addListeners();
     }
 
     public void addListeners() {
         generateButton.setOnAction(e -> {
-            this.grl.performGenerateButtonAction();
+            String[] recipeContent = this.grl.performGenerateButtonAction();
+            if (recipeContent != null) {
+                this.grvc.exportRecipeToDetailed(recipeContent[0], recipeContent[1]);
+            }
+            else {
+                this.grb.setTranscription("Cannot Generate Recipe Without Valid Voice Prompt");
+            }
+
+            this.grvc.transitionToDetailed();
         });
 
         startButton.setOnAction(e -> {
@@ -81,7 +91,10 @@ public class GenerateRecipesView extends BorderPane {
         });
 
         stopButton.setOnAction(e -> {
-           this.grl.performStopButtonAction();
+            String prompt = this.grl.performStopButtonAction();
+            if(prompt != null) {
+                this.grb.setTranscription(prompt);
+            }
         });
 
     }

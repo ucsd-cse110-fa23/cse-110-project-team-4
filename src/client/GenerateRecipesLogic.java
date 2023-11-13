@@ -13,37 +13,32 @@ public class GenerateRecipesLogic {
     private String prompt;
 
     private boolean validPromptFlag;
-    private GenerateRecipesViewController grvc;
+    
 
-    private GenerateRecipesBody grb;
-
-    public GenerateRecipesLogic(GenerateRecipesViewController grvc, GenerateRecipesBody grb) {
+    public GenerateRecipesLogic() {
         validPromptFlag = false;
-        this.grvc = grvc;
-        this.grb = grb;
     }
 
-    public void performGenerateButtonAction() {
+    public String[] performGenerateButtonAction() {
         if (!validPromptFlag) {
-            String cannotGenerateNow = "Cannot Generate Recipe Without Valid Voice Prompt";
-            this.grb.setTranscription(cannotGenerateNow);
+            return null;
         } else {
             try {
-                GenerateRecipeHandler grh = new GenerateRecipeHandler("Give me a recipe with" + this.prompt +
+                GenerateRecipeHandler grh = new GenerateRecipeHandler("Give me a recipe with no semicolons or commas" + this.prompt +
                         "in the format of title followed by ingredients, and then instructions for a recipe.");
-
                 String recipeInfo = grh.makeRequest();
                 String[] recipeInfoSplit = recipeInfo.split("\n");
                 String recipeName = recipeInfoSplit[2];
                 String recipeDetails = String.join("\n",
                         Arrays.copyOfRange(recipeInfoSplit, 3, recipeInfoSplit.length));
-
-                this.grvc.exportRecipeToDetailed(recipeName, recipeDetails);
-                this.grvc.transitionToDetailed();
+                String[] toReturn = {};
+                toReturn[0] = recipeName;
+                toReturn[1] = recipeDetails;
+                return toReturn;
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
-
+            return null;
         }
     }
 
@@ -53,7 +48,7 @@ public class GenerateRecipesLogic {
         thread.start();
     }
 
-    public void performStopButtonAction() {
+    public String performStopButtonAction() {
         ar.finish();
         ar.cancel();
 
@@ -63,15 +58,15 @@ public class GenerateRecipesLogic {
             if (prompt.contains("dinner") || prompt.contains("Dinner") || prompt.contains("breakfast") ||
                     prompt.contains("Breakfast") || prompt.contains("lunch") || prompt.contains("Lunch")) {
                 this.validPromptFlag = true;
-                this.grb.setTranscription(prompt);
+                return prompt;
             } else {
                 String noMealType = "Please Specify A Meal Type In Your Voice Prompt";
-                grb.setTranscription(noMealType);
+                return noMealType;
             }
-
         } catch (Exception ex) {
             ex.printStackTrace();
         }
+        return null;
     }
 
     public boolean getValidPromptFlag() {
