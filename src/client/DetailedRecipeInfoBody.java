@@ -11,7 +11,10 @@ import javafx.scene.text.TextAlignment;
 public class DetailedRecipeInfoBody extends VBox {
     private TextField recipeName;
     private TextArea recipeContent;
-    private int id;
+    private String uuid;
+    private String createdAt;
+    
+    private boolean isNewRecipe;
 
     DetailedRecipeInfoBody() {
 
@@ -30,6 +33,8 @@ public class DetailedRecipeInfoBody extends VBox {
         recipeContent.setEditable(false);
         this.getChildren().add(recipeContent);
 
+        this.isNewRecipe = true;
+
     }
 
     public void textFieldEditable(boolean b) {
@@ -45,8 +50,16 @@ public class DetailedRecipeInfoBody extends VBox {
         return recipeContent.getText();
     }
 
-    public int getID(){
-            return this.id;
+    public String getUUID(){
+            return this.uuid;
+    }
+
+    public boolean getIsNewRecipe() {
+        return this.isNewRecipe;
+    }
+
+    public String getCreatedAt() {
+        return this.createdAt;
     }
 
     public void setRecipeNAme(String s){
@@ -57,8 +70,16 @@ public class DetailedRecipeInfoBody extends VBox {
         this.recipeContent.setText(s);
     }
 
-    public void setId(int id){
-        this.id = id;
+    public void setUUId(String uuid){
+        this.uuid = uuid;
+    }
+
+    public void setCreatedAt(String createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public void setIsNewRecipe(boolean isNewRecipe) {
+        this.isNewRecipe = isNewRecipe;
     }
 
     

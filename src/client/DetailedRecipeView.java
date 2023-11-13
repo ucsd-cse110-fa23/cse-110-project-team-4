@@ -7,11 +7,10 @@ import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
+import models.Model;
 import javafx.geometry.Pos;
 
-
-
-public class DetailedRecipeView extends BorderPane{
+public class DetailedRecipeView extends BorderPane {
     private Header header;
     private Footer footer;
     private DetailedRecipeInfoBody detailedInfo;
@@ -20,7 +19,10 @@ public class DetailedRecipeView extends BorderPane{
     private Button editButton;
     private Button deleteButton;
     private DetailedViewController vc;
+    Model model;
+
     DetailedRecipeView(DetailedViewController vc) {
+        model = new Model();
         this.vc = vc;
         // Initialise the header Object
         header = new Header();
@@ -29,7 +31,7 @@ public class DetailedRecipeView extends BorderPane{
 
         this.makeButtons();
         this.addFooterButtons();
-        
+
         this.addHeaderComponents();
 
         detailedInfo = new DetailedRecipeInfoBody();
@@ -43,24 +45,24 @@ public class DetailedRecipeView extends BorderPane{
         addListeners();
     }
 
-    private void makeButtons(){
+    private void makeButtons() {
         String defaultButtonStyle = "-fx-font-style: italic; -fx-background-color: #FFFFFF;  -fx-font-weight: bold; -fx-font: 11 arial;";
         backButton = new Button("BACK");
-        //backButton.setStyle(defaultButtonStyle);
+        // backButton.setStyle(defaultButtonStyle);
         saveButton = new Button("SAVE");
-        //saveButton.setStyle(defaultButtonStyle);
+        // saveButton.setStyle(defaultButtonStyle);
         editButton = new Button("EDIT");
-        //editButton.setStyle(defaultButtonStyle);
+        // editButton.setStyle(defaultButtonStyle);
         deleteButton = new Button("DELETE");
-        //deleteButton.setStyle(defaultButtonStyle);
+        // deleteButton.setStyle(defaultButtonStyle);
     }
 
-    private void addFooterButtons(){
-        footer.getChildren().addAll(deleteButton,editButton,saveButton);
+    private void addFooterButtons() {
+        footer.getChildren().addAll(deleteButton, editButton, saveButton);
         footer.setAlignment(Pos.CENTER);
     }
 
-    private void addHeaderComponents(){
+    private void addHeaderComponents() {
         HBox lBox = new HBox();
         lBox.getChildren().add(backButton);
         lBox.setAlignment(Pos.CENTER_LEFT);
@@ -77,11 +79,37 @@ public class DetailedRecipeView extends BorderPane{
 
     public void addListeners() {
         backButton.setOnAction(e -> {
-            this.vc.closeDisplay();
+            vc.mc.closeDetailedOpenMultiple();
         });
 
         editButton.setOnAction(e -> {
             detailedInfo.textFieldEditable(true);
         });
+
+        saveButton.setOnAction(e -> {
+            if (this.detailedInfo.getIsNewRecipe()) {
+                model.performPOSTRequestForRecipe(this.detailedInfo.getRecipeName(),
+                        this.detailedInfo.getRecipeContent());
+            } else {
+                model.recipeRequest("PUT", this.detailedInfo.getUUID(), this.detailedInfo.getRecipeName(),
+                        this.detailedInfo.getRecipeContent(), this.detailedInfo.getCreatedAt());
+            }
+
+        });
+    }
+
+    public void getAndSetInfo(String uuid) {
+        String data = model.performGETRequestForRecipe(uuid);
+        System.out.println(data);
+        String[] dataSplit = data.split(";");
+        detailedInfo.setUUId(dataSplit[0]);
+        detailedInfo.setRecipeNAme(dataSplit[1]);
+        detailedInfo.setRecipeContext(dataSplit[2].replace("\\n", "\n"));
+        detailedInfo.setCreatedAt(dataSplit[3]);
+        detailedInfo.setIsNewRecipe(false);
+    }
+
+    public DetailedRecipeInfoBody getDetailedRecipeInfoBody() {
+        return this.detailedInfo;
     }
 }

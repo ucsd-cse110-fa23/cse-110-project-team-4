@@ -2,6 +2,7 @@ package server;
 
 import com.sun.net.httpserver.*;
 import java.io.*;
+import java.net.URI;
 import java.util.*;
 import java.util.regex.Pattern;
 
@@ -52,25 +53,50 @@ public class RecipeHandler implements HttpHandler {
 
     private String handleGet(HttpExchange httpExchange) throws IOException {
 
-        InputStream inStream = httpExchange.getRequestBody();
-        Scanner scanner = new Scanner(inStream);
-        String query = scanner.nextLine();
-        scanner.close();
+        // InputStream inStream = httpExchange.getRequestBody();
+        // Scanner scanner = new Scanner(inStream);
+        // String query = scanner.nextLine();
+        // scanner.close();
 
-        Recipe r;
-        if (isUUID(query)) {
-            r = this.recipeRepository.getRecipe(UUID.fromString(query));    
-        } else {
-            r = this.recipeRepository.getRecipe(query);    
+        // Recipe r;
+        
+        // if (isUUID(query)) {
+        //     r = this.recipeRepository.getRecipe(UUID.fromString(query));    
+        // } else {
+        //     r = this.recipeRepository.getRecipe(query);    
+        // }
+        // return r.toString();
+        String response = "Invalid GET request";
+        URI uri = httpExchange.getRequestURI();
+        String query = uri.getRawQuery();
+        
+        if (query != null) {
+            String recipeName = query.substring(query.indexOf("=") + 1);
+            
+            String recipeDetails = this.recipeRepository.getRecipe(UUID.fromString(recipeName)).toString(); // Retrieve data from hashmap
+            if (recipeDetails != null) {
+                response = recipeDetails;
+                System.out.println("Queried for " + recipeName + " and found " + recipeDetails);
+                return response;
+            } else {
+                response = "No data found for " + recipeName;
+            }
         }
-        return r.toString();
+        return response;
     }     
 
     private String handlePost(HttpExchange httpExchange) throws IOException {
         InputStream inStream = httpExchange.getRequestBody();
         Scanner scanner = new Scanner(inStream);
         String[] postData = scanner.nextLine().split(";");
-        Recipe r = new Recipe(postData[0], postData[1]);
+        String details="";
+        if(postData.length>1){
+            details=postData[1];
+        }
+        while(scanner.hasNextLine()){
+            details+= "\\n"+scanner.nextLine() ;
+        }
+        Recipe r = new Recipe(postData[0], details);
         this.recipeRepository.createRecipe(r);
         scanner.close();
         return r.toString();
@@ -79,7 +105,20 @@ public class RecipeHandler implements HttpHandler {
     private String handlePut(HttpExchange httpExchange) throws IOException {
         InputStream inStream = httpExchange.getRequestBody();
         Scanner scanner = new Scanner(inStream);
-        Recipe r = new Recipe(scanner.nextLine());
+        String putData = "";
+        while(scanner.hasNextLine()) {
+            putData += scanner.nextLine() + "\\n";
+        }
+        //detailedInfo.setRecipeContext(dataSplit[2].replace("\\n", "\n"));
+        
+        String[] putDataSplit = putData.split(";");
+        putDataSplit[3] = putDataSplit[3].replace("\\n", "");
+
+        putData = String.join(";", putDataSplit);
+        // putData.replace("\\n", "\n");
+        System.out.println("yes" + putData);
+
+        Recipe r = new Recipe(putData);
         this.recipeRepository.editRecipe(r);
         scanner.close();
         return r.toString();

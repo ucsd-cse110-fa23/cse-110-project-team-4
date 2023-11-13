@@ -21,8 +21,9 @@ public class GenerateRecipesBody extends VBox{
 
     public GenerateRecipesBody() {
         imageView = new ImageView();
-        microphoneImage = new Image("./client/images/SeekPng.com_microphone-icon-png_458366.png");
-        imageView.setImage(microphoneImage);
+
+        //microphoneImage = new Image("./client/images/SeekPng.com_microphone-icon-png_458366.png");
+        //imageView.setImage(microphoneImage);
 
         transcription = new Label("Transcribed Audio Will Go Here");
 
@@ -32,24 +33,24 @@ public class GenerateRecipesBody extends VBox{
         transcription.setMinHeight(200);
         transcription.setMinWidth(120);
 
-        imageView.setFitHeight(200);
-        imageView.setFitWidth(120);
+        // imageView.setFitHeight(200);
+        // imageView.setFitWidth(120);
 
-        HBox hb1 = new HBox();
+        // HBox hb1 = new HBox();
         VBox vb1 = new VBox();
 
-        hb1.getChildren().add(imageView);
+        // hb1.getChildren().add(imageView);
         vb1.getChildren().add(transcription);
 
-        sp = new ScrollPane();
-        sp.setContent(vb1);
+        // sp = new ScrollPane();
+        // sp.setContent(vb1);
 
         
-        hb1.setPadding(new Insets(10, 50, 10, 50));
+        // hb1.setPadding(new Insets(10, 50, 10, 50));
 
 
         body = new HBox();
-        body.getChildren().addAll(hb1,sp);
+        body.getChildren().addAll(vb1);
         body.setAlignment(Pos.CENTER);
 
         this.getChildren().add(body);

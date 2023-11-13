@@ -1,6 +1,9 @@
 package client;
 
 import javafx.scene.text.*;
+
+import java.util.Arrays;
+
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -25,8 +28,9 @@ public class GenerateRecipesView extends BorderPane {
     private String prompt;
 
     private boolean validPromptFlag;
+    private GenerateRecipesViewController grvc;
 
-    public GenerateRecipesView() {
+    public GenerateRecipesView(GenerateRecipesViewController grvc) {
         // Initialise the header Object
         header = new Header();
         header.setHeaderText("Generate Recipes");
@@ -66,6 +70,7 @@ public class GenerateRecipesView extends BorderPane {
         validPromptFlag = false;
 
         // ar = new AudioRecorder();
+        this.grvc = grvc;
 
         this.addListeners();
     }
@@ -77,8 +82,16 @@ public class GenerateRecipesView extends BorderPane {
                 this.grb.setTranscription(cannotGenerateNow);
             } else {
                 try {
-                    GenerateRecipeHandler grh = new GenerateRecipeHandler(this.prompt);
-                    grh.makeRequest();
+                    GenerateRecipeHandler grh = new GenerateRecipeHandler("Give me a recipe with" + this.prompt + 
+                    "in the format of title followed by ingredients, and then instructions for a recipe.");
+                    
+                    String recipeInfo = grh.makeRequest();
+                    String[] recipeInfoSplit = recipeInfo.split("\n");
+                    String recipeName = recipeInfoSplit[2];
+                    String recipeDetails = String.join("\n", Arrays.copyOfRange(recipeInfoSplit, 3, recipeInfoSplit.length));
+
+                    this.grvc.exportRecipeToDetailed(recipeName, recipeDetails);
+                    this.grvc.transitionToDetailed();
                 } catch (Exception ex) {
                     ex.printStackTrace();
                 }

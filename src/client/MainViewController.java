@@ -11,15 +11,44 @@ public class MainViewController {
     final int screenSizeWidth = 500;
     final int screenSizeHeight = 750;
 
+    MultipleRecipeViewController mpvc;
+    DetailedViewController dvc;
+    GenerateRecipesViewController grvc;
+
     MainViewController() {
         // Set the title of the app
 
-        MultipleRecipeViewController mpv = new MultipleRecipeViewController(mpvcStage,screenSizeWidth,screenSizeHeight);
-        DetailedViewController dvc = new DetailedViewController(drvStage,screenSizeWidth,screenSizeHeight);
-        GenerateRecipesViewController grvc = new GenerateRecipesViewController(grvStage, screenSizeWidth,screenSizeHeight);
+        this.mpvc = new MultipleRecipeViewController(mpvcStage,screenSizeWidth,screenSizeHeight,this);
+        this.dvc = new DetailedViewController(drvStage,screenSizeWidth,screenSizeHeight,this);
+        this.grvc = new GenerateRecipesViewController(grvStage, screenSizeWidth,screenSizeHeight, this);
         //
-                grvc.display();
-        //mpv.display();
-        dvc.display();
+        //grvc.display();
+        mpvc.display();
+        
+        //dvc.display();
+    }
+
+    public void closeGenerateOpenDetailed() {
+        this.grvc.closeDisplay();
+        this.dvc.display();
+    }
+
+    public void closeMultipleOpenGenerate() {
+        this.mpvc.closeDisplay();
+        this.grvc.display();
+    }
+
+    public void closeDetailedOpenMultiple() {
+        this.dvc.closeDisplay();
+        this.mpvc.display();
+    }
+
+    public void closeMultipleOpenDetailed(String uuid){
+        this.mpvc.closeDisplay();
+        this.dvc.display(uuid);
+    }
+
+    public DetailedViewController getDetailedViewController() {
+        return this.dvc;
     }
 }
