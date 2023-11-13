@@ -1,18 +1,9 @@
 package client;
 
-import javafx.scene.text.*;
-
-import java.util.ArrayList;
-
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
-import javafx.stage.Stage;
 import models.Model;
 import javafx.geometry.Pos;
-import client.RecipeButton;
 
 public class MultipleRecipeView extends BorderPane {
     private Header header;

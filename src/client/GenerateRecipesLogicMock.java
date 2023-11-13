@@ -1,7 +1,5 @@
 package client;
 
-import java.util.Arrays;
-
 public class GenerateRecipesLogicMock {
     
     private AudioRecorder ar;

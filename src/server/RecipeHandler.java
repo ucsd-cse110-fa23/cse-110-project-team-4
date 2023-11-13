@@ -4,7 +4,6 @@ import com.sun.net.httpserver.*;
 import java.io.*;
 import java.net.URI;
 import java.util.*;
-import java.util.regex.Pattern;
 
 import models.*;
 
@@ -46,12 +45,12 @@ public class RecipeHandler implements HttpHandler {
        
     }
 
-    private boolean isUUID(String s){
-        Pattern UUID_REGEX =
-            Pattern.compile("^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$");
+    // private boolean isUUID(String s){
+    //     Pattern UUID_REGEX =
+    //         Pattern.compile("^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$");
 
-        return UUID_REGEX.matcher(s).matches();
-    }
+    //     return UUID_REGEX.matcher(s).matches();
+    // }
 
     private String handleGet(HttpExchange httpExchange) throws IOException {
 

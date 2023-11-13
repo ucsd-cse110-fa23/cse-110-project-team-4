@@ -1,12 +1,10 @@
 package client;
 
 import javafx.geometry.Pos;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.TextAlignment;
 
 public class DetailedRecipeInfoBody extends VBox {
     private TextField recipeName;
