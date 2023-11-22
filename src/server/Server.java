@@ -8,7 +8,6 @@ import server.repositories.RecipeRepository;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
-import java.util.*;
 import java.util.concurrent.*;
 
 public class Server {
@@ -22,9 +21,7 @@ public class Server {
         // create a thread pool to handle requests
         ThreadPoolExecutor threadPoolExecutor = (ThreadPoolExecutor) Executors.newFixedThreadPool(10);
 
-        HashMap<UUID, Recipe> data = new HashMap<>();
-        HashMap<String, UUID> nameIndex = new HashMap<>();
-        RecipeRepository recipeRepository = new RecipeRepository(data, nameIndex);
+        RecipeRepository recipeRepository = new RecipeRepository();
 
         // create a server
         HttpServer server = HttpServer.create(

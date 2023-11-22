@@ -1,65 +1,82 @@
 package server.repositories;
 
-import java.util.*;
 import server.Recipe;
+
+import com.mongodb.client.MongoClient;
+import com.mongodb.client.MongoClients;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
+
+import org.bson.Document;
+import org.bson.types.ObjectId;
+import org.json.JSONObject;
+import org.bson.conversions.Bson;
+
+import static com.mongodb.client.model.Filters.eq;
+import static com.mongodb.client.model.Updates.*;
 
 public class RecipeRepository {
 
-    private final Map<UUID, Recipe> data;
-    private final Map<String, UUID> nameIndex;
+    private static final String CONNECTION_URI = 
+            "mongodb+srv://cse110-lab6:iLoveCSE110@cluster0.e0wpva4.mongodb.net/?retryWrites=true&w=majority";
+    private static final MongoClient mongoClient = MongoClients.create(CONNECTION_URI);
+    private static final MongoDatabase pantryPalDB = mongoClient.getDatabase("pantryPal");
+    private static final MongoCollection<Document> recipeCollection = pantryPalDB.getCollection("recipe");
 
-    public RecipeRepository(Map<UUID, Recipe> data, Map<String, UUID> nameIndex) {
-        this.data = data;
-        this.nameIndex = nameIndex;
+
+    public RecipeRepository() {
+
     }
 
-    public ArrayList<String> getRecipeList() {
-        ArrayList<String> recipeList = new ArrayList<String>();
+    // public ArrayList<String> getRecipeList() {
+    //     ArrayList<String> recipeList = new ArrayList<String>();
 
-        for (Recipe recipe : data.values())
-            recipeList.add(recipe.uuid + "," + recipe.name);
+    //     for (Recipe recipe : data.values())
+    //         recipeList.add(recipe.uuid + "," + recipe.name);
 
-        Collections.sort(recipeList,
-                (a, b) -> (Long.compare(this.getRecipe(a).createdAt, this.getRecipe(b).createdAt) * -1));
+    //     Collections.sort(recipeList,
+    //             (a, b) -> (Long.compare(this.getRecipe(a).createdAt, this.getRecipe(b).createdAt) * -1));
 
-        return recipeList;
-    }
-
-    public void createRecipe(Recipe recipe) {
-        data.put(recipe.uuid, recipe);
-        nameIndex.put(recipe.name, recipe.uuid);
-    }
-
-    public Recipe getRecipe(UUID uuid) {
-        return data.get(uuid);
-    }
-
-    // public Recipe getRecipe(String name) {
-    // return data.get(nameIndex.get(name));
+    //     return recipeList;
     // }
 
-    public Recipe getRecipe(String uuidAndName) {
-        String name = uuidAndName.split(",")[1];
-        return data.get(nameIndex.get(name));
+    public Recipe createRecipe(JSONObject createRecipeJSON) {
+        ObjectId id = new ObjectId();
+        String name = createRecipeJSON.getString("name");
+        String details = createRecipeJSON.getString("details");
+        Long createdAt = System.currentTimeMillis();
+
+        Document recipeDoc = new Document("_id", id);
+        recipeDoc.append("name", name)
+                .append("details", details)
+                .append("createdAt", createdAt);
+
+        recipeCollection.insertOne(recipeDoc);
+        return new Recipe(id.toString(), name, details, createdAt);
     }
 
-    public Recipe editRecipe(Recipe recipe) {
-        Recipe oldRecipe = data.get(recipe.uuid);
-        if (!recipe.name.equals(oldRecipe.name)) {
-            nameIndex.remove(oldRecipe.name);
-            nameIndex.put(recipe.name, recipe.uuid);
-        }
-        data.put(recipe.uuid, recipe);
+    public Recipe getRecipe(String id) {
+        Document recipeDocument = recipeCollection.find(new Document("_id", new ObjectId(id))).first();
+        Recipe recipe = new Recipe(recipeDocument);
         return recipe;
     }
 
-    public Recipe deleteRecipe(UUID uuid) {
-        nameIndex.remove(data.get(uuid).name);
-        return data.remove(uuid);
+
+    public Recipe editRecipe(JSONObject editRecipeRequest) {
+        ObjectId id = new ObjectId(editRecipeRequest.getString("id"));
+        Bson filter = eq("_id", id);
+        Bson updateName = set("name", editRecipeRequest.getString("name"));
+        Bson updatedDetails = set("name", editRecipeRequest.getString("name"));
+        recipeCollection.updateOne(filter, updateName);
+        recipeCollection.updateOne(filter, updatedDetails);
+
+        return new Recipe(recipeCollection.find(filter).first());
     }
 
-    public Recipe deleteRecipe(String name) {
-        UUID uuid = nameIndex.remove(name);
-        return data.remove(uuid);
+    public Recipe deleteRecipe(String id) {
+        Bson filter = eq("_id", new ObjectId(id));
+        Recipe recipe = new Recipe(recipeCollection.find(filter).first());
+        recipeCollection.deleteOne(filter);
+        return recipe;
     }
 }

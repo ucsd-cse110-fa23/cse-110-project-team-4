@@ -5,14 +5,14 @@ import com.sun.net.httpserver.*;
 import server.repositories.RecipeRepository;
 
 import java.io.*;
-import java.util.*;
+// import java.util.*;
 
 public class RecipeListHandler implements HttpHandler {
 
-    private final RecipeRepository recipeRepository;
+    // private final RecipeRepository recipeRepository;
 
     public RecipeListHandler(RecipeRepository recipeRepository) {
-        this.recipeRepository = recipeRepository;
+        // this.recipeRepository = recipeRepository;
     }
 
     public void handle(HttpExchange httpExchange) throws IOException {
@@ -21,14 +21,14 @@ public class RecipeListHandler implements HttpHandler {
 
         try {
             if (method.equals("GET")) {
-              response = handleGet(httpExchange);
+              // response = handleGet(httpExchange);
             } else {
-              throw new Exception("Not Valid Request Method");
+                throw new Exception("Not Valid Request Method");
             }
           } catch (Exception e) {
-            System.out.println("An erroneous request");
-            response = e.toString();
-            e.printStackTrace();
+              System.out.println("An erroneous request");
+              response = e.toString();
+              e.printStackTrace();
         }
 
         //Sending back response to the client
@@ -39,13 +39,13 @@ public class RecipeListHandler implements HttpHandler {
        
     }
 
-    private String handleGet(HttpExchange httpExchange) throws IOException {
-        String response = "";
-        ArrayList<String> recipeList = recipeRepository.getRecipeList();
-        for(String s:recipeList){
-            response += s + ";";
-        }
-        return response;
-    }     
+    // private String handleGet(HttpExchange httpExchange) throws IOException {
+    //     String response = "";
+    //     ArrayList<String> recipeList = recipeRepository.getRecipeList();
+    //     for(String s:recipeList){
+    //         response += s + ";";
+    //     }
+    //     return response;
+    // }     
 
 }
