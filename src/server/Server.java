@@ -1,11 +1,15 @@
 package server;
 
 import com.sun.net.httpserver.*;
+
+import server.handlers.RecipeHandler;
+import server.handlers.RecipeListHandler;
+import server.repositories.RecipeRepository;
+
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.util.*;
 import java.util.concurrent.*;
-import models.Recipe;
 
 public class Server {
 

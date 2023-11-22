@@ -9,8 +9,8 @@ import java.util.UUID;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import models.Recipe;
-import server.RecipeRepository;
+import server.Recipe;
+import server.repositories.RecipeRepository;
 
 public class DetailedRecipeViewTests {
 

@@ -1,11 +1,12 @@
-package server;
+package server.handlers;
 
 import com.sun.net.httpserver.*;
 import java.io.*;
 import java.net.URI;
 import java.util.*;
 
-import models.*;
+import server.Recipe;
+import server.repositories.RecipeRepository;
 
 public class RecipeHandler implements HttpHandler {
 
@@ -45,28 +46,8 @@ public class RecipeHandler implements HttpHandler {
        
     }
 
-    // private boolean isUUID(String s){
-    //     Pattern UUID_REGEX =
-    //         Pattern.compile("^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$");
-
-    //     return UUID_REGEX.matcher(s).matches();
-    // }
-
     private String handleGet(HttpExchange httpExchange) throws IOException {
 
-        // InputStream inStream = httpExchange.getRequestBody();
-        // Scanner scanner = new Scanner(inStream);
-        // String query = scanner.nextLine();
-        // scanner.close();
-
-        // Recipe r;
-        
-        // if (isUUID(query)) {
-        //     r = this.recipeRepository.getRecipe(UUID.fromString(query));    
-        // } else {
-        //     r = this.recipeRepository.getRecipe(query);    
-        // }
-        // return r.toString();
         String response = "Invalid GET request";
         URI uri = httpExchange.getRequestURI();
         String query = uri.getRawQuery();

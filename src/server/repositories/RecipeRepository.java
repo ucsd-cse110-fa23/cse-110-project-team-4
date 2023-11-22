@@ -1,7 +1,7 @@
-package server;
+package server.repositories;
 
 import java.util.*;
-import models.Recipe;
+import server.Recipe;
 
 public class RecipeRepository {
 

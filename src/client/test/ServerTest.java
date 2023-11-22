@@ -1,14 +1,12 @@
 package client.test;
 
 import org.junit.jupiter.api.Test;
-
-import models.Recipe;
-
 import org.junit.jupiter.api.BeforeEach;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import server.RecipeRepository;
+import server.Recipe;
+import server.repositories.RecipeRepository;
 
 import java.util.*;
 

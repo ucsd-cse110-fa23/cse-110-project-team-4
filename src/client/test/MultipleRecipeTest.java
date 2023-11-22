@@ -9,8 +9,8 @@ import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import models.Recipe;
-import server.RecipeRepository;
+import server.Recipe;
+import server.repositories.RecipeRepository;
 
 public class MultipleRecipeTest {
 

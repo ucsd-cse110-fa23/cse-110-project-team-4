@@ -1,6 +1,9 @@
-package server;
+package server.handlers;
 
 import com.sun.net.httpserver.*;
+
+import server.repositories.RecipeRepository;
+
 import java.io.*;
 import java.util.*;
 
