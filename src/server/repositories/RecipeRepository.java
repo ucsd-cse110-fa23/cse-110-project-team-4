@@ -19,13 +19,13 @@ public class RecipeRepository {
 
     private static final String CONNECTION_URI = 
             "mongodb+srv://cse110-lab6:iLoveCSE110@cluster0.e0wpva4.mongodb.net/?retryWrites=true&w=majority";
-    private static final MongoClient mongoClient = MongoClients.create(CONNECTION_URI);
-    private static final MongoDatabase pantryPalDB = mongoClient.getDatabase("pantryPal");
-    private static final MongoCollection<Document> recipeCollection = pantryPalDB.getCollection("recipe");
+    private final MongoClient mongoClient = MongoClients.create(CONNECTION_URI);
+    private final MongoDatabase pantryPalDB = mongoClient.getDatabase("pantryPal");
+    private MongoCollection<Document> recipeCollection = pantryPalDB.getCollection("recipe");
 
 
-    public RecipeRepository() {
-
+    public RecipeRepository(String collection) {
+        this.recipeCollection = pantryPalDB.getCollection(collection);
     }
 
     // public ArrayList<String> getRecipeList() {
@@ -41,18 +41,16 @@ public class RecipeRepository {
     // }
 
     public Recipe createRecipe(JSONObject createRecipeJSON) {
-        ObjectId id = new ObjectId();
-        String name = createRecipeJSON.getString("name");
-        String details = createRecipeJSON.getString("details");
-        Long createdAt = System.currentTimeMillis();
-
-        Document recipeDoc = new Document("_id", id);
-        recipeDoc.append("name", name)
-                .append("details", details)
-                .append("createdAt", createdAt);
+        Recipe recipe = new Recipe(createRecipeJSON);
+        System.out.println(recipe.toJSON().toString());
+        Document recipeDoc = new Document("_id", recipe.id);
+        recipeDoc.append("name", recipe.name)
+                .append("mealType", recipe.mealType)
+                .append("details", recipe.details)
+                .append("createdAt", recipe.createdAt);
 
         recipeCollection.insertOne(recipeDoc);
-        return new Recipe(id.toString(), name, details, createdAt);
+        return recipe;
     }
 
     public Recipe getRecipe(String id) {

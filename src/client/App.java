@@ -2,7 +2,6 @@ package client;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
-import client.controllers.MainViewController;
 
 public class App extends Application {
 

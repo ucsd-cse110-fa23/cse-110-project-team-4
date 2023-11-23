@@ -21,7 +21,7 @@ public class Server {
         // create a thread pool to handle requests
         ThreadPoolExecutor threadPoolExecutor = (ThreadPoolExecutor) Executors.newFixedThreadPool(10);
 
-        RecipeRepository recipeRepository = new RecipeRepository();
+        RecipeRepository recipeRepository = new RecipeRepository("recipe");
 
         // create a server
         HttpServer server = HttpServer.create(

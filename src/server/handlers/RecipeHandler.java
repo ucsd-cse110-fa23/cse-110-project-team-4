@@ -59,7 +59,7 @@ public class RecipeHandler implements HttpHandler {
             scanner.close();
         } catch (Exception e) { /*error*/ }
 
-        System.out.println("Request JSON string :" + jsonBuff.toString());
+        //System.out.println("Request JSON string :" + jsonBuff.toString());
         //write the response here by getting JSON from jasonBuff.toString()
 
 
