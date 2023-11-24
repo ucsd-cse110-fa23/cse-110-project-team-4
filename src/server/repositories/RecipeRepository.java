@@ -64,7 +64,7 @@ public class RecipeRepository {
         ObjectId id = new ObjectId(editRecipeRequest.getString("id"));
         Bson filter = eq("_id", id);
         Bson updateName = set("name", editRecipeRequest.getString("name"));
-        Bson updatedDetails = set("name", editRecipeRequest.getString("name"));
+        Bson updatedDetails = set("details", editRecipeRequest.getString("details"));
         recipeCollection.updateOne(filter, updateName);
         recipeCollection.updateOne(filter, updatedDetails);
 
