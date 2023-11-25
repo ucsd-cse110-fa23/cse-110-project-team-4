@@ -31,9 +31,15 @@ public class GenerateRecipesLogic {
                 String recipeName = recipeInfoSplit[2];
                 String recipeDetails = String.join("\n",
                         Arrays.copyOfRange(recipeInfoSplit, 3, recipeInfoSplit.length));
-                String[] toReturn = {"", ""};
+
+                DallEImageGenerator dig = new DallEImageGenerator(recipeName);
+                String imagePath = dig.generateImage();
+
+                System.out.println(imagePath);
+                String[] toReturn = {"", "", ""};
                 toReturn[0] = recipeName;
                 toReturn[1] = recipeDetails;
+                toReturn[2] = imagePath;
                 return toReturn;
             } catch (Exception ex) {
                 ex.printStackTrace();
