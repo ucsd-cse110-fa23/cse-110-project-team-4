@@ -42,3 +42,12 @@ Body: \
 } \
 Returns: Successfully created user <username> 
 
+## Create user 
+POST: localhost:8100/user \
+Body: \
+{ \
+    "username": "iAmWeird",  \
+    "password": "p455w0rd!" \
+} \
+Returns: if correct, userId, else "Invalid Login Credentials"
+

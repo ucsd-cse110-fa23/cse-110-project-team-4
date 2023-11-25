@@ -47,7 +47,7 @@ public class ServerTest {
 
     void insertUser(User user) {
         Document userDoc = new Document("_id", user.id);
-        userDoc.append("name", user.username)
+        userDoc.append("username", user.username)
                 .append("password", user.password);
 
         testUserCollection.insertOne(userDoc);
@@ -118,5 +118,24 @@ public class ServerTest {
         User findUser = new User(newUserDocument);
 
         assertEquals(newUser.toJSON().toString(), findUser.toJSON().toString());
+    }
+
+    @Test
+    void testLogin() {
+        JSONObject loginRequest = new JSONObject();
+        loginRequest.put("username", "maxwn04");
+        loginRequest.put("password", "passw0rd!");
+
+        String loginId = userRepository.login(loginRequest);
+
+        assertEquals(user1.id.toString(), loginId);
+
+        JSONObject incorrectLoginRequest = new JSONObject();
+        incorrectLoginRequest.put("username", "maxwn04");
+        incorrectLoginRequest.put("password", "iDontKnow");
+
+        String loginError = userRepository.login(incorrectLoginRequest);
+
+        assertEquals("Invalid Login Credentials", loginError);
     }
 }
