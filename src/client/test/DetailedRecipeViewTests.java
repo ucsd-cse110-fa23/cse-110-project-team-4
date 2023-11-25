@@ -14,7 +14,6 @@ import com.mongodb.client.MongoDatabase;
 
 import org.bson.Document;
 import org.json.JSONObject;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 
 import server.Recipe;
@@ -25,22 +24,27 @@ public class DetailedRecipeViewTests {
     private static final String CONNECTION_URI = 
             "mongodb+srv://cse110-lab6:iLoveCSE110@cluster0.e0wpva4.mongodb.net/?retryWrites=true&w=majority";
     private final MongoClient mongoClient = MongoClients.create(CONNECTION_URI);
-    private final MongoDatabase pantryPalDB = mongoClient.getDatabase("pantryPal");
-    private MongoCollection<Document> testRecipeCollection = pantryPalDB.getCollection("recipeTest");
+    private final MongoDatabase pantryPalDB = mongoClient.getDatabase("pantryPalTest");
+    private MongoCollection<Document> testRecipeCollection = pantryPalDB.getCollection("recipe");
 
-    RecipeRepository recipeRepository = new RecipeRepository("recipeTest");
+    RecipeRepository recipeRepository = new RecipeRepository("Test");
 
     Recipe recipe1;
     Recipe recipe2;
 
     @BeforeEach 
     void seedData() {
+        testRecipeCollection.deleteMany(new Document());
+
         recipe1 = new Recipe("655db6ee0eba1d4d1da76c4d", "Huli Huli Chicken", "lunch", 
-            "yummy chicken plate with rice and mac", 1700640606057l);
+            "yummy chicken plate with rice and mac", 
+            "655db6ee0eba1d4d1da76c4d",
+            1700640606057l);
 
         recipe2 = new Recipe("655ec290e597b112f51cdc2a", "Makai Bowl", "dinner", 
-            "Poke bowl with salmon and ahi tuna", 1700709008320l);
-        
+            "Poke bowl with salmon and ahi tuna", 
+            "655db6ee0eba1d4d1da76c4d",
+            1700709008320l);
         Document recipeDoc = new Document("_id", recipe1.id);
         recipeDoc.append("name", recipe1.name)
                 .append("mealType", recipe1.mealType)
@@ -56,11 +60,6 @@ public class DetailedRecipeViewTests {
                 .append("createdAt", recipe2.createdAt);
 
         testRecipeCollection.insertOne(recipeDoc);
-    }
-
-    @AfterEach 
-    void removeData() {
-        testRecipeCollection.deleteMany(new Document());
     }
 
     @Test
@@ -87,6 +86,7 @@ public class DetailedRecipeViewTests {
         createRecipeJson.put("name", "Bobcat Ham");
         createRecipeJson.put("mealType", "breakfast");
         createRecipeJson.put("details", "Toasted ham egg and cheese sandwich");
+        createRecipeJson.put("userId", "65614b0c44879f466638921b");
 
         Recipe createRecipe = recipeRepository.createRecipe(createRecipeJson);
         Recipe getRecipe = recipeRepository.getRecipe(createRecipe.id.toString());

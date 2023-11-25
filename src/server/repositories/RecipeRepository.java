@@ -15,30 +15,39 @@ import org.bson.conversions.Bson;
 import static com.mongodb.client.model.Filters.eq;
 import static com.mongodb.client.model.Updates.*;
 
+import java.util.ArrayList;
+
 public class RecipeRepository {
 
     private static final String CONNECTION_URI = 
             "mongodb+srv://cse110-lab6:iLoveCSE110@cluster0.e0wpva4.mongodb.net/?retryWrites=true&w=majority";
-    private final MongoClient mongoClient = MongoClients.create(CONNECTION_URI);
-    private final MongoDatabase pantryPalDB = mongoClient.getDatabase("pantryPal");
-    private MongoCollection<Document> recipeCollection = pantryPalDB.getCollection("recipe");
+    private MongoClient mongoClient;
+    private MongoDatabase pantryPalDB;
+    private MongoCollection<Document> recipeCollection;
 
 
-    public RecipeRepository(String collection) {
-        this.recipeCollection = pantryPalDB.getCollection(collection);
+    public RecipeRepository() {
+        this.mongoClient = MongoClients.create(CONNECTION_URI);
+        this.pantryPalDB = mongoClient.getDatabase("pantryPal");
+        this.recipeCollection = pantryPalDB.getCollection("recipe");
     }
 
-    // public ArrayList<String> getRecipeList() {
-    //     ArrayList<String> recipeList = new ArrayList<String>();
+    public RecipeRepository(String test) {
+        this.mongoClient = MongoClients.create(CONNECTION_URI);
+        this.pantryPalDB = mongoClient.getDatabase("pantryPalTest");
+        this.recipeCollection = pantryPalDB.getCollection("recipe");
+    }
+    public ArrayList<Recipe> getRecipeList(String userId) {
+        Bson filter = eq("userId", new ObjectId(userId));
 
-    //     for (Recipe recipe : data.values())
-    //         recipeList.add(recipe.uuid + "," + recipe.name);
+        ArrayList<Recipe> recipeList = new ArrayList<Recipe>();
+        Iterable<Document> recipeDocuments = recipeCollection.find(filter);
+        for(Document recipeDocument:recipeDocuments){
+            recipeList.add(new Recipe(recipeDocument));
+        }
 
-    //     Collections.sort(recipeList,
-    //             (a, b) -> (Long.compare(this.getRecipe(a).createdAt, this.getRecipe(b).createdAt) * -1));
-
-    //     return recipeList;
-    // }
+        return recipeList;
+    }
 
     public Recipe createRecipe(JSONObject createRecipeJSON) {
         Recipe recipe = new Recipe(createRecipeJSON);
@@ -47,6 +56,7 @@ public class RecipeRepository {
         recipeDoc.append("name", recipe.name)
                 .append("mealType", recipe.mealType)
                 .append("details", recipe.details)
+                .append("userId", recipe.userId)
                 .append("createdAt", recipe.createdAt);
 
         recipeCollection.insertOne(recipeDoc);
