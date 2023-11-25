@@ -48,6 +48,7 @@ public class RecipeHandler implements HttpHandler {
        
     }
 
+    // Takes in the httpExchange and gets the body as a JSON
     private JSONObject parseJSON(HttpExchange httpExchange) {
         InputStream inStream = httpExchange.getRequestBody();
         StringBuilder jsonBuff = new StringBuilder();
