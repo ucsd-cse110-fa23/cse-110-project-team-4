@@ -35,7 +35,7 @@ public class RecipeRepository {
     }
 
     public ArrayList<Recipe> getRecipeList(String userId) {
-        Bson filter = eq("_id", new ObjectId(userId));
+        Bson filter = eq("userId", new ObjectId(userId));
 
         ArrayList<Recipe> recipeList = new ArrayList<Recipe>();
         Iterable<Document> recipeDocuments = recipeCollection.find(filter);
