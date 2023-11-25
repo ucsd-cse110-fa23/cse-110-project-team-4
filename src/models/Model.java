@@ -105,7 +105,7 @@ public class Model {
         // Implement your HTTP request logic here and return the response
 
         try {
-            String urlString = "http://localhost:8100/recipeList";
+            String urlString = "http://localhost:8100/recipeList?=65614b0c44879f466638921b";
 
             URL url = new URI(urlString).toURL();
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
