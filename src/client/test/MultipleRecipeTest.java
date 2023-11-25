@@ -1,7 +1,6 @@
 package client.test;
 
 import org.bson.Document;
-import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -10,11 +9,7 @@ import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 
-import java.util.Arrays;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -32,11 +27,8 @@ public class MultipleRecipeTest {
     private MongoCollection<Document> testUserCollection = pantryPalDB.getCollection("user");
 
     RecipeRepository recipeRepository = new RecipeRepository("Test");
-    Recipe recipe1;
-    Recipe recipe2;
-    Recipe recipe3;
-    User user1;
-    User user2;
+    Recipe recipe1, recipe2, recipe3;
+    User user1, user2;
 
     void insertRecipe(Recipe recipe) {
         Document recipeDoc = new Document("_id", recipe.id);

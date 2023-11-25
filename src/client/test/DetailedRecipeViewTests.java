@@ -14,7 +14,6 @@ import com.mongodb.client.MongoDatabase;
 
 import org.bson.Document;
 import org.json.JSONObject;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 
 import server.Recipe;
@@ -62,7 +61,7 @@ public class DetailedRecipeViewTests {
 
         testRecipeCollection.insertOne(recipeDoc);
     }
-    
+
     @Test
     void testGetRecipe() {
         Recipe recipe = recipeRepository.getRecipe("655db6ee0eba1d4d1da76c4d");
