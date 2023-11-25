@@ -15,6 +15,8 @@ import org.bson.conversions.Bson;
 import static com.mongodb.client.model.Filters.eq;
 import static com.mongodb.client.model.Updates.*;
 
+import java.util.ArrayList;
+
 public class RecipeRepository {
 
     private static final String CONNECTION_URI = 
@@ -25,24 +27,24 @@ public class RecipeRepository {
 
 
     public RecipeRepository() {
-        
+
     }
 
     public RecipeRepository(String collection) {
         this.recipeCollection = pantryPalDB.getCollection(collection);
     }
 
-    // public ArrayList<String> getRecipeList() {
-    //     ArrayList<String> recipeList = new ArrayList<String>();
+    public ArrayList<Recipe> getRecipeList(String userId) {
+        Bson filter = eq("_id", new ObjectId(userId));
 
-    //     for (Recipe recipe : data.values())
-    //         recipeList.add(recipe.uuid + "," + recipe.name);
+        ArrayList<Recipe> recipeList = new ArrayList<Recipe>();
+        Iterable<Document> recipeDocuments = recipeCollection.find(filter);
+        for(Document recipeDocument:recipeDocuments){
+            recipeList.add(new Recipe(recipeDocument));
+        }
 
-    //     Collections.sort(recipeList,
-    //             (a, b) -> (Long.compare(this.getRecipe(a).createdAt, this.getRecipe(b).createdAt) * -1));
-
-    //     return recipeList;
-    // }
+        return recipeList;
+    }
 
     public Recipe createRecipe(JSONObject createRecipeJSON) {
         Recipe recipe = new Recipe(createRecipeJSON);
@@ -51,6 +53,7 @@ public class RecipeRepository {
         recipeDoc.append("name", recipe.name)
                 .append("mealType", recipe.mealType)
                 .append("details", recipe.details)
+                .append("userId", recipe.userId)
                 .append("createdAt", recipe.createdAt);
 
         recipeCollection.insertOne(recipeDoc);

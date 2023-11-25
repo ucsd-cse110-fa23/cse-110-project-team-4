@@ -2,12 +2,10 @@ package server.handlers;
 
 import com.sun.net.httpserver.*;
 import java.io.*;
-import java.net.URI;
 import java.util.*;
 
 import org.json.JSONObject;
 
-import server.User;
 import server.repositories.UserRepository;
 
 public class UserHandler implements HttpHandler {
@@ -66,7 +64,7 @@ public class UserHandler implements HttpHandler {
 
     private String handlePost(HttpExchange httpExchange) throws IOException {
         JSONObject createUserRequest = parseJSON(httpExchange);
-        User user = this.userRepository.createUser(createUserRequest);
+        this.userRepository.createUser(createUserRequest);
         return "Successfully created user: " + createUserRequest.getString("username");
     }   
 

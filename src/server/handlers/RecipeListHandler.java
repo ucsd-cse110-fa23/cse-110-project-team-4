@@ -2,17 +2,21 @@ package server.handlers;
 
 import com.sun.net.httpserver.*;
 
+import server.Recipe;
 import server.repositories.RecipeRepository;
 
 import java.io.*;
-// import java.util.*;
+import java.net.URI;
+import java.util.*;
+
+import org.json.JSONArray;
 
 public class RecipeListHandler implements HttpHandler {
 
-    // private final RecipeRepository recipeRepository;
+    private final RecipeRepository recipeRepository;
 
     public RecipeListHandler(RecipeRepository recipeRepository) {
-        // this.recipeRepository = recipeRepository;
+        this.recipeRepository = recipeRepository;
     }
 
     public void handle(HttpExchange httpExchange) throws IOException {
@@ -21,7 +25,7 @@ public class RecipeListHandler implements HttpHandler {
 
         try {
             if (method.equals("GET")) {
-              // response = handleGet(httpExchange);
+              response = handleGet(httpExchange);
             } else {
                 throw new Exception("Not Valid Request Method");
             }
@@ -39,13 +43,24 @@ public class RecipeListHandler implements HttpHandler {
        
     }
 
-    // private String handleGet(HttpExchange httpExchange) throws IOException {
-    //     String response = "";
-    //     ArrayList<String> recipeList = recipeRepository.getRecipeList();
-    //     for(String s:recipeList){
-    //         response += s + ";";
-    //     }
-    //     return response;
-    // }     
+    private String handleGet(HttpExchange httpExchange) throws IOException {
+        String response = "Invalid GET request";
+        URI uri = httpExchange.getRequestURI();
+        String query = uri.getRawQuery();
+
+
+        if (query != null) {
+            String userId = query.substring(query.indexOf("=") + 1);
+            
+            ArrayList<Recipe> recipeList = this.recipeRepository.getRecipeList(userId); // Retrieve data from hashmap
+            JSONArray recipeListJSON = new JSONArray();
+            for(Recipe recipe:recipeList){
+                recipeListJSON.put(recipe.toJSON());
+            }
+            response = recipeListJSON.toString();
+        }
+
+        return response;
+    }     
 
 }
