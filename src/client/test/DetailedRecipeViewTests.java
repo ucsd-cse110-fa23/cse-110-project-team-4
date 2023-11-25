@@ -90,6 +90,7 @@ public class DetailedRecipeViewTests {
         createRecipeJson.put("name", "Bobcat Ham");
         createRecipeJson.put("mealType", "breakfast");
         createRecipeJson.put("details", "Toasted ham egg and cheese sandwich");
+        createRecipeJson.put("userId", "65614b0c44879f466638921b");
 
         Recipe createRecipe = recipeRepository.createRecipe(createRecipeJson);
         Recipe getRecipe = recipeRepository.getRecipe(createRecipe.id.toString());

@@ -79,6 +79,7 @@ public class ServerTest {
         createRecipeJson.put("name", "Bobcat Ham");
         createRecipeJson.put("mealType", "breakfast");
         createRecipeJson.put("details", "Toasted ham egg and cheese sandwich");
+        createRecipeJson.put("userId", "65614b0c44879f466638921b");
 
         Recipe newRecipe = recipeRepository.createRecipe(createRecipeJson);
         Recipe getNewRecipe = recipeRepository.getRecipe(newRecipe.id.toString());
