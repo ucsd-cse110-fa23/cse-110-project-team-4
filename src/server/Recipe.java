@@ -1,0 +1,51 @@
+package server;
+
+import org.json.JSONObject;
+import org.bson.Document;
+import org.bson.types.ObjectId;
+
+public class Recipe {
+    public ObjectId id;
+    public String name;
+    public String mealType;
+    public String details;
+    public long createdAt;
+
+    // constructor from different parts
+    public Recipe(String id, String name, String mealType, String details, long createdAt){
+        this.id = new ObjectId(id);
+        this.name = name;
+        this.mealType = mealType;
+        this.details = details;
+        this.createdAt = createdAt;
+    }
+
+    // constructor from a createRecipeJSON
+    public Recipe(JSONObject createRecipeJSON){
+        this.id = new ObjectId();
+        this.name = createRecipeJSON.getString("name");        
+        this.mealType = createRecipeJSON.getString("mealType");
+        this.details = createRecipeJSON.getString("details");
+        this.createdAt = System.currentTimeMillis();
+    }
+
+    // constructor from bson document
+    public Recipe(Document recipeDocument){
+        this.id = recipeDocument.getObjectId("_id");
+        this.name = recipeDocument.getString("name");
+        this.mealType = recipeDocument.getString("mealType");
+        this.details = recipeDocument.getString("details");
+        this.createdAt = recipeDocument.getLong("createdAt");
+    }
+
+    public JSONObject toJSON(){
+        JSONObject recipeJSON = new JSONObject();
+        recipeJSON.put("createdAt", this.createdAt);
+        recipeJSON.put("details", this.details);
+        recipeJSON.put("mealType", this.mealType);
+        recipeJSON.put("name", this.name);
+        recipeJSON.put("id", this.id.toString());
+        return recipeJSON;
+    }
+
+}

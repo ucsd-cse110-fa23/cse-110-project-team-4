@@ -2,59 +2,82 @@ package client.test;
 
 import org.junit.jupiter.api.Test;
 
-import models.Recipe;
+import com.mongodb.client.MongoClient;
+import com.mongodb.client.MongoClients;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
 
+import org.bson.Document;
+import org.json.JSONObject;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import server.RecipeRepository;
-
-import java.util.*;
+import server.Recipe;
+import server.repositories.RecipeRepository;
 
 public class ServerTest {
 
-    
-    HashMap<UUID, Recipe> data = new HashMap<>();
-    HashMap<String, UUID> nameIndex = new HashMap<>();
-    RecipeRepository recipeRepository = new RecipeRepository(data, nameIndex);
+    private static final String CONNECTION_URI = 
+            "mongodb+srv://cse110-lab6:iLoveCSE110@cluster0.e0wpva4.mongodb.net/?retryWrites=true&w=majority";
+    private final MongoClient mongoClient = MongoClients.create(CONNECTION_URI);
+    private final MongoDatabase pantryPalDB = mongoClient.getDatabase("pantryPal");
+    private MongoCollection<Document> testRecipeCollection = pantryPalDB.getCollection("recipeTest");
+
+    RecipeRepository recipeRepository = new RecipeRepository("recipeTest");
+
     Recipe recipe1;
     Recipe recipe2;
 
     @BeforeEach 
     void seedData() {
-        recipe1 = new Recipe
-                ("b1a00706-1883-4c88-b3f8-b59d76e329bf;Huli Huli Chicken;yummy chicken plate with rice and mac;2178330567185300");
-        data.put(recipe1.uuid, recipe1);
-        nameIndex.put(recipe1.name, recipe1.uuid);
-        recipe2 = new Recipe
-                ("898d61b3-5598-4dfc-b8a2-2eb962354e3a;Yum Yum Bowl;pork bowl with veggies, rice, and yum yum sauce;2178360244910800");
-        data.put(recipe2.uuid, recipe2);
-        nameIndex.put(recipe2.name, recipe2.uuid);
+        recipe1 = new Recipe("655db6ee0eba1d4d1da76c4d", "Huli Huli Chicken", "lunch", 
+            "yummy chicken plate with rice and mac", 1700640606057l);
+
+        recipe2 = new Recipe("655ec290e597b112f51cdc2a", "Makai Bowl", "dinner", 
+            "Poke bowl with salmon and ahi tuna", 1700709008320l);
+        
+        Document recipeDoc = new Document("_id", recipe1.id);
+        recipeDoc.append("name", recipe1.name)
+                .append("mealType", recipe1.mealType)
+                .append("details", recipe1.details)
+                .append("createdAt", recipe1.createdAt);
+
+        testRecipeCollection.insertOne(recipeDoc);
+
+        recipeDoc = new Document("_id", recipe2.id);
+        recipeDoc.append("name", recipe2.name)
+                .append("mealType", recipe2.mealType)
+                .append("details", recipe2.details)
+                .append("createdAt", recipe2.createdAt);
+
+        testRecipeCollection.insertOne(recipeDoc);
     }
 
-    @Test
-    void testGetList() {
-        List<String> recipeNames = Arrays.asList(new String[] {"898d61b3-5598-4dfc-b8a2-2eb962354e3a,Yum Yum Bowl","b1a00706-1883-4c88-b3f8-b59d76e329bf,Huli Huli Chicken"});
-        assertEquals(recipeNames, recipeRepository.getRecipeList());
+    @AfterEach 
+    void removeData() {
+        testRecipeCollection.deleteMany(new Document());
     }
 
     @Test
     void testGetByUUID() {
-        assertEquals(recipe1, recipeRepository.getRecipe(UUID.fromString("b1a00706-1883-4c88-b3f8-b59d76e329bf")));
-        assertEquals(recipe2, recipeRepository.getRecipe(UUID.fromString("898d61b3-5598-4dfc-b8a2-2eb962354e3a")));
-    }
+        Recipe recipeResponse = recipeRepository.getRecipe("655db6ee0eba1d4d1da76c4d");
+        assertEquals(recipe1.toJSON().toString(), recipeResponse.toJSON().toString());
 
-    @Test
-    void testGetByName() {
-        assertEquals(recipe1, recipeRepository.getRecipe(recipe1.uuid+","+"Huli Huli Chicken"));
-        assertEquals(recipe2, recipeRepository.getRecipe(recipe2.uuid+","+"Yum Yum Bowl"));
+        recipeResponse = recipeRepository.getRecipe("655ec290e597b112f51cdc2a");
+        assertEquals(recipe2.toJSON().toString(), recipeResponse.toJSON().toString());
     }
 
     @Test
     void testCreate() {
-        Recipe newRecipe = new Recipe("Makai Bowl", "poke bowl with stuff");
-        recipeRepository.createRecipe(newRecipe);
-        assertEquals(newRecipe, recipeRepository.getRecipe(newRecipe.uuid+","+"Makai Bowl"));
+        JSONObject createRecipeJson = new JSONObject();
+        createRecipeJson.put("name", "Bobcat Ham");
+        createRecipeJson.put("mealType", "breakfast");
+        createRecipeJson.put("details", "Toasted ham egg and cheese sandwich");
+
+        Recipe newRecipe = recipeRepository.createRecipe(createRecipeJson);
+        Recipe getNewRecipe = recipeRepository.getRecipe(newRecipe.id.toString());
+        assertEquals(newRecipe.toJSON().toString(), getNewRecipe.toJSON().toString());
     }
 }
