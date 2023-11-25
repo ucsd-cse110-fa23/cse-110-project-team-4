@@ -129,5 +129,13 @@ public class ServerTest {
         String loginId = userRepository.login(loginRequest);
 
         assertEquals(user1.id.toString(), loginId);
+
+        JSONObject incorrectLoginRequest = new JSONObject();
+        incorrectLoginRequest.put("username", "maxwn04");
+        incorrectLoginRequest.put("password", "iDontKnow");
+
+        String loginError = userRepository.login(incorrectLoginRequest);
+
+        assertEquals("Invalid Login Credentials", loginError);
     }
 }
