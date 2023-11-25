@@ -1,5 +1,6 @@
 package client;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
@@ -9,6 +10,9 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
 
 import org.json.JSONObject;
 
@@ -23,11 +27,11 @@ public class DallEImageGenerator {
         this.prompt = prompt;
     }
 
-    public String generateImage()
+    public byte[] generateImage()
             throws IOException, InterruptedException, URISyntaxException {
         // Set request parameters
         int n = 1;
-        
+
         String imagePath = "src/client/images/" + prompt + ".jpg";
         Files.deleteIfExists(Paths.get(imagePath));
 
@@ -64,10 +68,13 @@ public class DallEImageGenerator {
         System.out.println("DALL-E Response:");
         System.out.println(generatedImageURL);
 
-        try (InputStream in = new URI(generatedImageURL).toURL().openStream()) {
-            Files.copy(in, Paths.get(imagePath));
-            return imagePath;
-        }
+        BufferedImage bi = ImageIO.read(new URI(generatedImageURL).toURL());
+        ByteArrayOutputStream b = new ByteArrayOutputStream();
+        ImageIO.write(bi, "jpg", b);
+
+        // do whatever with the array...
+        byte[] imageByteArray = b.toByteArray();
+        return imageByteArray;
 
     }
 }
