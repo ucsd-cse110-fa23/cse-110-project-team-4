@@ -8,7 +8,11 @@ import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 
 import org.bson.Document;
+import org.bson.conversions.Bson;
 import org.json.JSONObject;
+
+import static com.mongodb.client.model.Filters.eq;
+import static com.mongodb.client.model.Filters.and;
 
 public class UserRepository {
 
@@ -29,18 +33,6 @@ public class UserRepository {
         this.userCollection = pantryPalDB.getCollection("user");
     }
 
-    // public ArrayList<String> getRecipeList() {
-    //     ArrayList<String> recipeList = new ArrayList<String>();
-
-    //     for (Recipe recipe : data.values())
-    //         recipeList.add(recipe.uuid + "," + recipe.name);
-
-    //     Collections.sort(recipeList,
-    //             (a, b) -> (Long.compare(this.getRecipe(a).createdAt, this.getRecipe(b).createdAt) * -1));
-
-    //     return recipeList;
-    // }
-
     public User createUser(JSONObject createUserJSON) {
         User user = new User(createUserJSON);
         System.out.println(user.toJSON().toString());
@@ -50,6 +42,18 @@ public class UserRepository {
 
         userCollection.insertOne(recipeDoc);
         return user;
+    }
+
+    public String login(JSONObject loginRequest) {
+        String username = loginRequest.getString("username");
+        String password = loginRequest.getString("password");
+        Bson filter = and(eq("username", username), eq("password", password));
+        Document userDocument = userCollection.find(filter).first();
+        if (userDocument != null) {
+            return userDocument.getObjectId("_id").toString();
+        }else{
+            return "Invalid Login Credentials";
+        }
     }
 
 }
