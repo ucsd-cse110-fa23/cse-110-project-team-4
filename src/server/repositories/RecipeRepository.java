@@ -21,19 +21,22 @@ public class RecipeRepository {
 
     private static final String CONNECTION_URI = 
             "mongodb+srv://cse110-lab6:iLoveCSE110@cluster0.e0wpva4.mongodb.net/?retryWrites=true&w=majority";
-    private final MongoClient mongoClient = MongoClients.create(CONNECTION_URI);
-    private final MongoDatabase pantryPalDB = mongoClient.getDatabase("pantryPal");
-    private MongoCollection<Document> recipeCollection = pantryPalDB.getCollection("recipe");
+    private MongoClient mongoClient;
+    private MongoDatabase pantryPalDB;
+    private MongoCollection<Document> recipeCollection;
 
 
     public RecipeRepository() {
-
+        this.mongoClient = MongoClients.create(CONNECTION_URI);
+        this.pantryPalDB = mongoClient.getDatabase("pantryPal");
+        this.recipeCollection = pantryPalDB.getCollection("recipe");
     }
 
-    public RecipeRepository(String collection) {
-        this.recipeCollection = pantryPalDB.getCollection(collection);
+    public RecipeRepository(String test) {
+        this.mongoClient = MongoClients.create(CONNECTION_URI);
+        this.pantryPalDB = mongoClient.getDatabase("pantryPalTest");
+        this.recipeCollection = pantryPalDB.getCollection("recipe");
     }
-
     public ArrayList<Recipe> getRecipeList(String userId) {
         Bson filter = eq("userId", new ObjectId(userId));
 

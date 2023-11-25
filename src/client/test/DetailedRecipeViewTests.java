@@ -25,16 +25,18 @@ public class DetailedRecipeViewTests {
     private static final String CONNECTION_URI = 
             "mongodb+srv://cse110-lab6:iLoveCSE110@cluster0.e0wpva4.mongodb.net/?retryWrites=true&w=majority";
     private final MongoClient mongoClient = MongoClients.create(CONNECTION_URI);
-    private final MongoDatabase pantryPalDB = mongoClient.getDatabase("pantryPal");
-    private MongoCollection<Document> testRecipeCollection = pantryPalDB.getCollection("recipeTest");
+    private final MongoDatabase pantryPalDB = mongoClient.getDatabase("pantryPalTest");
+    private MongoCollection<Document> testRecipeCollection = pantryPalDB.getCollection("recipe");
 
-    RecipeRepository recipeRepository = new RecipeRepository("recipeTest");
+    RecipeRepository recipeRepository = new RecipeRepository("Test");
 
     Recipe recipe1;
     Recipe recipe2;
 
     @BeforeEach 
     void seedData() {
+        testRecipeCollection.deleteMany(new Document());
+
         recipe1 = new Recipe("655db6ee0eba1d4d1da76c4d", "Huli Huli Chicken", "lunch", 
             "yummy chicken plate with rice and mac", 
             "655db6ee0eba1d4d1da76c4d",
@@ -60,12 +62,7 @@ public class DetailedRecipeViewTests {
 
         testRecipeCollection.insertOne(recipeDoc);
     }
-
-    @AfterEach 
-    void removeData() {
-        testRecipeCollection.deleteMany(new Document());
-    }
-
+    
     @Test
     void testGetRecipe() {
         Recipe recipe = recipeRepository.getRecipe("655db6ee0eba1d4d1da76c4d");

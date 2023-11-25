@@ -14,8 +14,8 @@ public class UserRepository {
 
     private static final String CONNECTION_URI = 
             "mongodb+srv://cse110-lab6:iLoveCSE110@cluster0.e0wpva4.mongodb.net/?retryWrites=true&w=majority";
-    private final MongoClient mongoClient = MongoClients.create(CONNECTION_URI);
-    private final MongoDatabase pantryPalDB = mongoClient.getDatabase("pantryPal");
+    private MongoClient mongoClient = MongoClients.create(CONNECTION_URI);
+    private MongoDatabase pantryPalDB = mongoClient.getDatabase("pantryPal");
     private MongoCollection<Document> userCollection = pantryPalDB.getCollection("user");
 
 
@@ -23,8 +23,10 @@ public class UserRepository {
         
     }
 
-    public UserRepository(String collection) {
-        this.userCollection = pantryPalDB.getCollection(collection);
+    public UserRepository(String test) {
+        this.mongoClient = MongoClients.create(CONNECTION_URI);
+        this.pantryPalDB = mongoClient.getDatabase("pantryPalTest");
+        this.userCollection = pantryPalDB.getCollection("user");
     }
 
     // public ArrayList<String> getRecipeList() {
