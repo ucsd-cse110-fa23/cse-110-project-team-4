@@ -1,8 +1,15 @@
 package client;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
+
 import javafx.geometry.Pos;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 
@@ -11,17 +18,26 @@ public class DetailedRecipeInfoBody extends VBox {
     private TextArea recipeContent;
     private String uuid;
     private String createdAt;
+
+    // private Image image;
+    // private ImageView imageView;
     
     private boolean isNewRecipe;
 
     DetailedRecipeInfoBody() {
-
+        
         recipeName = new TextField();
         recipeName.setText("Ramen");
         recipeName.setPrefSize(40, 40);
         recipeName.setAlignment(Pos.CENTER);
         recipeName.setEditable(false);
         this.getChildren().add(recipeName);
+
+        // imageView = new ImageView();
+        // HBox hbox = new HBox();
+        // hbox.getChildren().add(imageView);
+        // hbox.setAlignment(Pos.CENTER);
+        // this.getChildren().add(imageView);
 
         recipeContent = new TextArea();
         recipeContent.setText("Ramenjhewgaojhfaedfjhikgbliausdbfgiuabdslifgblkadfbgilayrsdbgljkhaebdfjhgbajlkhdyfbglkahdbfgiohyavbdfuioyhgbakldjhfbgihadvbfyuihgbsldjkhfgbkajhbfihgbaslekfgbklajebyrhijkbaeioujbhfipuoaedrbyhiojuaeubn");
@@ -79,6 +95,18 @@ public class DetailedRecipeInfoBody extends VBox {
     public void setIsNewRecipe(boolean isNewRecipe) {
         this.isNewRecipe = isNewRecipe;
     }
+
+    // public void setImage(String imagePath) {
+    //     try {
+    //         InputStream stream = new FileInputStream(imagePath);
+    //         this.image = new Image(stream);
+    //         this.imageView.setImage(image);
+    //     } catch (FileNotFoundException e) {
+    //         // TODO Auto-generated catch block
+    //         e.printStackTrace();
+    //     }
+        
+    // }
 
     
     

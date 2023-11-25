@@ -21,8 +21,6 @@ public class RecipeButton extends HBox {
     recipeName.setPadding(new Insets(10, 10, 10, 10));
     this.getChildren().add(recipeName);
 
-    
-
   }
 
   public void setRecipeName(String name) {
@@ -30,8 +28,7 @@ public class RecipeButton extends HBox {
   }
 
   public void setUUID(String uuid) {
-    this.uuid=uuid;
+    this.uuid = uuid;
   }
 
-  
 }
