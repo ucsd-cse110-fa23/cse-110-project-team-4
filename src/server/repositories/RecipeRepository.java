@@ -24,6 +24,10 @@ public class RecipeRepository {
     private MongoCollection<Document> recipeCollection = pantryPalDB.getCollection("recipe");
 
 
+    public RecipeRepository() {
+        
+    }
+
     public RecipeRepository(String collection) {
         this.recipeCollection = pantryPalDB.getCollection(collection);
     }

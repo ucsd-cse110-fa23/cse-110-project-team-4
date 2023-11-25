@@ -34,7 +34,7 @@ public class RecipeHandler implements HttpHandler {
             } else {
               throw new Exception("Not Valid Request Method");
             }
-          } catch (Exception e) {
+        } catch (Exception e) {
             System.out.println("An erroneous request");
             response = e.toString();
             e.printStackTrace();
