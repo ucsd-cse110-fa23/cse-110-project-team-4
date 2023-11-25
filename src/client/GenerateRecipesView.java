@@ -68,9 +68,9 @@ public class GenerateRecipesView extends BorderPane {
 
     public void addListeners() {
         generateButton.setOnAction(e -> {
-            String[] recipeContent = this.grl.performGenerateButtonAction();
+            GenerateRecipeContent recipeContent = this.grl.performGenerateButtonAction();
             if (recipeContent != null) {
-                this.grvc.exportRecipeToDetailed(recipeContent[0], recipeContent[1], recipeContent[2]);
+                this.grvc.exportRecipeToDetailed(recipeContent.getRecipeName(), recipeContent.getRecipeDetails(), recipeContent.getImageByteArray());
                 this.grvc.transitionToDetailed();
             }
             else {

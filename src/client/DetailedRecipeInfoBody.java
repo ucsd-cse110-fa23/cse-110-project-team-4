@@ -1,9 +1,14 @@
 package client;
 
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 
+import javax.imageio.ImageIO;
+
+import javafx.embed.swing.SwingFXUtils;
 import javafx.geometry.Pos;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -19,8 +24,8 @@ public class DetailedRecipeInfoBody extends VBox {
     private String uuid;
     private String createdAt;
 
-    // private Image image;
-    // private ImageView imageView;
+    private Image image;
+    private ImageView imageView;
     
     private boolean isNewRecipe;
 
@@ -33,11 +38,11 @@ public class DetailedRecipeInfoBody extends VBox {
         recipeName.setEditable(false);
         this.getChildren().add(recipeName);
 
-        // imageView = new ImageView();
-        // HBox hbox = new HBox();
-        // hbox.getChildren().add(imageView);
-        // hbox.setAlignment(Pos.CENTER);
-        // this.getChildren().add(imageView);
+        imageView = new ImageView();
+        HBox hbox = new HBox();
+        hbox.getChildren().add(imageView);
+        hbox.setAlignment(Pos.CENTER);
+        this.getChildren().add(imageView);
 
         recipeContent = new TextArea();
         recipeContent.setText("Ramenjhewgaojhfaedfjhikgbliausdbfgiuabdslifgblkadfbgilayrsdbgljkhaebdfjhgbajlkhdyfbglkahdbfgiohyavbdfuioyhgbakldjhfbgihadvbfyuihgbsldjkhfgbkajhbfihgbaslekfgbklajebyrhijkbaeioujbhfipuoaedrbyhiojuaeubn");
@@ -96,17 +101,18 @@ public class DetailedRecipeInfoBody extends VBox {
         this.isNewRecipe = isNewRecipe;
     }
 
-    // public void setImage(String imagePath) {
-    //     try {
-    //         InputStream stream = new FileInputStream(imagePath);
-    //         this.image = new Image(stream);
-    //         this.imageView.setImage(image);
-    //     } catch (FileNotFoundException e) {
-    //         // TODO Auto-generated catch block
-    //         e.printStackTrace();
-    //     }
+    public void setImage(byte[] imageArray) {
+        try {
+            ByteArrayInputStream stream = new ByteArrayInputStream(imageArray);
+            BufferedImage bi = ImageIO.read(stream);
+            this.image = SwingFXUtils.toFXImage(bi, null);
+            this.imageView.setImage(image);
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
         
-    // }
+    }
 
     
     

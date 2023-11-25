@@ -19,7 +19,7 @@ public class GenerateRecipesLogic {
         validPromptFlag = false;
     }
 
-    public String[] performGenerateButtonAction() {
+    public GenerateRecipeContent performGenerateButtonAction() {
         if (!validPromptFlag) {
             return null;
         } else {
@@ -33,14 +33,10 @@ public class GenerateRecipesLogic {
                         Arrays.copyOfRange(recipeInfoSplit, 3, recipeInfoSplit.length));
 
                 DallEImageGenerator dig = new DallEImageGenerator(recipeName);
-                String imagePath = dig.generateImage();
+                byte[] imageArray = dig.generateImage();
 
-                System.out.println(imagePath);
-                String[] toReturn = {"", "", ""};
-                toReturn[0] = recipeName;
-                toReturn[1] = recipeDetails;
-                toReturn[2] = imagePath;
-                return toReturn;
+                GenerateRecipeContent grc = new GenerateRecipeContent(recipeName, recipeDetails, imageArray);
+                return grc;
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
