@@ -4,7 +4,9 @@ import com.sun.net.httpserver.*;
 
 import server.handlers.RecipeHandler;
 import server.handlers.RecipeListHandler;
+import server.handlers.UserHandler;
 import server.repositories.RecipeRepository;
+import server.repositories.UserRepository;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
@@ -21,7 +23,8 @@ public class Server {
         // create a thread pool to handle requests
         ThreadPoolExecutor threadPoolExecutor = (ThreadPoolExecutor) Executors.newFixedThreadPool(10);
 
-        RecipeRepository recipeRepository = new RecipeRepository("recipe");
+        RecipeRepository recipeRepository = new RecipeRepository();
+        UserRepository userRepository = new UserRepository();
 
         // create a server
         HttpServer server = HttpServer.create(
@@ -31,6 +34,7 @@ public class Server {
 
         server.createContext("/recipeList", new RecipeListHandler(recipeRepository));
         server.createContext("/recipe", new RecipeHandler(recipeRepository));
+        server.createContext("/user", new UserHandler(userRepository));
         server.setExecutor(threadPoolExecutor);
         server.start();
         
