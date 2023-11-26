@@ -1,5 +1,7 @@
 package client;
 
+import java.util.Base64;
+
 import org.json.JSONObject;
 
 import javafx.geometry.Pos;
@@ -9,7 +11,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import models.Model;
 
-public class DetailedRecipeViewTemplate extends BorderPane implements DView{
+public class DetailedRecipeViewTemplate extends BorderPane implements DView {
     public Header header;
     private Footer footer;
     private DetailedRecipeInfoBody detailedInfo;
@@ -70,7 +72,7 @@ public class DetailedRecipeViewTemplate extends BorderPane implements DView{
         lBox.setMaxWidth(180);
         HBox.setHgrow(lBox, Priority.SOMETIMES);
         header.getChildren().add(lBox);
-        
+
         header.setHeaderText("Detailed View");
         HBox rBox = new HBox();
         rBox.setAlignment(Pos.CENTER_RIGHT);
@@ -91,18 +93,24 @@ public class DetailedRecipeViewTemplate extends BorderPane implements DView{
         saveButton.setOnAction(e -> {
             if (this.detailedInfo.getIsNewRecipe()) {
                 model.performPOSTRequestForRecipe(this.detailedInfo.getRecipeName(),
-                        this.detailedInfo.getRecipeContent());
+                        this.detailedInfo.getRecipeContent(),
+                        Base64.getEncoder().encodeToString(this.detailedInfo.getImageArray()));
                 this.detailedInfo.setIsNewRecipe(false);
             } else {
-                System.out.println(model.recipeRequest("PUT", this.detailedInfo.getUUID(), this.detailedInfo.getRecipeName(),
-                        this.detailedInfo.getRecipeContent(), this.detailedInfo.getCreatedAt()));
+                System.out.println(model.recipeRequest("PUT", this.detailedInfo.getUUID(),
+                        this.detailedInfo.getRecipeName(),
+                        this.detailedInfo.getRecipeContent(),
+                        Base64.getEncoder().encodeToString(this.detailedInfo.getImageArray()),
+                        this.detailedInfo.getCreatedAt()));
             }
 
         });
 
         deleteButton.setOnAction(e -> {
             model.recipeRequest("DELETE", this.detailedInfo.getUUID(), this.detailedInfo.getRecipeName(),
-                    this.detailedInfo.getRecipeContent(), this.detailedInfo.getCreatedAt());
+                    this.detailedInfo.getRecipeContent(), 
+                    Base64.getEncoder().encodeToString(this.detailedInfo.getImageArray()),
+                    this.detailedInfo.getCreatedAt());
         });
     }
 
@@ -115,6 +123,7 @@ public class DetailedRecipeViewTemplate extends BorderPane implements DView{
         detailedInfo.setRecipeContext(recipeData.getString("details"));
         detailedInfo.setCreatedAt(recipeData.getLong("createdAt"));
         detailedInfo.setIsNewRecipe(false);
+        detailedInfo.setImage(Base64.getDecoder().decode(recipeData.getString("image")));
     }
 
     public DetailedRecipeInfoBody getDetailedRecipeInfoBody() {
