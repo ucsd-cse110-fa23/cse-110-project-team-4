@@ -5,8 +5,8 @@ import javafx.scene.layout.*;
 import models.Model;
 import javafx.geometry.Pos;
 
-public class DetailedRecipeView extends BorderPane {
-    private Header header;
+public class DetailedRecipeView extends BorderPane implements DView{
+    public Header header;
     private Footer footer;
     private DetailedRecipeInfoBody detailedInfo;
     private Button backButton;
@@ -16,7 +16,7 @@ public class DetailedRecipeView extends BorderPane {
     private DetailedViewController vc;
     Model model;
 
-    DetailedRecipeView(DetailedViewController vc) {
+    public DetailedRecipeView(DetailedViewController vc) {
         model = new Model();
         this.vc = vc;
         // Initialise the header Object
@@ -60,15 +60,17 @@ public class DetailedRecipeView extends BorderPane {
     private void addHeaderComponents() {
         HBox lBox = new HBox();
         lBox.getChildren().add(backButton);
+
         lBox.setAlignment(Pos.CENTER_LEFT);
         lBox.setMaxWidth(180);
         HBox.setHgrow(lBox, Priority.SOMETIMES);
         header.getChildren().add(lBox);
+        
         header.setHeaderText("Detailed View");
         HBox rBox = new HBox();
+        rBox.setAlignment(Pos.CENTER_RIGHT);
         rBox.setMaxWidth(180);
         HBox.setHgrow(rBox, Priority.SOMETIMES);
-
         header.getChildren().add(rBox);
     }
 
