@@ -7,6 +7,8 @@ import models.Model;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
 
 public class MultipleRecipeView extends BorderPane {
@@ -15,8 +17,14 @@ public class MultipleRecipeView extends BorderPane {
     private RecipeListBody recipeListBody;
     private JSONArray recipeList;
     private Button addButton;
+    private ComboBox<String> filterDropdown;
     private Model model;
 
+    ObservableList<String> options = FXCollections.observableArrayList(
+            "Breakfast",
+            "Lunch",
+            "Dinner",
+            "None");
     MultipleRecipeViewController mrvc;
 
     MultipleRecipeView(MultipleRecipeViewController mrvc) {
@@ -73,11 +81,30 @@ public class MultipleRecipeView extends BorderPane {
 
     public void addFooterButton() {
         footer.getChildren().add(addButton);
+        footer.getChildren().add(filterDropdown);
         footer.setAlignment(Pos.CENTER);
+
     }
 
     public void makeButtons() {
         addButton = new Button("+");
+        filterDropdown = new ComboBox<>(options);
+        filterDropdown.setPromptText("Filter by Meal Type");
+
+        VBox root = new VBox();
+        root.getChildren().add(filterDropdown);
+        filterDropdown.setStyle(
+                "-fx-arrow-button-visible: false;");
+        filterDropdown.showingProperty().addListener((observable, oldValue, showing) -> {
+            if (showing) {
+                // If the ComboBox dropdown is showing, adjust its position
+                double comboBoxHeight = filterDropdown.getHeight();
+                filterDropdown.setTranslateY(-comboBoxHeight * 4);
+            } else {
+                // Reset the translation when the dropdown is hidden
+                filterDropdown.setTranslateY(0);
+            }
+        });
     }
 
     public void addListeners() {
