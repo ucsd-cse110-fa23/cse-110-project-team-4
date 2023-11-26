@@ -68,15 +68,32 @@ public class MultipleRecipeView extends BorderPane {
             for (int i = 0, size = recipeList.length(); i < size; i++) {
                 JSONObject recipe = recipeList.getJSONObject(i);
 
-                RecipeButton recipeButton = new RecipeButton();
-                System.out.println(recipe.getString("name"));
-                recipeButton.setUUID(recipe.getString("id"));
-                recipeButton.setRecipeName(recipe.getString("name"));
-                recipeButton.setMealType(recipe.getString("mealType"));
-                recipeListBody.getChildren().add(recipeButton);
+                createRecipeButton(recipe);
             }
         }
         addListenersForButtons();
+    }
+
+    public void handleFilter(String mealType) {
+        recipeListBody.getChildren().clear();
+        for (int i = 0, size = recipeList.length(); i < size; i++) {
+            JSONObject recipe = recipeList.getJSONObject(i);
+            if (mealType.equals(null)
+                    || mealType.equals("None")
+                    || recipe.getString("mealType").equals(mealType)) {
+                createRecipeButton(recipe);
+            }
+        }
+        addListenersForButtons();
+    }
+
+    public void createRecipeButton(JSONObject recipe) {
+        RecipeButton recipeButton = new RecipeButton();
+        System.out.println(recipe.getString("name"));
+        recipeButton.setUUID(recipe.getString("id"));
+        recipeButton.setRecipeName(recipe.getString("name"));
+        recipeButton.setMealType(recipe.getString("mealType"));
+        recipeListBody.getChildren().add(recipeButton);
     }
 
     public void addFooterButton() {
@@ -93,8 +110,6 @@ public class MultipleRecipeView extends BorderPane {
 
         VBox root = new VBox();
         root.getChildren().add(filterDropdown);
-        filterDropdown.setStyle(
-                "-fx-arrow-button-visible: false;");
         filterDropdown.showingProperty().addListener((observable, oldValue, showing) -> {
             if (showing) {
                 // If the ComboBox dropdown is showing, adjust its position
@@ -115,6 +130,18 @@ public class MultipleRecipeView extends BorderPane {
             // recipeList.getChildren().add(recipe);
             this.mrvc.transitionToGenerate();
         });
+
+        filterDropdown.setOnAction(e -> {
+            String mealType = filterDropdown.getValue();
+            System.out.println(mealType);
+            if (mealType != null) {
+                System.out.println("Selected Item: " + mealType);
+                handleFilter(mealType);
+            } else {
+                System.out.println("No item selected.");
+            }
+        });
+
     }
 
     public void addListenersForButtons() {
