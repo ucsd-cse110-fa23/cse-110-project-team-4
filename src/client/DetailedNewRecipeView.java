@@ -3,9 +3,9 @@ package client;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 
-public class DetailedRecipeView2 extends DetailedRecipeView {
+public class DetailedNewRecipeView extends DetailedRecipeViewTemplate {
     Button reloadButton = new Button("Reload");
-    public DetailedRecipeView2(DetailedViewController vc) {
+    public DetailedNewRecipeView(DetailedViewController vc) {
         super(vc);
         this.addNewListeners();
         ((HBox)super.header.getChildren().get(2)).getChildren().add(reloadButton);
