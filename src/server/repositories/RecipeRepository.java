@@ -106,7 +106,7 @@ public class RecipeRepository {
         htmlBuilder.append("<body>\n");
         htmlBuilder.append("<h1>").append(recipe.name).append(" </h1>\n");
         htmlBuilder.append("<h2>").append(recipe.mealType).append(" </h2>\n");
-        htmlBuilder.append("<p>").append(recipe.details).append("</p>\n");
+        htmlBuilder.append("<p>").append(recipe.details.replaceAll("\n", "<br>")).append("</p>\n");
         htmlBuilder.append("</body>\n");
         htmlBuilder.append("</html>");
 
