@@ -146,4 +146,33 @@ public class Model {
             return "Error: " + ex.getMessage();
         }
     }
+
+    public String login(String username, String password) {
+        try {
+            String urlString = "http://localhost:8100/login";  // Replace with your server's authentication endpoint
+
+            URL url = new URI(urlString).toURL();
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod("POST");
+            conn.setDoOutput(true);
+
+            // Create a JSON object with username and password
+            JSONObject loginRequest = new JSONObject();
+            loginRequest.put("username", username);
+            loginRequest.put("password", password);
+
+            OutputStreamWriter out = new OutputStreamWriter(conn.getOutputStream());
+            out.write(loginRequest.toString());
+            out.flush();
+            out.close();
+
+            BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+            String response = in.readLine();
+            in.close();
+            return response;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return "Error: " + ex.getMessage();
+        }
+    }
 }
