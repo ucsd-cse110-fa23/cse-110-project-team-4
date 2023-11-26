@@ -1,8 +1,15 @@
-package server;
+package server.handlers;
 
 import com.sun.net.httpserver.*;
+
+import server.Recipe;
+import server.repositories.RecipeRepository;
+
 import java.io.*;
+import java.net.URI;
 import java.util.*;
+
+import org.json.JSONArray;
 
 public class RecipeListHandler implements HttpHandler {
 
@@ -20,12 +27,12 @@ public class RecipeListHandler implements HttpHandler {
             if (method.equals("GET")) {
               response = handleGet(httpExchange);
             } else {
-              throw new Exception("Not Valid Request Method");
+                throw new Exception("Not Valid Request Method");
             }
           } catch (Exception e) {
-            System.out.println("An erroneous request");
-            response = e.toString();
-            e.printStackTrace();
+              System.out.println("An erroneous request");
+              response = e.toString();
+              e.printStackTrace();
         }
 
         //Sending back response to the client
@@ -37,11 +44,22 @@ public class RecipeListHandler implements HttpHandler {
     }
 
     private String handleGet(HttpExchange httpExchange) throws IOException {
-        String response = "";
-        ArrayList<String> recipeList = recipeRepository.getRecipeList();
-        for(String s:recipeList){
-            response += s + ";";
+        String response = "Invalid GET request";
+        URI uri = httpExchange.getRequestURI();
+        String query = uri.getRawQuery();
+
+
+        if (query != null) {
+            String userId = query.substring(query.indexOf("=") + 1);
+            
+            ArrayList<Recipe> recipeList = this.recipeRepository.getRecipeList(userId); // Retrieve data from hashmap
+            JSONArray recipeListJSON = new JSONArray();
+            for(Recipe recipe:recipeList){
+                recipeListJSON.put(recipe.toJSON());
+            }
+            response = recipeListJSON.toString();
         }
+
         return response;
     }     
 
