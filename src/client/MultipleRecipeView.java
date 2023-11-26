@@ -5,26 +5,34 @@ import javafx.scene.layout.*;
 import models.Model;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
 
+import java.util.*;
+
 public class MultipleRecipeView extends BorderPane {
     private Header header;
     private Footer footer;
     private RecipeListBody recipeListBody;
-    private JSONArray recipeList;
+    private List<JSONObject> recipeArrayList;
     private Button addButton;
     private ComboBox<String> filterDropdown;
+    private ComboBox<String> sortDropdown;
+    private String currFilter;
     private Model model;
 
-    ObservableList<String> options = FXCollections.observableArrayList(
+    ObservableList<String> filterOptions = FXCollections.observableArrayList(
             "Breakfast",
             "Lunch",
             "Dinner",
-            "None");
+            "No Filter");
+    ObservableList<String> sortOptions = FXCollections.observableArrayList(
+            "Chronologically ASC",
+            "Chronologically DSC");
     MultipleRecipeViewController mrvc;
 
     MultipleRecipeView(MultipleRecipeViewController mrvc) {
@@ -62,25 +70,27 @@ public class MultipleRecipeView extends BorderPane {
     public void loadRecipeList() {
         recipeListBody.getChildren().clear();
         String response = model.performGETRequestForList();
+        recipeArrayList = new ArrayList<JSONObject>();
         // System.out.println(response);
         if (response != null) {
-            recipeList = new JSONArray(response);
+
+            JSONArray recipeList = new JSONArray(response);
             for (int i = 0, size = recipeList.length(); i < size; i++) {
                 JSONObject recipe = recipeList.getJSONObject(i);
-
+                recipeArrayList.add(recipeList.getJSONObject(i));
                 createRecipeButton(recipe);
             }
         }
         addListenersForButtons();
     }
 
-    public void handleFilter(String mealType) {
+    public void generateButtons() {
         recipeListBody.getChildren().clear();
-        for (int i = 0, size = recipeList.length(); i < size; i++) {
-            JSONObject recipe = recipeList.getJSONObject(i);
-            if (mealType.equals(null)
-                    || mealType.equals("None")
-                    || recipe.getString("mealType").equals(mealType)) {
+        for (int i = 0, size = recipeArrayList.size(); i < size; i++) {
+            JSONObject recipe = recipeArrayList.get(i);
+            if (this.currFilter == null
+                    || this.currFilter.equals("No Filter")
+                    || recipe.getString("mealType").equals(this.currFilter)) {
                 createRecipeButton(recipe);
             }
         }
@@ -97,6 +107,7 @@ public class MultipleRecipeView extends BorderPane {
     }
 
     public void addFooterButton() {
+        footer.getChildren().add(sortDropdown);
         footer.getChildren().add(addButton);
         footer.getChildren().add(filterDropdown);
         footer.setAlignment(Pos.CENTER);
@@ -105,18 +116,32 @@ public class MultipleRecipeView extends BorderPane {
 
     public void makeButtons() {
         addButton = new Button("+");
-        filterDropdown = new ComboBox<>(options);
-        filterDropdown.setPromptText("Filter by Meal Type");
+        filterDropdown = new ComboBox<>(filterOptions);
+        filterDropdown.setPromptText("No Filter");
+        filterDropdown.setMaxWidth(150);
 
-        VBox root = new VBox();
-        root.getChildren().add(filterDropdown);
+        VBox rootFilter = new VBox();
+        rootFilter.getChildren().add(filterDropdown);
         filterDropdown.showingProperty().addListener((observable, oldValue, showing) -> {
             if (showing) {
-                // If the ComboBox dropdown is showing, adjust its position
                 double comboBoxHeight = filterDropdown.getHeight();
                 filterDropdown.setTranslateY(-comboBoxHeight * 4);
             } else {
-                // Reset the translation when the dropdown is hidden
+                filterDropdown.setTranslateY(0);
+            }
+        });
+
+        sortDropdown = new ComboBox<>(sortOptions);
+        sortDropdown.setPromptText("Chronologically ASC");
+        sortDropdown.setMaxWidth(150);
+
+        VBox rootSort = new VBox();
+        rootSort.getChildren().add(filterDropdown);
+        filterDropdown.showingProperty().addListener((observable, oldValue, showing) -> {
+            if (showing) {
+                double comboBoxHeight = filterDropdown.getHeight();
+                filterDropdown.setTranslateY(-comboBoxHeight * 4);
+            } else {
                 filterDropdown.setTranslateY(0);
             }
         });
@@ -136,7 +161,25 @@ public class MultipleRecipeView extends BorderPane {
             System.out.println(mealType);
             if (mealType != null) {
                 System.out.println("Selected Item: " + mealType);
-                handleFilter(mealType);
+                this.currFilter = mealType;
+                generateButtons();
+            } else {
+                System.out.println("No item selected.");
+            }
+        });
+
+        sortDropdown.setOnAction(e -> {
+            String sortOption = sortDropdown.getValue();
+            System.out.println(sortOption);
+            if (sortOption != null) {
+                System.out.println("Selected Item: " + sortOption);
+
+                if (sortOption == "Chronologically ASC") {
+                    handleSortByTime(false);
+                } else if (sortOption == "Chronologically DSC") {
+                    handleSortByTime(true);
+                }
+                // do sort alphabetically here
             } else {
                 System.out.println("No item selected.");
             }
@@ -156,5 +199,56 @@ public class MultipleRecipeView extends BorderPane {
             }
         }
     }
+
+    public void handleSortByTime(Boolean reverseOrder) {
+        Collections.sort(recipeArrayList, new Comparator<JSONObject>() {
+            // You can change "Name" with "ID" if you want to sort by ID
+            @Override
+            public int compare(JSONObject a, JSONObject b) {
+                Long valA;
+                Long valB;
+
+                valA = a.getLong("createdAt");
+                valB = b.getLong("createdAt");
+
+                int comp = Long.compare(valA, valB);
+
+                return comp;
+            }
+        });
+
+        if (reverseOrder) {
+            Collections.reverse(recipeArrayList);
+        }
+
+        generateButtons();
+    }
+
+    // public void handleSort(String key, Boolean reverseOrder) {
+    // Collections.sort(recipeArrayList, new Comparator<JSONObject>() {
+    // // You can change "Name" with "ID" if you want to sort by ID
+    // @Override
+    // public int compare(JSONObject a, JSONObject b) {
+    // String valA = new String();
+    // String valB = new String();
+
+    // try {
+    // valA = a.getString(key);
+    // valB = b.getString(key);
+    // } catch (JSONException e) {
+    // // do something
+    // }
+
+    // int comp = valA.compareTo(valB);
+
+    // return comp;
+    // }
+    // });
+
+    // if (reverseOrder) {
+    // Collections.reverse(recipeArrayList);
+    // }
+
+    // }
 
 }
