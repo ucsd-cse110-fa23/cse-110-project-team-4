@@ -54,7 +54,7 @@ public class MultipleRecipeView extends BorderPane {
     public void loadRecipeList() {
         recipeListBody.getChildren().clear();
         String response = model.performGETRequestForList();
-        // System.out.println(response);
+        System.out.println("bruh" + response);
         if (response != null) {
             recipeList = new JSONArray(response);
             for (int i = 0, size = recipeList.length(); i < size; i++) {

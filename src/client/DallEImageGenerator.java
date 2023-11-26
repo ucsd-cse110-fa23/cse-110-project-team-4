@@ -2,7 +2,6 @@ package client;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.http.HttpClient;
@@ -32,8 +31,8 @@ public class DallEImageGenerator {
         // Set request parameters
         int n = 1;
 
-        String imagePath = "src/client/images/" + prompt + ".jpg";
-        Files.deleteIfExists(Paths.get(imagePath));
+        // String imagePath = "src/client/images/" + prompt + ".jpg";
+        // Files.deleteIfExists(Paths.get(imagePath));
 
         // Create a request body which you will pass into request object
         JSONObject requestBody = new JSONObject();
@@ -72,8 +71,8 @@ public class DallEImageGenerator {
         ByteArrayOutputStream b = new ByteArrayOutputStream();
         ImageIO.write(bi, "jpg", b);
 
-        // do whatever with the array...
         byte[] imageByteArray = b.toByteArray();
+        //String imageString = new String(imageByteArray);
         return imageByteArray;
 
     }
