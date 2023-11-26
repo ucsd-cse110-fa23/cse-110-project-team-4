@@ -3,10 +3,13 @@ package client;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import models.Model;
+
+import org.json.JSONObject;
+
 import javafx.geometry.Pos;
 
-public class DetailedRecipeView extends BorderPane {
-    private Header header;
+public class DetailedRecipeView extends BorderPane implements DView{
+    public Header header;
     private Footer footer;
     private DetailedRecipeInfoBody detailedInfo;
     private Button backButton;
@@ -16,7 +19,7 @@ public class DetailedRecipeView extends BorderPane {
     private DetailedViewController vc;
     Model model;
 
-    DetailedRecipeView(DetailedViewController vc) {
+    public DetailedRecipeView(DetailedViewController vc) {
         model = new Model();
         this.vc = vc;
         // Initialise the header Object
@@ -41,7 +44,8 @@ public class DetailedRecipeView extends BorderPane {
     }
 
     private void makeButtons() {
-        // String defaultButtonStyle = "-fx-font-style: italic; -fx-background-color: #FFFFFF;  -fx-font-weight: bold; -fx-font: 11 arial;";
+        // String defaultButtonStyle = "-fx-font-style: italic; -fx-background-color:
+        // #FFFFFF; -fx-font-weight: bold; -fx-font: 11 arial;";
         backButton = new Button("BACK");
         // backButton.setStyle(defaultButtonStyle);
         saveButton = new Button("SAVE");
@@ -60,15 +64,17 @@ public class DetailedRecipeView extends BorderPane {
     private void addHeaderComponents() {
         HBox lBox = new HBox();
         lBox.getChildren().add(backButton);
+
         lBox.setAlignment(Pos.CENTER_LEFT);
         lBox.setMaxWidth(180);
         HBox.setHgrow(lBox, Priority.SOMETIMES);
         header.getChildren().add(lBox);
+        
         header.setHeaderText("Detailed View");
         HBox rBox = new HBox();
+        rBox.setAlignment(Pos.CENTER_RIGHT);
         rBox.setMaxWidth(180);
         HBox.setHgrow(rBox, Priority.SOMETIMES);
-
         header.getChildren().add(rBox);
     }
 
@@ -87,26 +93,26 @@ public class DetailedRecipeView extends BorderPane {
                         this.detailedInfo.getRecipeContent());
                 this.detailedInfo.setIsNewRecipe(false);
             } else {
-                model.recipeRequest("PUT", this.detailedInfo.getUUID(), this.detailedInfo.getRecipeName(),
-                        this.detailedInfo.getRecipeContent(), this.detailedInfo.getCreatedAt());
+                System.out.println(model.recipeRequest("PUT", this.detailedInfo.getUUID(), this.detailedInfo.getRecipeName(),
+                        this.detailedInfo.getRecipeContent(), this.detailedInfo.getCreatedAt()));
             }
 
         });
 
         deleteButton.setOnAction(e -> {
             model.recipeRequest("DELETE", this.detailedInfo.getUUID(), this.detailedInfo.getRecipeName(),
-                        this.detailedInfo.getRecipeContent(), this.detailedInfo.getCreatedAt());
+                    this.detailedInfo.getRecipeContent(), this.detailedInfo.getCreatedAt());
         });
     }
 
     public void getAndSetInfo(String uuid) {
         String data = model.performGETRequestForRecipe(uuid);
         System.out.println(data);
-        String[] dataSplit = data.split(";");
-        detailedInfo.setUUId(dataSplit[0]);
-        detailedInfo.setRecipeNAme(dataSplit[1]);
-        detailedInfo.setRecipeContext(dataSplit[2].replace("\\n", "\n"));
-        detailedInfo.setCreatedAt(dataSplit[3]);
+        JSONObject recipeData = new JSONObject(data);
+        detailedInfo.setUUId(recipeData.getString("id"));
+        detailedInfo.setRecipeNAme(recipeData.getString("name"));
+        detailedInfo.setRecipeContext(recipeData.getString("details"));
+        detailedInfo.setCreatedAt(recipeData.getLong("createdAt"));
         detailedInfo.setIsNewRecipe(false);
     }
 

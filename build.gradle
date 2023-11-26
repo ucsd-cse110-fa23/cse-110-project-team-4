@@ -23,6 +23,7 @@ dependencies {
     testImplementation "org.junit.jupiter:junit-jupiter-api:$junitVersion"
     // This provides the TestEngine to actually run the tests.
     testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:$junitVersion"
+    implementation 'org.mongodb:mongodb-driver-sync:4.11.0'
 }
 
 test {
