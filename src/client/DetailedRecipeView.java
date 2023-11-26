@@ -44,7 +44,8 @@ public class DetailedRecipeView extends BorderPane implements DView{
     }
 
     private void makeButtons() {
-        // String defaultButtonStyle = "-fx-font-style: italic; -fx-background-color: #FFFFFF;  -fx-font-weight: bold; -fx-font: 11 arial;";
+        // String defaultButtonStyle = "-fx-font-style: italic; -fx-background-color:
+        // #FFFFFF; -fx-font-weight: bold; -fx-font: 11 arial;";
         backButton = new Button("BACK");
         // backButton.setStyle(defaultButtonStyle);
         saveButton = new Button("SAVE");
@@ -100,7 +101,7 @@ public class DetailedRecipeView extends BorderPane implements DView{
 
         deleteButton.setOnAction(e -> {
             model.recipeRequest("DELETE", this.detailedInfo.getUUID(), this.detailedInfo.getRecipeName(),
-                        this.detailedInfo.getRecipeContent(), this.detailedInfo.getCreatedAt());
+                    this.detailedInfo.getRecipeContent(), this.detailedInfo.getCreatedAt());
         });
     }
 
