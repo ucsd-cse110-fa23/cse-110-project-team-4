@@ -23,7 +23,7 @@ public class RecipeButton extends HBox {
 
         recipeName = new Text();
         recipeMealType = new Text();
-
+        recipeName.setWrappingWidth(1);
         // Wrap texts in panes
         StackPane pane1 = new StackPane(recipeName);
         // Set wrapping width for recipeName text
@@ -39,8 +39,8 @@ public class RecipeButton extends HBox {
 
         // HBox
         HBox display = new HBox(pane1, pane2);
-        HBox.setHgrow(pane1, Priority.ALWAYS); // pane1 takes as much space as possible
-        HBox.setHgrow(pane2, Priority.NEVER);  // pane2 takes only the space it needs
+        HBox.setHgrow(pane1, Priority.SOMETIMES); // pane1 takes as much space as possible
+        HBox.setHgrow(pane2, Priority.SOMETIMES);  // pane2 takes only the space it needs
 
         button = new Button();
         button.setStyle("-fx-background-color: #DAE5FF; -fx-border-width: 0;"); // set background color of texfield
