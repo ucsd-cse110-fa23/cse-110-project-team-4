@@ -10,7 +10,7 @@ public class DetailedRecipeInfoBody extends VBox {
     private TextField recipeName;
     private TextArea recipeContent;
     private String uuid;
-    private String createdAt;
+    private Long createdAt;
     
     private boolean isNewRecipe;
 
@@ -56,7 +56,7 @@ public class DetailedRecipeInfoBody extends VBox {
         return this.isNewRecipe;
     }
 
-    public String getCreatedAt() {
+    public Long getCreatedAt() {
         return this.createdAt;
     }
 
@@ -72,7 +72,7 @@ public class DetailedRecipeInfoBody extends VBox {
         this.uuid = uuid;
     }
 
-    public void setCreatedAt(String createdAt) {
+    public void setCreatedAt(Long createdAt) {
         this.createdAt = createdAt;
     }
 

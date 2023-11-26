@@ -1,24 +1,30 @@
 package client;
 
+import client.FactoryForDetailedViews.AbstractFactoryForDetailedView;
 import javafx.scene.Scene;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 public class DetailedViewController implements ViewController{
     Stage dvcStage;
     int screenSizeWidth;
     int screenSizeHeight;
-    DetailedRecipeView drv;
+    DView drv;
     MainViewController mc;
-    DetailedViewController(Stage primaryStage,int screenSizeWidth,int screenSizeHeight,MainViewController mc){
+    AbstractFactoryForDetailedView<DetailedViewController> affdv;
+    DetailedViewController(Stage primaryStage,int screenSizeWidth,int screenSizeHeight,MainViewController mc, AbstractFactoryForDetailedView<DetailedViewController> affdv){
         this.mc = mc;
         this.dvcStage = primaryStage;
         this.screenSizeWidth = screenSizeWidth;
         this.screenSizeHeight = screenSizeHeight;
-        this.drv = new DetailedRecipeView(this);
-        dvcStage.setScene(new Scene(drv, this.screenSizeWidth, this.screenSizeHeight));
+        this.affdv = affdv;
+        this.makeDetailedView();
+        dvcStage.setScene(new Scene((BorderPane)drv, this.screenSizeWidth, this.screenSizeHeight));
         dvcStage.setTitle("PantryPal");
     }
-
+    public void makeDetailedView(){
+        drv = affdv.getView(this);
+    }
     public void display(){
         this.drv.getDetailedRecipeInfoBody().textFieldEditable(false);
         dvcStage.show();
