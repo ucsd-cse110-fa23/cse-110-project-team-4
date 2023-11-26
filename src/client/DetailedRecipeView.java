@@ -3,6 +3,9 @@ package client;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import models.Model;
+
+import org.json.JSONObject;
+
 import javafx.geometry.Pos;
 
 public class DetailedRecipeView extends BorderPane implements DView{
@@ -89,8 +92,8 @@ public class DetailedRecipeView extends BorderPane implements DView{
                         this.detailedInfo.getRecipeContent());
                 this.detailedInfo.setIsNewRecipe(false);
             } else {
-                model.recipeRequest("PUT", this.detailedInfo.getUUID(), this.detailedInfo.getRecipeName(),
-                        this.detailedInfo.getRecipeContent(), this.detailedInfo.getCreatedAt());
+                System.out.println(model.recipeRequest("PUT", this.detailedInfo.getUUID(), this.detailedInfo.getRecipeName(),
+                        this.detailedInfo.getRecipeContent(), this.detailedInfo.getCreatedAt()));
             }
 
         });
@@ -104,11 +107,11 @@ public class DetailedRecipeView extends BorderPane implements DView{
     public void getAndSetInfo(String uuid) {
         String data = model.performGETRequestForRecipe(uuid);
         System.out.println(data);
-        String[] dataSplit = data.split(";");
-        detailedInfo.setUUId(dataSplit[0]);
-        detailedInfo.setRecipeNAme(dataSplit[1]);
-        detailedInfo.setRecipeContext(dataSplit[2].replace("\\n", "\n"));
-        detailedInfo.setCreatedAt(dataSplit[3]);
+        JSONObject recipeData = new JSONObject(data);
+        detailedInfo.setUUId(recipeData.getString("id"));
+        detailedInfo.setRecipeNAme(recipeData.getString("name"));
+        detailedInfo.setRecipeContext(recipeData.getString("details"));
+        detailedInfo.setCreatedAt(recipeData.getLong("createdAt"));
         detailedInfo.setIsNewRecipe(false);
     }
 
