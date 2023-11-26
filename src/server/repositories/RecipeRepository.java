@@ -89,4 +89,30 @@ public class RecipeRepository {
         recipeCollection.deleteOne(filter);
         return recipe;
     }
+
+    public String shareRecipe(String id) {
+        Bson filter = eq("_id", new ObjectId(id));
+        Document recipeDocument = recipeCollection.find(filter).first();
+        if (recipeDocument == null) {
+            return "No data found for recipe with id: " + id;
+        }
+
+        Recipe recipe = new Recipe(recipeDocument);
+        StringBuilder htmlBuilder = new StringBuilder();
+
+        htmlBuilder.append("<!DOCTYPE html>\n");
+        htmlBuilder.append("<html>\n");
+        htmlBuilder.append("<head>\n");
+        htmlBuilder.append("<title>").append(recipe.name).append(" Recipe</title>\n");
+        htmlBuilder.append("</head>\n");
+        htmlBuilder.append("<body>\n");
+        htmlBuilder.append("<h1>").append(recipe.name).append(" </h1>\n");
+        htmlBuilder.append("<h2>").append(recipe.mealType).append(" </h2>\n");
+        htmlBuilder.append("<p>").append(recipe.details.replaceAll("\n", "<br>")).append("</p>\n");
+        htmlBuilder.append("</body>\n");
+        htmlBuilder.append("</html>");
+
+        // encode HTML content
+        return htmlBuilder.toString();
+    }
 }

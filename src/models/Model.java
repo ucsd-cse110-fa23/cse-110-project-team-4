@@ -67,7 +67,7 @@ public class Model {
             } else if (method.equals("POST")) {
                 JSONObject createRecipeRequest = new JSONObject();
                 createRecipeRequest.put("name", name);
-                createRecipeRequest.put("mealType", "breakfast");
+                createRecipeRequest.put("mealType", "Breakfast");
                 createRecipeRequest.put("details", details);
 
                 OutputStreamWriter out = new OutputStreamWriter(conn.getOutputStream());

@@ -16,10 +16,5 @@ public class App extends Application {
         // TaskList
         new MainViewController();
 
-        int tempSsw = 500;
-        int tempSsh = 700;
-        Stage tempStage = new Stage();
-        CreateAccountViewController cavc = new CreateAccountViewController(tempStage, tempSsw, tempSsh);
-        cavc.display();
     }
 }
