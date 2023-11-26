@@ -138,4 +138,25 @@ public class ServerTest {
 
         assertEquals("Invalid Login Credentials", loginError);
     }
+
+    @Test
+    void testShare() {
+        String sharedRecipe = recipeRepository.shareRecipe("655db6ee0eba1d4d1da76c4d");
+
+        StringBuilder htmlBuilder = new StringBuilder();
+
+        htmlBuilder.append("<!DOCTYPE html>\n");
+        htmlBuilder.append("<html>\n");
+        htmlBuilder.append("<head>\n");
+        htmlBuilder.append("<title>").append(recipe1.name).append(" Recipe</title>\n");
+        htmlBuilder.append("</head>\n");
+        htmlBuilder.append("<body>\n");
+        htmlBuilder.append("<h1>").append(recipe1.name).append(" </h1>\n");
+        htmlBuilder.append("<h2>").append(recipe1.mealType).append(" </h2>\n");
+        htmlBuilder.append("<p>").append(recipe1.details.replaceAll("\n", "<br>")).append("</p>\n");
+        htmlBuilder.append("</body>\n");
+        htmlBuilder.append("</html>");
+
+        assertEquals(sharedRecipe, htmlBuilder.toString());
+    }
 }
