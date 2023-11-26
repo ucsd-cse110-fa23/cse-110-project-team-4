@@ -1,14 +1,15 @@
 package client;
 
-import javafx.scene.control.*;
-import javafx.scene.layout.*;
-import models.Model;
-
 import org.json.JSONObject;
 
 import javafx.geometry.Pos;
+import javafx.scene.control.Button;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
+import models.Model;
 
-public class DetailedRecipeView extends BorderPane implements DView{
+public class DetailedRecipeViewTemplate extends BorderPane implements DView{
     public Header header;
     private Footer footer;
     private DetailedRecipeInfoBody detailedInfo;
@@ -19,7 +20,7 @@ public class DetailedRecipeView extends BorderPane implements DView{
     private DetailedViewController vc;
     Model model;
 
-    public DetailedRecipeView(DetailedViewController vc) {
+    public DetailedRecipeViewTemplate(DetailedViewController vc) {
         model = new Model();
         this.vc = vc;
         // Initialise the header Object
