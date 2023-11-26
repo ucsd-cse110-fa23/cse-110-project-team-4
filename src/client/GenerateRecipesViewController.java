@@ -32,7 +32,7 @@ public class GenerateRecipesViewController implements ViewController{
     }
 
     public void exportRecipeToDetailed(String recipeName, String recipeDetails) {
-        DetailedViewController dvc = this.mvc.getDetailedViewController();
+        DetailedViewController dvc = this.mvc.getDetailedViewController2();
         DetailedRecipeInfoBody drb = dvc.drv.getDetailedRecipeInfoBody();
         drb.setRecipeNAme(recipeName);
         drb.setRecipeContext(recipeDetails);

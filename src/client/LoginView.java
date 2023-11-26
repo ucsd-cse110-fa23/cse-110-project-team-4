@@ -8,6 +8,7 @@ public class LoginView extends BorderPane {
     private Footer footer;
     private Model model;
     private LoginBody loginBody;
+<<<<<<< HEAD
 
     private LoginViewController lvc; 
 
@@ -26,6 +27,26 @@ public class LoginView extends BorderPane {
         footer = new Footer();
 
         // Set up the layout for the LoginView
+=======
+    
+    LoginViewController lvc;
+
+    public LoginView(LoginViewController lvc) {
+        this.lvc = lvc;
+        
+        // Initialize the header Object
+        model = new Model();
+        header = new Header();
+        header.setHeaderText("Login");
+        
+        // Initialize the LoginBody Object
+        loginBody = new LoginBody(lvc);
+        
+        // Initialize the Footer Object
+        footer = new Footer();
+        
+        // Set up the layout for the login view
+>>>>>>> main
         this.setTop(header);
         this.setCenter(loginBody);
         this.setBottom(footer);

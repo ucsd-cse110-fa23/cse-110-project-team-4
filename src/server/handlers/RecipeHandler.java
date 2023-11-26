@@ -34,7 +34,7 @@ public class RecipeHandler implements HttpHandler {
             } else {
               throw new Exception("Not Valid Request Method");
             }
-          } catch (Exception e) {
+        } catch (Exception e) {
             System.out.println("An erroneous request");
             response = e.toString();
             e.printStackTrace();
@@ -48,6 +48,7 @@ public class RecipeHandler implements HttpHandler {
        
     }
 
+    // Takes in the httpExchange and gets the body as a JSON
     private JSONObject parseJSON(HttpExchange httpExchange) {
         InputStream inStream = httpExchange.getRequestBody();
         StringBuilder jsonBuff = new StringBuilder();
@@ -57,7 +58,9 @@ public class RecipeHandler implements HttpHandler {
             while ((line = scanner.nextLine()) != null)
                 jsonBuff.append(line);
             scanner.close();
-        } catch (Exception e) { /*error*/ }
+        } catch (Exception e) { /*error*/ 
+            e.printStackTrace();
+        }
 
         //System.out.println("Request JSON string :" + jsonBuff.toString());
         //write the response here by getting JSON from jasonBuff.toString()
