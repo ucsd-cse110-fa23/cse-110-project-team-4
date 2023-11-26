@@ -3,7 +3,7 @@ package client;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 
-public class DetailedRecipeView2 extends DetailedRecipeView {
+public class DetailedRecipeView2 extends DetailedRecipeViewTemplate {
     Button reloadButton = new Button("Reload");
     public DetailedRecipeView2(DetailedViewController vc) {
         super(vc);
