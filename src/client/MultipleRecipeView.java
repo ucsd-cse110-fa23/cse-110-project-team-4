@@ -3,13 +3,17 @@ package client;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import models.Model;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import javafx.geometry.Pos;
 
 public class MultipleRecipeView extends BorderPane {
     private Header header;
     private Footer footer;
     private RecipeListBody recipeListBody;
-    private String[] recipeList;
+    private JSONArray recipeList;
     private Button addButton;
     private Model model;
 
@@ -52,17 +56,19 @@ public class MultipleRecipeView extends BorderPane {
         String response = model.performGETRequestForList();
         // System.out.println(response);
         if (response != null) {
-            recipeList = response.split(";");
-            for (String name : recipeList) {
+            recipeList = new JSONArray(response);
+            for (int i = 0, size = recipeList.length(); i < size; i++) {
+                JSONObject recipe = recipeList.getJSONObject(i);
+
                 RecipeButton recipeButton = new RecipeButton();
-                System.out.println(name);
-                recipeButton.setUUID(name.split(",")[0]);
-                recipeButton.setRecipeName(name.split(",")[1]);
+                System.out.println(recipe.getString("name"));
+                recipeButton.setUUID(recipe.getString("id"));
+                recipeButton.setRecipeName(recipe.getString("name"));
+                recipeButton.setMealType(recipe.getString("mealType"));
                 recipeListBody.getChildren().add(recipeButton);
             }
         }
         addListenersForButtons();
-
     }
 
     public void addFooterButton() {
@@ -88,8 +94,8 @@ public class MultipleRecipeView extends BorderPane {
         for (int i = 0; i < recipeListBody.getChildren().size(); i++) {
             if (this.recipeListBody.getChildren().get(i) instanceof RecipeButton) {
                 RecipeButton rb = (RecipeButton) this.recipeListBody.getChildren().get(i);
-                rb.recipeName.setOnAction(e -> {
-                    System.out.println(rb.recipeName.getText());
+                rb.button.setOnAction(e -> {
+                    // System.out.println(rb.recipeName.getText());
                     // mrvc.mvc.closeMultipleOpenDetailed(rb.uuid);
                     this.mrvc.transitionToDetailed(rb.uuid);
                 });
