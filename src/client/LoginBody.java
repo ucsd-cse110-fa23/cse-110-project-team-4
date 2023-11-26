@@ -6,6 +6,8 @@ import java.net.URL;
 import org.json.JSONObject;
 
 import javafx.geometry.Pos;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.PasswordField;
@@ -82,41 +84,48 @@ public class LoginBody extends VBox {
     }
 
     private void performLogin() {
+        // Retrieve the username and password entered by the user
         String username = usernameField.getText();
         String password = passwordField.getText();
-    
-        // Check if username or password fields are empty
+
+        // You can add validation here to ensure that username and password are not empty
         if (username.isEmpty() || password.isEmpty()) {
-            usernameErrorMessage.setText(username.isEmpty() ? "Username cannot be empty" : "");
-            passwordErrorMessage.setText(password.isEmpty() ? "Password cannot be empty" : "");
+            showErrorMessage("Username and password are required.");
             return;
         }
-    
-        // Create the JSON object with the user credentials
-        JSONObject credentials = new JSONObject();
-        credentials.put("username", username);
-        credentials.put("password", password);
-    
-        // Use the UserRepository to perform the login request
-        UserRepository userRepository = new UserRepository();
-        String result = userRepository.login(credentials);
-    
-        // Handle the result of the login attempt
-        if (!"Invalid Login Credentials".equals(result)) {
-            usernameErrorMessage.setText(""); 
-            passwordErrorMessage.setText(""); 
-            // Proceed with navigating to the next view or performing the next action
-            handleSuccessfulLogin(result); 
+
+        // You can make an HTTP request to your backend server for authentication
+        // Example using your Model class (make sure to adjust this based on your actual implementation):
+        Model model = new Model();
+        String response = model.login(username, password);
+
+        // Check the response from the server
+        if (response.startsWith("Error")) {
+            showErrorMessage("An error occurred during login.");
+        } else if (response.equals("Invalid Login Credentials")) {
+            showErrorMessage("Invalid username or password.");
         } else {
-            // Login failed
-            usernameErrorMessage.setText("Invalid Login Credentials");
-            passwordErrorMessage.setText("Invalid Login Credentials");
+            // Login successful, you can handle the successful login here
+            // For example, you can navigate to a different view or update the UI accordingly
+            // You might also store user session information, etc.
+            showInfoMessage("Login successful. Welcome, " + username + "!");
         }
     }
 
-    private void handleSuccessfulLogin(String userId) {
-        // Implement actions to be taken after a successful login
-        // For example, navigate to the next view or update UI
+    private void showErrorMessage(String message) {
+        Alert alert = new Alert(AlertType.ERROR);
+        alert.setTitle("Login Error");
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+
+    private void showInfoMessage(String message) {
+        Alert alert = new Alert(AlertType.INFORMATION);
+        alert.setTitle("Login Successful");
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
     
 
