@@ -10,10 +10,12 @@ import javax.imageio.ImageIO;
 
 import javafx.embed.swing.SwingFXUtils;
 import javafx.geometry.Pos;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.image.WritableImage;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
@@ -23,6 +25,8 @@ public class DetailedRecipeInfoBody extends VBox {
     private TextArea recipeContent;
     private String uuid;
     private long createdAt;
+
+    private byte[] imageArray;
 
     private Image image;
     private ImageView imageView;
@@ -77,6 +81,10 @@ public class DetailedRecipeInfoBody extends VBox {
         return this.isNewRecipe;
     }
 
+    public byte[] getImageArray() {
+        return this.imageArray;
+    }
+
     public Long getCreatedAt() {
         return this.createdAt;
     }
@@ -103,12 +111,14 @@ public class DetailedRecipeInfoBody extends VBox {
 
     public void setImage(byte[] imageArray) {
         try {
-            ByteArrayInputStream stream = new ByteArrayInputStream(imageArray);
-            BufferedImage bi = ImageIO.read(stream);
-            this.image = SwingFXUtils.toFXImage(bi, null);
-            this.imageView.setImage(image);
+            this.imageArray = imageArray;
+            ByteArrayInputStream stream = new ByteArrayInputStream(this.imageArray);
+            // BufferedImage bi = ImageIO.read(stream);
+            // WritableImage wi = new WritableImage(256, 256);
+            this.image = new Image(stream);
+            
+            this.imageView.setImage(this.image);
         } catch (Exception e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         

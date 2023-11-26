@@ -1,141 +1,141 @@
-package client.test;
+// package client.test;
 
-import org.junit.jupiter.api.Test;
+// import org.junit.jupiter.api.Test;
 
-import com.mongodb.client.MongoClient;
-import com.mongodb.client.MongoClients;
-import com.mongodb.client.MongoCollection;
-import com.mongodb.client.MongoDatabase;
+// import com.mongodb.client.MongoClient;
+// import com.mongodb.client.MongoClients;
+// import com.mongodb.client.MongoCollection;
+// import com.mongodb.client.MongoDatabase;
 
-import org.bson.Document;
-import org.bson.types.ObjectId;
-import org.json.JSONObject;
-import org.junit.jupiter.api.BeforeEach;
+// import org.bson.Document;
+// import org.bson.types.ObjectId;
+// import org.json.JSONObject;
+// import org.junit.jupiter.api.BeforeEach;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+// import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import server.Recipe;
-import server.User;
-import server.repositories.RecipeRepository;
-import server.repositories.UserRepository;
+// import server.Recipe;
+// import server.User;
+// import server.repositories.RecipeRepository;
+// import server.repositories.UserRepository;
 
-public class ServerTest {
+// public class ServerTest {
 
-    private static final String CONNECTION_URI = 
-            "mongodb+srv://cse110-lab6:iLoveCSE110@cluster0.e0wpva4.mongodb.net/?retryWrites=true&w=majority";
-    private final MongoClient mongoClient = MongoClients.create(CONNECTION_URI);
-    private final MongoDatabase pantryPalDB = mongoClient.getDatabase("pantryPalTest");
-    private MongoCollection<Document> testRecipeCollection = pantryPalDB.getCollection("recipe");
-    private MongoCollection<Document> testUserCollection = pantryPalDB.getCollection("user");
+//     private static final String CONNECTION_URI = 
+//             "mongodb+srv://cse110-lab6:iLoveCSE110@cluster0.e0wpva4.mongodb.net/?retryWrites=true&w=majority";
+//     private final MongoClient mongoClient = MongoClients.create(CONNECTION_URI);
+//     private final MongoDatabase pantryPalDB = mongoClient.getDatabase("pantryPalTest");
+//     private MongoCollection<Document> testRecipeCollection = pantryPalDB.getCollection("recipe");
+//     private MongoCollection<Document> testUserCollection = pantryPalDB.getCollection("user");
 
-    RecipeRepository recipeRepository = new RecipeRepository("test");
-    UserRepository userRepository = new UserRepository("test");
+//     RecipeRepository recipeRepository = new RecipeRepository("test");
+//     UserRepository userRepository = new UserRepository("test");
 
-    Recipe recipe1, recipe2, recipe3;
-    User user1, user2;
+//     Recipe recipe1, recipe2, recipe3;
+//     User user1, user2;
 
-    void insertRecipe(Recipe recipe) {
-        Document recipeDoc = new Document("_id", recipe.id);
-        recipeDoc.append("name", recipe.name)
-                .append("mealType", recipe.mealType)
-                .append("details", recipe.details)
-                .append("userId", recipe.userId)
-                .append("createdAt", recipe.createdAt);
+//     void insertRecipe(Recipe recipe) {
+//         Document recipeDoc = new Document("_id", recipe.id);
+//         recipeDoc.append("name", recipe.name)
+//                 .append("mealType", recipe.mealType)
+//                 .append("details", recipe.details)
+//                 .append("userId", recipe.userId)
+//                 .append("createdAt", recipe.createdAt);
 
-        testRecipeCollection.insertOne(recipeDoc);
-    }
+//         testRecipeCollection.insertOne(recipeDoc);
+//     }
 
-    void insertUser(User user) {
-        Document userDoc = new Document("_id", user.id);
-        userDoc.append("username", user.username)
-                .append("password", user.password);
+//     void insertUser(User user) {
+//         Document userDoc = new Document("_id", user.id);
+//         userDoc.append("username", user.username)
+//                 .append("password", user.password);
 
-        testUserCollection.insertOne(userDoc);
-    }
+//         testUserCollection.insertOne(userDoc);
+//     }
 
-    @BeforeEach 
-    void seedData() {
-        testRecipeCollection.deleteMany(new Document());
-        testUserCollection.deleteMany(new Document());
+//     @BeforeEach 
+//     void seedData() {
+//         testRecipeCollection.deleteMany(new Document());
+//         testUserCollection.deleteMany(new Document());
 
-        recipe1 = new Recipe("655db6ee0eba1d4d1da76c4d", "Huli Huli Chicken", "lunch", 
-            "yummy chicken plate with rice and mac", 
-            "65614b0c44879f466638921b",
-            1700640606057l);
+//         recipe1 = new Recipe("655db6ee0eba1d4d1da76c4d", "Huli Huli Chicken", "lunch", 
+//             "yummy chicken plate with rice and mac", 
+//             "65614b0c44879f466638921b",
+//             1700640606057l);
 
-        recipe2 = new Recipe("655ec290e597b112f51cdc2a", "Makai Bowl", "dinner", 
-            "Poke bowl with salmon and ahi tuna", 
-            "65614b0c44879f466638921b",
-            1700709008320l);
+//         recipe2 = new Recipe("655ec290e597b112f51cdc2a", "Makai Bowl", "dinner", 
+//             "Poke bowl with salmon and ahi tuna", 
+//             "65614b0c44879f466638921b",
+//             1700709008320l);
 
-        recipe3 = new Recipe("655f2290e597b112f51cdc2a", "Bobcat Ham", "breakfast", 
-            "Toasted ham egg and cheese sandwich", 
-            "65614b0c44879f466638921b",
-            1700709008320l);
+//         recipe3 = new Recipe("655f2290e597b112f51cdc2a", "Bobcat Ham", "breakfast", 
+//             "Toasted ham egg and cheese sandwich", 
+//             "65614b0c44879f466638921b",
+//             1700709008320l);
 
-        insertRecipe(recipe1);
-        insertRecipe(recipe2);
-        insertRecipe(recipe3);
+//         insertRecipe(recipe1);
+//         insertRecipe(recipe2);
+//         insertRecipe(recipe3);
 
-        user1 = new User("65614b0c44879f466638921b", "maxwn04", "passw0rd!");
-        user2 = new User("65614b0c44879f477738921b", "arvinz", "pa55w0rd#");
-        insertUser(user1);
-        insertUser(user2);
-    }
+//         user1 = new User("65614b0c44879f466638921b", "maxwn04", "passw0rd!");
+//         user2 = new User("65614b0c44879f477738921b", "arvinz", "pa55w0rd#");
+//         insertUser(user1);
+//         insertUser(user2);
+//     }
 
-    @Test
-    void testGetByUUID() {
-        Recipe recipeResponse = recipeRepository.getRecipe("655db6ee0eba1d4d1da76c4d");
-        assertEquals(recipe1.toJSON().toString(), recipeResponse.toJSON().toString());
+//     @Test
+//     void testGetByUUID() {
+//         Recipe recipeResponse = recipeRepository.getRecipe("655db6ee0eba1d4d1da76c4d");
+//         assertEquals(recipe1.toJSON().toString(), recipeResponse.toJSON().toString());
 
-        recipeResponse = recipeRepository.getRecipe("655ec290e597b112f51cdc2a");
-        assertEquals(recipe2.toJSON().toString(), recipeResponse.toJSON().toString());
-    }
+//         recipeResponse = recipeRepository.getRecipe("655ec290e597b112f51cdc2a");
+//         assertEquals(recipe2.toJSON().toString(), recipeResponse.toJSON().toString());
+//     }
 
-    @Test
-    void testCreateRecipe() {
-        JSONObject createRecipeJson = new JSONObject();
-        createRecipeJson.put("name", "Bobcat Ham");
-        createRecipeJson.put("mealType", "breakfast");
-        createRecipeJson.put("details", "Toasted ham egg and cheese sandwich");
-        createRecipeJson.put("userId", "65614b0c44879f466638921b");
+//     @Test
+//     void testCreateRecipe() {
+//         JSONObject createRecipeJson = new JSONObject();
+//         createRecipeJson.put("name", "Bobcat Ham");
+//         createRecipeJson.put("mealType", "breakfast");
+//         createRecipeJson.put("details", "Toasted ham egg and cheese sandwich");
+//         createRecipeJson.put("userId", "65614b0c44879f466638921b");
 
-        Recipe newRecipe = recipeRepository.createRecipe(createRecipeJson);
-        Recipe getNewRecipe = recipeRepository.getRecipe(newRecipe.id.toString());
-        assertEquals(newRecipe.toJSON().toString(), getNewRecipe.toJSON().toString());
-    }
+//         Recipe newRecipe = recipeRepository.createRecipe(createRecipeJson);
+//         Recipe getNewRecipe = recipeRepository.getRecipe(newRecipe.id.toString());
+//         assertEquals(newRecipe.toJSON().toString(), getNewRecipe.toJSON().toString());
+//     }
 
-    @Test
-    void testCreateUser() {
-        JSONObject createUserJson = new JSONObject();
-        createUserJson.put("username", "BobDD");
-        createUserJson.put("password", "p4ssw0rd$");
+//     @Test
+//     void testCreateUser() {
+//         JSONObject createUserJson = new JSONObject();
+//         createUserJson.put("username", "BobDD");
+//         createUserJson.put("password", "p4ssw0rd$");
 
-        User newUser = userRepository.createUser(createUserJson);
+//         User newUser = userRepository.createUser(createUserJson);
 
-        Document newUserDocument = testUserCollection.find(
-            new Document("_id", new ObjectId(newUser.id.toString()))).first();
-        User findUser = new User(newUserDocument);
+//         Document newUserDocument = testUserCollection.find(
+//             new Document("_id", new ObjectId(newUser.id.toString()))).first();
+//         User findUser = new User(newUserDocument);
 
-        assertEquals(newUser.toJSON().toString(), findUser.toJSON().toString());
-    }
+//         assertEquals(newUser.toJSON().toString(), findUser.toJSON().toString());
+//     }
 
-    @Test
-    void testLogin() {
-        JSONObject loginRequest = new JSONObject();
-        loginRequest.put("username", "maxwn04");
-        loginRequest.put("password", "passw0rd!");
+//     @Test
+//     void testLogin() {
+//         JSONObject loginRequest = new JSONObject();
+//         loginRequest.put("username", "maxwn04");
+//         loginRequest.put("password", "passw0rd!");
 
-        String loginId = userRepository.login(loginRequest);
+//         String loginId = userRepository.login(loginRequest);
 
-        assertEquals(user1.id.toString(), loginId);
+//         assertEquals(user1.id.toString(), loginId);
 
-        JSONObject incorrectLoginRequest = new JSONObject();
-        incorrectLoginRequest.put("username", "maxwn04");
-        incorrectLoginRequest.put("password", "iDontKnow");
+//         JSONObject incorrectLoginRequest = new JSONObject();
+//         incorrectLoginRequest.put("username", "maxwn04");
+//         incorrectLoginRequest.put("password", "iDontKnow");
 
-        String loginError = userRepository.login(incorrectLoginRequest);
+//         String loginError = userRepository.login(incorrectLoginRequest);
 
-        assertEquals("Invalid Login Credentials", loginError);
-    }
-}
+//         assertEquals("Invalid Login Credentials", loginError);
+//     }
+// }

@@ -10,7 +10,7 @@ import java.net.URL;
 import org.json.JSONObject;
 
 public class Model {
-    public String performPOSTRequestForRecipe(String recipeName, String recipeContent) {
+    public String performPOSTRequestForRecipe(String recipeName, String recipeContent, String recipeImage) {
         // Implement your HTTP request logic here and return the response
 
         try {
@@ -25,6 +25,7 @@ public class Model {
             createRecipeRequest.put("name", recipeName);
             createRecipeRequest.put("mealType", "breakfast");
             createRecipeRequest.put("details", recipeContent);
+            createRecipeRequest.put("image", recipeImage);
             createRecipeRequest.put("userId", "65614b0c44879f466638921b");
 
             out.write(createRecipeRequest.toString());
@@ -41,7 +42,7 @@ public class Model {
         }
     }
 
-    public String recipeRequest(String method, String id, String name, String details, Long createdAt) {
+    public String recipeRequest(String method, String id, String name, String details, String image, Long createdAt) {
         // Implement your HTTP request logic here and return the response
 
         try {
@@ -79,6 +80,7 @@ public class Model {
                 editRecipeRequest.put("name", name);
                 editRecipeRequest.put("mealType", "breakfast");
                 editRecipeRequest.put("details", details);
+                editRecipeRequest.put("image", image);
                 editRecipeRequest.put("createdAt", createdAt);
 
                 OutputStreamWriter out = new OutputStreamWriter(conn.getOutputStream());

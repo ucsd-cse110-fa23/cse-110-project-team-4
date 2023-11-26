@@ -35,9 +35,11 @@ public class RecipeListHandler implements HttpHandler {
               e.printStackTrace();
         }
 
+        //System.out.println(response.getBytes().length);
         //Sending back response to the client
         httpExchange.sendResponseHeaders(200, response.length());
         OutputStream outStream = httpExchange.getResponseBody();
+        System.out.println(outStream.toString());
         outStream.write(response.getBytes());
         outStream.close();
        
@@ -58,6 +60,7 @@ public class RecipeListHandler implements HttpHandler {
                 recipeListJSON.put(recipe.toJSON());
             }
             response = recipeListJSON.toString();
+            //System.out.println(recipeListJSON.toString() + "ap");
         }
 
         return response;
