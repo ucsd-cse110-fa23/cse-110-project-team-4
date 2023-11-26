@@ -23,8 +23,8 @@ public class UserHandler implements HttpHandler {
         try {
             if (method.equals("POST")) {
                 response = handlePost(httpExchange);
-            // } else if (method.equals("GET")) {
-            //     response = handleGet(httpExchange);
+            } else if (method.equals("GET")) {
+                response = handleGet(httpExchange);
             } else {
               throw new Exception("Not Valid Request Method");
             }
@@ -67,5 +67,10 @@ public class UserHandler implements HttpHandler {
         this.userRepository.createUser(createUserRequest);
         return "Successfully created user: " + createUserRequest.getString("username");
     }   
+
+    private String handleGet(HttpExchange httpExchange) {
+        JSONObject loginRequest = parseJSON(httpExchange);
+        return this.userRepository.login(loginRequest);
+    }
 
 }
