@@ -14,7 +14,7 @@ public class App extends Application {
 
         // Setting the Layout of the Window- Should contain a Header, Footer and the
         // TaskList
-        new MainViewController();
+        // new MainViewController();
 
         int tempSsw = 500;
         int tempSsh = 700;
