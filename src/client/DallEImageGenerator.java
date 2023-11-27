@@ -7,9 +7,6 @@ import java.net.URISyntaxException;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 
