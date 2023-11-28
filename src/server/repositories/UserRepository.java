@@ -31,13 +31,20 @@ public class UserRepository {
         this.userCollection = pantryPalDB.getCollection("user");
     }
 
+    public boolean validCreateRequest(JSONObject createUserJSON) {
+        String username = createUserJSON.getString("username");
+        String password = createUserJSON.getString("password");
+        if (username.equals("") || password.equals("")) {
+            return false;
+        }else if (userCollection.find(new Document("username", username)).first() != null){
+            return false;
+        }
+        return true;
+    }
+    
     public User createUser(JSONObject createUserJSON) {
-        if (createUserJSON.getString("username").equals("")) {
-            return null;
-        }
-        if (createUserJSON.getString("password").equals("")) {
-            return null;
-        }
+        if (!validCreateRequest(createUserJSON)) return null;
+        
         User user = new User(createUserJSON);
         System.out.println(user.toJSON().toString());
         Document recipeDoc = new Document("_id", user.id);

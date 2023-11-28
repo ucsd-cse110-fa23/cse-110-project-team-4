@@ -111,13 +111,8 @@ public class CreateAccountTest {
     createUserJson.put("username", username);
     createUserJson.put("password", password);
 
-    userRepository.createUser(createUserJson);
-
-    Bson filter = and(eq("username", username), eq("password", password));
-    Document userDocument = testUserCollection.find(filter).first();
-    assertNull(userDocument);
-
-  }
+    assertNull(userRepository.createUser(createUserJson));
+}
 
   @Test
   void testCreateUserEmptyPassword() {
@@ -129,11 +124,7 @@ public class CreateAccountTest {
     createUserJson.put("username", username);
     createUserJson.put("password", password);
 
-    userRepository.createUser(createUserJson);
-
-    Bson filter = and(eq("username", username), eq("password", password));
-    Document userDocument = testUserCollection.find(filter).first();
-    assertNull(userDocument);
+    assertNull(userRepository.createUser(createUserJson));
   }
 
 }

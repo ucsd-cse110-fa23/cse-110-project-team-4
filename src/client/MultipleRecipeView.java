@@ -5,7 +5,6 @@ import javafx.scene.layout.*;
 import models.Model;
 
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import javafx.collections.FXCollections;
