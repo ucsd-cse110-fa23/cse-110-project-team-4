@@ -57,7 +57,7 @@ public class MainViewController {
         this.dvc1.display(uuid);
     }
 
-    public DetailedViewController getDetailedViewController2() {
+    public DetailedViewController getNewDetailedViewController() {
         return this.dvc2;
     }
 }
