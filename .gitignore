@@ -1,4 +1,4 @@
 bin/
 build/
 src/client/audio/
-src/client/images/
+bin/test/client/audio/RecordAudio.wav

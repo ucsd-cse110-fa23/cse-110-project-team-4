@@ -31,12 +31,11 @@ public class GenerateRecipesViewController implements ViewController{
         grvcStage.close();
     }
 
-    public void exportRecipeToDetailed(String recipeName, String recipeDetails, byte[] imageArray) {
-        DetailedViewController dvc = this.mvc.getNewDetailedViewController();
+    public void exportRecipeToDetailed(String recipeName, String recipeDetails) {
+        DetailedViewController dvc = this.mvc.getDetailedViewController2();
         DetailedRecipeInfoBody drb = dvc.drv.getDetailedRecipeInfoBody();
         drb.setRecipeNAme(recipeName);
         drb.setRecipeContext(recipeDetails);
-        drb.setImage(imageArray);
         drb.setIsNewRecipe(true);
     }
 
