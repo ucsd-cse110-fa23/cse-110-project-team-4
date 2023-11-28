@@ -30,3 +30,4 @@ Recipe and it will open a new window with its contents.
 ## Deleting a Recipe
 1. To delete a recipe that you no longer want, click on the recipe in the main window.
 2. Then, simply press the "Delete" button and the "Back" button and your recipe will no longer be there.
+
