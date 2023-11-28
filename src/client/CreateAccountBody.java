@@ -131,9 +131,9 @@ public class CreateAccountBody extends VBox {
     });
 
     loginPageButton.setOnAction(e -> {
-      // Transition to login page using main view controller
-      // this.cavc.transitionToLogin
-    });
+      this.cavc.transitionToLogin(); 
+  });
+  
   }
 
 }

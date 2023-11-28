@@ -79,9 +79,7 @@ public class LoginBody extends VBox {
         createAccountPrompt = new Text("Don't have an account? ");
         createAccountPrompt.setFont(Font.font(16));
         createAccountButton = new Button("Create one.");
-        createAccountButton.setOnAction(e -> {
-            // Transition to Create account page using main view controller
-            // this.lvc.transitionToLogin
+        createAccountButton.setOnAction(e -> {this.lvc.transitionToCreateAccount();
           });;
 
         createAccountRedirect = new HBox(10, createAccountPrompt, createAccountButton);
@@ -104,7 +102,6 @@ public class LoginBody extends VBox {
         }
 
         // You can make an HTTP request to your backend server for authentication
-        // Example using your Model class (make sure to adjust this based on your actual implementation):
         Model model = new Model();
         String response = model.login(username, password);
 
@@ -116,6 +113,7 @@ public class LoginBody extends VBox {
         } else {
             // Login successful, you can handle the successful login here
             showInfoMessage("Login successful. Welcome, " + username + "!");
+            lvc.transitionToMultiple();
         }
     }
 

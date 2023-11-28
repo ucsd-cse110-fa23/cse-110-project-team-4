@@ -3,12 +3,13 @@ package client;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-public class LoginViewController {
+public class LoginViewController implements ViewController{
     
     private Stage stage;
     private int screenWidth;
     private int screenHeight;
     private LoginView loginView;
+    MainViewController mvc;
     
     public LoginViewController(Stage stage, int screenWidth, int screenHeight) {
         this.stage = stage;
@@ -24,11 +25,16 @@ public class LoginViewController {
     public void display() {
         stage.show();
     }
+
+    public void closeDisplay() {
+        stage.close();
+    }
     
     public void transitionToCreateAccount() {
-        // You need to implement the logic to switch to the Create Account View
-        // For example:
-        // stage.setScene(new Scene(new CreateAccountView(new CreateAccountViewController(stage, screenWidth, screenHeight))));
-        // stage.show();
+        this.mvc.closeLoginOpenCreate();
+    }
+
+    public void transitionToMultiple(){
+        this.mvc.closeLoginOpenMultiple();
     }
 }

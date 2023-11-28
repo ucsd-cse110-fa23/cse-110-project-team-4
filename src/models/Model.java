@@ -150,7 +150,7 @@ public class Model {
 
     public String login(String username, String password) {
         try {
-            String urlString = "http://localhost:8100/login";  // Replace with your server's authentication endpoint
+            String urlString = "http://localhost:8100/User";  // Replace with your server's authentication endpoint
 
             URL url = new URI(urlString).toURL();
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
