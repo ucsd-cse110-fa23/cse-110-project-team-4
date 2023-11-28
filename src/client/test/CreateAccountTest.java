@@ -122,4 +122,17 @@ public class CreateAccountTest {
 
     assertNull(userRepository.createUser(createUserJson));
   }
+
+  @Test
+  void testCreateUserDuplicateUsername() {
+    JSONObject createUserJson = new JSONObject();
+
+    String username = "maxwn04";
+    String password = "password";
+
+    createUserJson.put("username", username);
+    createUserJson.put("password", password);
+
+    assertNull(userRepository.createUser(createUserJson));
+  }
 }
