@@ -8,7 +8,6 @@ public class AudioTranscriberMock implements Transcriber{
     
     public AudioTranscriberMock(String audioFile) {
         this.FILE_PATH = audioFile;
-        System.out.println(FILE_PATH);
     }
 
     @Override

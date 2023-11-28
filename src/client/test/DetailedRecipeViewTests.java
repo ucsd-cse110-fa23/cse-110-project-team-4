@@ -1,102 +1,63 @@
 package client.test;
 
-import java.lang.NullPointerException;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
+import java.util.HashMap;
+import java.util.UUID;
+
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import com.mongodb.client.MongoClient;
-import com.mongodb.client.MongoClients;
-import com.mongodb.client.MongoCollection;
-import com.mongodb.client.MongoDatabase;
-
-import org.bson.Document;
-import org.json.JSONObject;
-import org.junit.jupiter.api.BeforeEach;
-
-import server.Recipe;
-import server.repositories.RecipeRepository;
+import models.Recipe;
+import server.RecipeRepository;
 
 public class DetailedRecipeViewTests {
 
-    private static final String CONNECTION_URI = 
-            "mongodb+srv://cse110-lab6:iLoveCSE110@cluster0.e0wpva4.mongodb.net/?retryWrites=true&w=majority";
-    private final MongoClient mongoClient = MongoClients.create(CONNECTION_URI);
-    private final MongoDatabase pantryPalDB = mongoClient.getDatabase("pantryPalTest");
-    private MongoCollection<Document> testRecipeCollection = pantryPalDB.getCollection("recipe");
-
-    RecipeRepository recipeRepository = new RecipeRepository("Test");
-
+    HashMap<UUID, Recipe> data = new HashMap<>();
+    HashMap<String, UUID> nameIndex = new HashMap<>();
+    RecipeRepository recipeRepository = new RecipeRepository(data, nameIndex);
     Recipe recipe1;
     Recipe recipe2;
 
-    @BeforeEach 
-    void seedData() {
-        testRecipeCollection.deleteMany(new Document());
-
-        recipe1 = new Recipe("655db6ee0eba1d4d1da76c4d", "Huli Huli Chicken", "lunch", 
-            "yummy chicken plate with rice and mac", 
-            "655db6ee0eba1d4d1da76c4d",
-            null, 1700640606057l);
-
-        recipe2 = new Recipe("655ec290e597b112f51cdc2a", "Makai Bowl", "dinner", 
-            "Poke bowl with salmon and ahi tuna", 
-            "655db6ee0eba1d4d1da76c4d",
-            null, 1700709008320l);
-        Document recipeDoc = new Document("_id", recipe1.id);
-        recipeDoc.append("name", recipe1.name)
-                .append("mealType", recipe1.mealType)
-                .append("details", recipe1.details)
-                .append("createdAt", recipe1.createdAt);
-
-        testRecipeCollection.insertOne(recipeDoc);
-
-        recipeDoc = new Document("_id", recipe2.id);
-        recipeDoc.append("name", recipe2.name)
-                .append("mealType", recipe2.mealType)
-                .append("details", recipe2.details)
-                .append("createdAt", recipe2.createdAt);
-
-        testRecipeCollection.insertOne(recipeDoc);
+    @BeforeEach
+    void givenSomeRecipiesInMultipleView() {
+        recipe1 = new Recipe(
+                "b1a00706-1883-4c88-b3f8-b59d76e329bf;Huli Huli Chicken;yummy chicken plate with rice and mac;2178330567185300");
+        data.put(recipe1.uuid, recipe1);
+        nameIndex.put(recipe1.name, recipe1.uuid);
+        recipe2 = new Recipe(
+                "898d61b3-5598-4dfc-b8a2-2eb962354e3a;Yum Yum Bowl;pork bowl with veggies, rice, and yum yum sauce;2178360244910800");
+        data.put(recipe2.uuid, recipe2);
+        nameIndex.put(recipe2.name, recipe2.uuid);
     }
 
     @Test
-    void testGetRecipe() {
-        Recipe recipe = recipeRepository.getRecipe("655db6ee0eba1d4d1da76c4d");
-        assertEquals("Huli Huli Chicken",recipe.name);
-        assertEquals("yummy chicken plate with rice and mac",recipe.details);
-        assertEquals(1700640606057l,recipe.createdAt);
+    void testGetAndSetInfo() {
+        Recipe r = recipeRepository.getRecipe(UUID.fromString("b1a00706-1883-4c88-b3f8-b59d76e329bf"));
+        assertEquals("Huli Huli Chicken",r.name);
+        assertEquals("yummy chicken plate with rice and mac",r.details);
+        assertEquals(2178330567185300l,r.createdAt);
     }
 
     @Test
     void testEdit(){
-        Recipe recipe = recipeRepository.getRecipe("655db6ee0eba1d4d1da76c4d");
-        recipe.name = "Huli Chicken"; // user edits the name
-        recipeRepository.editRecipe(recipe.toJSON());
-        recipe = recipeRepository.getRecipe("655db6ee0eba1d4d1da76c4d");
-        assertEquals("Huli Chicken", recipe.name);
+        Recipe r = recipeRepository.getRecipe(UUID.fromString("898d61b3-5598-4dfc-b8a2-2eb962354e3a"));
+        r.name = "Yum Bowl"; // user edits the name
+        recipeRepository.editRecipe(r);
+        r = recipeRepository.getRecipe(UUID.fromString("898d61b3-5598-4dfc-b8a2-2eb962354e3a"));
+        assertEquals("Yum Bowl",r.name);
     }
 
     @Test
     void testSaveAndDelete(){
         //Save Recipe
-        JSONObject createRecipeJson = new JSONObject();
-        createRecipeJson.put("name", "Bobcat Ham");
-        createRecipeJson.put("mealType", "breakfast");
-        createRecipeJson.put("details", "Toasted ham egg and cheese sandwich");
-        createRecipeJson.put("userId", "65614b0c44879f466638921b");
-        createRecipeJson.put("image", "null");
-
-        Recipe createRecipe = recipeRepository.createRecipe(createRecipeJson);
-        Recipe getRecipe = recipeRepository.getRecipe(createRecipe.id.toString());
-        assertEquals(createRecipe.toJSON().toString(), getRecipe.toJSON().toString());
-        
+        recipeRepository.createRecipe(new Recipe("698d61b3-5598-4dfc-b8a2-2eb962354e3a;Save me;Delete me later;2178360244910805"));
+        Recipe r = recipeRepository.getRecipe(UUID.fromString("698d61b3-5598-4dfc-b8a2-2eb962354e3a"));
+        assertEquals("Save me", r.name);
         //Delete Recipe
-        recipeRepository.deleteRecipe(createRecipe.id.toString());
-        assertThrows(NullPointerException.class, () -> {
-            recipeRepository.getRecipe(createRecipe.id.toString());
-        });   
-    } 
+        recipeRepository.deleteRecipe(UUID.fromString("698d61b3-5598-4dfc-b8a2-2eb962354e3a"));
+        r = recipeRepository.getRecipe(UUID.fromString("698d61b3-5598-4dfc-b8a2-2eb962354e3a"));
+        assertNull(r);
+    }
 }

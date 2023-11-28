@@ -1,12 +1,8 @@
 package client;
 
-import java.io.ByteArrayInputStream;
 import javafx.geometry.Pos;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 
@@ -14,29 +10,18 @@ public class DetailedRecipeInfoBody extends VBox {
     private TextField recipeName;
     private TextArea recipeContent;
     private String uuid;
-    private long createdAt;
-
-    private byte[] imageArray;
-
-    private Image image;
-    private ImageView imageView;
+    private String createdAt;
     
     private boolean isNewRecipe;
 
     DetailedRecipeInfoBody() {
-        
+
         recipeName = new TextField();
         recipeName.setText("Ramen");
         recipeName.setPrefSize(40, 40);
         recipeName.setAlignment(Pos.CENTER);
         recipeName.setEditable(false);
         this.getChildren().add(recipeName);
-
-        imageView = new ImageView();
-        HBox hbox = new HBox();
-        hbox.getChildren().add(imageView);
-        hbox.setAlignment(Pos.CENTER);
-        this.getChildren().add(hbox);
 
         recipeContent = new TextArea();
         recipeContent.setText("Ramenjhewgaojhfaedfjhikgbliausdbfgiuabdslifgblkadfbgilayrsdbgljkhaebdfjhgbajlkhdyfbglkahdbfgiohyavbdfuioyhgbakldjhfbgihadvbfyuihgbsldjkhfgbkajhbfihgbaslekfgbklajebyrhijkbaeioujbhfipuoaedrbyhiojuaeubn");
@@ -71,11 +56,7 @@ public class DetailedRecipeInfoBody extends VBox {
         return this.isNewRecipe;
     }
 
-    public byte[] getImageArray() {
-        return this.imageArray;
-    }
-
-    public Long getCreatedAt() {
+    public String getCreatedAt() {
         return this.createdAt;
     }
 
@@ -91,27 +72,12 @@ public class DetailedRecipeInfoBody extends VBox {
         this.uuid = uuid;
     }
 
-    public void setCreatedAt(Long createdAt) {
+    public void setCreatedAt(String createdAt) {
         this.createdAt = createdAt;
     }
 
     public void setIsNewRecipe(boolean isNewRecipe) {
         this.isNewRecipe = isNewRecipe;
-    }
-
-    public void setImage(byte[] imageArray) {
-        try {
-            this.imageArray = imageArray;
-            ByteArrayInputStream stream = new ByteArrayInputStream(this.imageArray);
-            // BufferedImage bi = ImageIO.read(stream);
-            // WritableImage wi = new WritableImage(256, 256);
-            this.image = new Image(stream);
-            
-            this.imageView.setImage(this.image);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        
     }
 
     
