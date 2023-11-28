@@ -120,7 +120,7 @@ public class Model {
             in.close();
             return response;
         } catch (Exception ex) {
-            ex.printStackTrace();
+            //ex.printStackTrace();
             return "Error: " + ex.getMessage();
         }
     }

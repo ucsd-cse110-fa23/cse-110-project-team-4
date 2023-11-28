@@ -66,13 +66,12 @@ public class MultipleRecipeView extends BorderPane {
         addListeners();
     }
 
-    public void loadRecipeList() {
+    public boolean loadRecipeList() {
         recipeListBody.getChildren().clear();
         String response = model.performGETRequestForList();
         recipeArrayList = new ArrayList<JSONObject>();
         // System.out.println(response);
-        if (response != null) {
-
+        if (response != null && !response.startsWith("Error")) {
             JSONArray recipeList = new JSONArray(response);
             for (int i = 0, size = recipeList.length(); i < size; i++) {
                 JSONObject recipe = recipeList.getJSONObject(i);
@@ -80,7 +79,11 @@ public class MultipleRecipeView extends BorderPane {
                 createRecipeButton(recipe);
             }
         }
+        else{
+            return false;
+        }
         addListenersForButtons();
+        return true;
     }
 
     public void generateButtons() {
