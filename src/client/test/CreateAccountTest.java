@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
 import org.bson.Document;
-import org.bson.conversions.Bson;
 import org.bson.types.ObjectId;
 import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
@@ -19,9 +18,6 @@ import server.Recipe;
 import server.User;
 import server.repositories.RecipeRepository;
 import server.repositories.UserRepository;
-
-import static com.mongodb.client.model.Filters.eq;
-import static com.mongodb.client.model.Filters.and;
 
 public class CreateAccountTest {
 
@@ -126,5 +122,4 @@ public class CreateAccountTest {
 
     assertNull(userRepository.createUser(createUserJson));
   }
-
 }
