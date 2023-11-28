@@ -7,10 +7,8 @@ import java.net.HttpURLConnection;
 import java.net.URI;
 import java.net.URL;
 
-import org.json.JSONObject;
-
 public class Model {
-    public String performPOSTRequestForRecipe(String recipeName, String recipeContent, String recipeImage) {
+    public String performPOSTRequestForRecipe(String recipeName, String recipeContent) {
         // Implement your HTTP request logic here and return the response
 
         try {
@@ -21,14 +19,7 @@ public class Model {
             conn.setDoOutput(true);
 
             OutputStreamWriter out = new OutputStreamWriter(conn.getOutputStream());
-            JSONObject createRecipeRequest = new JSONObject();
-            createRecipeRequest.put("name", recipeName);
-            createRecipeRequest.put("mealType", "breakfast");
-            createRecipeRequest.put("details", recipeContent);
-            createRecipeRequest.put("image", recipeImage);
-            createRecipeRequest.put("userId", "65614b0c44879f466638921b");
-
-            out.write(createRecipeRequest.toString());
+            out.write(recipeName + ";" + recipeContent);
             out.flush();
             out.close();
 
@@ -42,15 +33,15 @@ public class Model {
         }
     }
 
-    public String recipeRequest(String method, String id, String name, String details, String image, Long createdAt) {
+    public String recipeRequest(String method, String uuid, String name, String details, String createdAt) {
         // Implement your HTTP request logic here and return the response
 
         try {
             String urlString = "http://localhost:8100/recipe";
 
             if(method.equals("GET") || method.equals("DELETE")) {
-                if (id != null) {
-                    urlString += "?=" + id;
+                if (uuid != null) {
+                    urlString += "?=" + uuid;
                 }
             }
 
@@ -61,35 +52,22 @@ public class Model {
 
             if (method.equals("GET")) {
                 OutputStreamWriter out = new OutputStreamWriter(conn.getOutputStream());
-                out.write(id + name);
+                out.write(uuid + name);
                 out.flush();
                 out.close();
             } else if (method.equals("POST")) {
-                JSONObject createRecipeRequest = new JSONObject();
-                createRecipeRequest.put("name", name);
-                createRecipeRequest.put("mealType", "Breakfast");
-                createRecipeRequest.put("details", details);
-
                 OutputStreamWriter out = new OutputStreamWriter(conn.getOutputStream());
-                out.write(createRecipeRequest.toString());
+                out.write(name + ";" + details);
                 out.flush();
                 out.close();
             } else if (method.equals("PUT")) {
-                JSONObject editRecipeRequest = new JSONObject();
-                editRecipeRequest.put("id", id);
-                editRecipeRequest.put("name", name);
-                editRecipeRequest.put("mealType", "breakfast");
-                editRecipeRequest.put("details", details);
-                editRecipeRequest.put("image", image);
-                editRecipeRequest.put("createdAt", createdAt);
-
                 OutputStreamWriter out = new OutputStreamWriter(conn.getOutputStream());
-                out.write(editRecipeRequest.toString());
+                out.write(uuid + ";" + name + ";" + details + ";" + createdAt);
                 out.flush();
                 out.close();
             } else if (method.equals("DELETE")) {
                 OutputStreamWriter out = new OutputStreamWriter(conn.getOutputStream());
-                out.write(id + name);
+                out.write(uuid + name);
                 out.flush();
                 out.close();
             }
@@ -108,7 +86,7 @@ public class Model {
         // Implement your HTTP request logic here and return the response
 
         try {
-            String urlString = "http://localhost:8100/recipeList?=65614b0c44879f466638921b";
+            String urlString = "http://localhost:8100/recipeList";
 
             URL url = new URI(urlString).toURL();
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();

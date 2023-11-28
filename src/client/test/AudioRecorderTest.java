@@ -20,6 +20,7 @@ public class AudioRecorderTest {
     @Test
     void testAudioRecorderFile() {
 
+        assertEquals("src\\client\\audio\\RecordAudio.wav", sampleAR.getAudioFile().getName());
         assertEquals("src\\client\\audio\\RecordAudio.wav", sampleAR.getAudioFile().getPath());
         assertEquals("src\\client\\audio\\RecordAudio.wav", sampleAR.getAudioFilePath());
      

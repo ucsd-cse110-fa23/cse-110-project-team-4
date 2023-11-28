@@ -68,14 +68,16 @@ public class GenerateRecipesView extends BorderPane {
 
     public void addListeners() {
         generateButton.setOnAction(e -> {
-            GenerateRecipeContent recipeContent = this.grl.performGenerateButtonAction();
+            String[] recipeContent = this.grl.performGenerateButtonAction();
             if (recipeContent != null) {
-                this.grvc.exportRecipeToDetailed(recipeContent.getRecipeName(), recipeContent.getRecipeDetails(), recipeContent.getImageByteArray());
+                this.grvc.exportRecipeToDetailed(recipeContent[0], recipeContent[1]);
                 this.grvc.transitionToDetailed();
             }
             else {
                 this.grb.setTranscription("Cannot Generate Recipe Without Valid Voice Prompt");
             }
+
+            
         });
 
         startButton.setOnAction(e -> {
