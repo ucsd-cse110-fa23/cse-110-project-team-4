@@ -1,11 +1,17 @@
 package server;
 
 import com.sun.net.httpserver.*;
+
+import server.handlers.RecipeHandler;
+import server.handlers.RecipeListHandler;
+import server.handlers.UserHandler;
+import server.handlers.ShareHandler;
+import server.repositories.RecipeRepository;
+import server.repositories.UserRepository;
+
 import java.io.IOException;
 import java.net.InetSocketAddress;
-import java.util.*;
 import java.util.concurrent.*;
-import models.Recipe;
 
 public class Server {
 
@@ -18,9 +24,8 @@ public class Server {
         // create a thread pool to handle requests
         ThreadPoolExecutor threadPoolExecutor = (ThreadPoolExecutor) Executors.newFixedThreadPool(10);
 
-        HashMap<UUID, Recipe> data = new HashMap<>();
-        HashMap<String, UUID> nameIndex = new HashMap<>();
-        RecipeRepository recipeRepository = new RecipeRepository(data, nameIndex);
+        RecipeRepository recipeRepository = new RecipeRepository();
+        UserRepository userRepository = new UserRepository();
 
         // create a server
         HttpServer server = HttpServer.create(
@@ -30,6 +35,8 @@ public class Server {
 
         server.createContext("/recipeList", new RecipeListHandler(recipeRepository));
         server.createContext("/recipe", new RecipeHandler(recipeRepository));
+        server.createContext("/recipe/share", new ShareHandler(recipeRepository));
+        server.createContext("/user", new UserHandler(userRepository));
         server.setExecutor(threadPoolExecutor);
         server.start();
         
