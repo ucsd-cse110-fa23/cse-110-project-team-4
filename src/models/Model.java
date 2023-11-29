@@ -10,7 +10,8 @@ import java.net.URL;
 import org.json.JSONObject;
 
 public class Model {
-    public String performPOSTRequestForRecipe(String recipeName, String recipeContent, String recipeImage, String user) {
+    
+    public String performPOSTRequestForRecipe(String recipeName, String recipeContent, String recipeImage, String mealType,String user) {
         // Implement your HTTP request logic here and return the response
 
         try {
@@ -23,7 +24,7 @@ public class Model {
             OutputStreamWriter out = new OutputStreamWriter(conn.getOutputStream());
             JSONObject createRecipeRequest = new JSONObject();
             createRecipeRequest.put("name", recipeName);
-            createRecipeRequest.put("mealType", "breakfast");
+            createRecipeRequest.put("mealType", mealType);
             createRecipeRequest.put("details", recipeContent);
             createRecipeRequest.put("image", recipeImage);
             createRecipeRequest.put("userId", user);
