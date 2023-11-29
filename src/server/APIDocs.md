@@ -42,8 +42,8 @@ Body: \
 } \
 Returns: Successfully created user <username> 
 
-## Create user 
-POST: localhost:8100/user \
+## Login
+PUT: localhost:8100/user \
 Body: \
 { \
     "username": "iAmWeird",  \

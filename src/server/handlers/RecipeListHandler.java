@@ -62,7 +62,7 @@ public class RecipeListHandler implements HttpHandler {
             response = recipeListJSON.toString();
             //System.out.println(recipeListJSON.toString() + "ap");
         }
-
+        System.out.println(response);
         return response;
     }     
 
