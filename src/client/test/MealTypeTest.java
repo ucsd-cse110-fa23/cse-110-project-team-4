@@ -93,6 +93,7 @@ public class MealTypeTest {
     createRecipeJson.put("mealType", mealType);
     createRecipeJson.put("details", details);
     createRecipeJson.put("userId", userID);
+    createRecipeJson.put("image", "null");
 
     Recipe newRecipe = recipeRepository.createRecipe(createRecipeJson);
     Recipe getNewRecipe = recipeRepository.getRecipe(newRecipe.id.toString());
