@@ -24,6 +24,8 @@ public class MainViewController {
     AbstractFactoryForDetailedView<DetailedViewController> affdv1 = new FDRV1();
     AbstractFactoryForDetailedView<DetailedViewController> affdv2 = new FDRV2();
 
+    String currentUser = "";
+
     MainViewController() {
         // Set the title of the app
 
@@ -31,8 +33,8 @@ public class MainViewController {
         this.dvc1 = new DetailedViewController(drvStage1,screenSizeWidth,screenSizeHeight,this,affdv1);
         this.dvc2 = new DetailedViewController(drvStage2,screenSizeWidth,screenSizeHeight,this,affdv2);
         this.grvc = new GenerateRecipesViewController(grvStage, screenSizeWidth,screenSizeHeight, this);
-        this.lvc = new LoginViewController(lvcStage, screenSizeWidth, screenSizeHeight);
-        this.cavc = new CreateAccountViewController(cavcStage, screenSizeWidth, screenSizeHeight);
+        this.lvc = new LoginViewController(lvcStage, screenSizeWidth, screenSizeHeight, this);
+        this.cavc = new CreateAccountViewController(cavcStage, screenSizeWidth, screenSizeHeight, this);
         
         lvc.display();
         //
@@ -81,5 +83,13 @@ public class MainViewController {
     public void closeLoginOpenCreate(){
         this.lvc.closeDisplay();
         this.cavc.display();
+    }
+
+    public void setUser(String user){
+        this.currentUser = user;
+    }
+
+    public String getUser(){
+        return this.currentUser;
     }
 }
