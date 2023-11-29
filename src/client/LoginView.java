@@ -1,12 +1,10 @@
 package client;
 
 import javafx.scene.layout.*;
-import models.Model;
 
 public class LoginView extends BorderPane {
     private Header header;
     private Footer footer;
-    private Model model;
     private LoginBody loginBody;
     
     LoginViewController lvc;
@@ -15,7 +13,6 @@ public class LoginView extends BorderPane {
         this.lvc = lvc;
         
         // Initialize the header Object
-        model = new Model();
         header = new Header();
         header.setHeaderText("Login");
         

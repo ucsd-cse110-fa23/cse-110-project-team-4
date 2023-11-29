@@ -40,6 +40,6 @@ public class Server {
         server.setExecutor(threadPoolExecutor);
         server.start();
         
-        System.out.println("Server started on port" + SERVER_PORT);
+        System.out.println("Server started on port " + SERVER_PORT);
     }
 }
