@@ -16,15 +16,13 @@ import static com.mongodb.client.model.Filters.and;
 
 public class UserRepository {
 
-    private static final String CONNECTION_URI = 
-            "mongodb+srv://cse110-lab6:iLoveCSE110@cluster0.e0wpva4.mongodb.net/?retryWrites=true&w=majority";
+    private static final String CONNECTION_URI = "mongodb+srv://cse110-lab6:iLoveCSE110@cluster0.e0wpva4.mongodb.net/?retryWrites=true&w=majority";
     private MongoClient mongoClient = MongoClients.create(CONNECTION_URI);
     private MongoDatabase pantryPalDB = mongoClient.getDatabase("pantryPal");
     private MongoCollection<Document> userCollection = pantryPalDB.getCollection("user");
 
-
     public UserRepository() {
-        
+
     }
 
     public UserRepository(String test) {
@@ -33,7 +31,20 @@ public class UserRepository {
         this.userCollection = pantryPalDB.getCollection("user");
     }
 
+    public boolean validCreateRequest(JSONObject createUserJSON) {
+        String username = createUserJSON.getString("username");
+        String password = createUserJSON.getString("password");
+        if (username.equals("") || password.equals("")) {
+            return false;
+        }else if (userCollection.find(new Document("username", username)).first() != null){
+            return false;
+        }
+        return true;
+    }
+    
     public User createUser(JSONObject createUserJSON) {
+        if (!validCreateRequest(createUserJSON)) return null;
+        
         User user = new User(createUserJSON);
         System.out.println(user.toJSON().toString());
         Document recipeDoc = new Document("_id", user.id);
@@ -51,7 +62,7 @@ public class UserRepository {
         Document userDocument = userCollection.find(filter).first();
         if (userDocument != null) {
             return userDocument.getObjectId("_id").toString();
-        }else{
+        } else {
             return "Invalid Login Credentials";
         }
     }
