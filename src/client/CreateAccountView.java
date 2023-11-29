@@ -1,12 +1,10 @@
 package client;
 
 import javafx.scene.layout.*;
-import models.Model;
 
 public class CreateAccountView extends BorderPane {
   private Header header;
   private Footer footer;
-  private Model model;
   private CreateAccountBody createAccountBody;
 
   CreateAccountViewController cavc;
@@ -14,7 +12,6 @@ public class CreateAccountView extends BorderPane {
   CreateAccountView(CreateAccountViewController cavc) {
 
     // Initialise the header Object
-    model = new Model();
     header = new Header();
     header.setHeaderText("Create Account");
 
