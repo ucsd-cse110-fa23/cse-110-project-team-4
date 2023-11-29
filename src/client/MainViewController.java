@@ -24,6 +24,8 @@ public class MainViewController {
     AbstractFactoryForDetailedView<DetailedViewController> affdv1 = new FDRV1();
     AbstractFactoryForDetailedView<DetailedViewController> affdv2 = new FDRV2();
 
+    String currentUser = "";
+
     MainViewController() {
         // Set the title of the app
 
@@ -81,5 +83,13 @@ public class MainViewController {
     public void closeLoginOpenCreate(){
         this.lvc.closeDisplay();
         this.cavc.display();
+    }
+
+    public void setUser(String user){
+        this.currentUser = user;
+    }
+
+    public String getUser(){
+        return this.currentUser;
     }
 }

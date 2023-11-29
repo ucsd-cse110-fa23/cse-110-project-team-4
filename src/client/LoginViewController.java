@@ -18,7 +18,7 @@ public class LoginViewController implements ViewController{
         
         // Initialize the LoginView
         loginView = new LoginView(this);
-        stage.setScene(new Scene(loginView, screenWidth, screenHeight));
+        stage.setScene(new Scene(loginView, this.screenWidth, this.screenHeight));
         stage.setTitle("PantryPal");
     }
 
@@ -36,5 +36,9 @@ public class LoginViewController implements ViewController{
 
     public void transitionToMultiple(){
         this.mvc.closeLoginOpenMultiple();
+    }
+
+    public void login(String user) {
+        this.mvc.setUser(user);
     }
 }
