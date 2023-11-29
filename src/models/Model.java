@@ -10,7 +10,7 @@ import java.net.URL;
 import org.json.JSONObject;
 
 public class Model {
-    public String performPOSTRequestForRecipe(String recipeName, String recipeContent, String recipeImage) {
+    public String performPOSTRequestForRecipe(String recipeName, String recipeContent, String recipeImage, String user) {
         // Implement your HTTP request logic here and return the response
 
         try {
@@ -26,7 +26,7 @@ public class Model {
             createRecipeRequest.put("mealType", "breakfast");
             createRecipeRequest.put("details", recipeContent);
             createRecipeRequest.put("image", recipeImage);
-            createRecipeRequest.put("userId", "65614b0c44879f466638921b");
+            createRecipeRequest.put("userId", user);
 
             out.write(createRecipeRequest.toString());
             out.flush();
@@ -104,11 +104,11 @@ public class Model {
         }
     }
 
-    public String performGETRequestForList() {
+    public String performGETRequestForList(String user) {
         // Implement your HTTP request logic here and return the response
 
         try {
-            String urlString = "http://localhost:8100/recipeList?=65614b0c44879f466638921b";
+            String urlString = "http://localhost:8100/recipeList?="+user;
 
             URL url = new URI(urlString).toURL();
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
