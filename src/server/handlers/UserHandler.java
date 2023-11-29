@@ -19,12 +19,12 @@ public class UserHandler implements HttpHandler {
     public void handle(HttpExchange httpExchange) throws IOException {
         String response = "Request Received";
         String method = httpExchange.getRequestMethod();
-
+        System.out.println(method);
         try {
             if (method.equals("POST")) {
                 response = handlePost(httpExchange);
-            } else if (method.equals("GET")) {
-                response = handleGet(httpExchange);
+            } else if (method.equals("PUT")) {
+                response = handlePut(httpExchange);
             } else {
                 throw new Exception("Not Valid Request Method");
             }
@@ -68,7 +68,7 @@ public class UserHandler implements HttpHandler {
         return "Successfully created user: " + createUserRequest.getString("username");
     }
 
-    private String handleGet(HttpExchange httpExchange) {
+    private String handlePut(HttpExchange httpExchange) {
         JSONObject loginRequest = parseJSON(httpExchange);
         return this.userRepository.login(loginRequest);
     }
