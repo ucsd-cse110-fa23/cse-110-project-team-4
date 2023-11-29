@@ -39,12 +39,12 @@ public class DetailedRecipeViewTests {
         recipe1 = new Recipe("655db6ee0eba1d4d1da76c4d", "Huli Huli Chicken", "lunch", 
             "yummy chicken plate with rice and mac", 
             "655db6ee0eba1d4d1da76c4d",
-            1700640606057l);
+            null, 1700640606057l);
 
         recipe2 = new Recipe("655ec290e597b112f51cdc2a", "Makai Bowl", "dinner", 
             "Poke bowl with salmon and ahi tuna", 
             "655db6ee0eba1d4d1da76c4d",
-            1700709008320l);
+            null, 1700709008320l);
         Document recipeDoc = new Document("_id", recipe1.id);
         recipeDoc.append("name", recipe1.name)
                 .append("mealType", recipe1.mealType)
@@ -87,6 +87,7 @@ public class DetailedRecipeViewTests {
         createRecipeJson.put("mealType", "breakfast");
         createRecipeJson.put("details", "Toasted ham egg and cheese sandwich");
         createRecipeJson.put("userId", "65614b0c44879f466638921b");
+        createRecipeJson.put("image", "null");
 
         Recipe createRecipe = recipeRepository.createRecipe(createRecipeJson);
         Recipe getRecipe = recipeRepository.getRecipe(createRecipe.id.toString());
