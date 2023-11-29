@@ -61,17 +61,17 @@ public class ServerTest {
         recipe1 = new Recipe("655db6ee0eba1d4d1da76c4d", "Huli Huli Chicken", "lunch", 
             "yummy chicken plate with rice and mac", 
             "65614b0c44879f466638921b",
-            1700640606057l);
+            null, 1700640606057l);
 
         recipe2 = new Recipe("655ec290e597b112f51cdc2a", "Makai Bowl", "dinner", 
             "Poke bowl with salmon and ahi tuna", 
             "65614b0c44879f466638921b",
-            1700709008320l);
+            null, 1700709008320l);
 
         recipe3 = new Recipe("655f2290e597b112f51cdc2a", "Bobcat Ham", "breakfast", 
             "Toasted ham egg and cheese sandwich", 
             "65614b0c44879f466638921b",
-            1700709008320l);
+            null, 1700709008320l);
 
         insertRecipe(recipe1);
         insertRecipe(recipe2);
@@ -99,6 +99,7 @@ public class ServerTest {
         createRecipeJson.put("mealType", "breakfast");
         createRecipeJson.put("details", "Toasted ham egg and cheese sandwich");
         createRecipeJson.put("userId", "65614b0c44879f466638921b");
+        createRecipeJson.put("image", "null");
 
         Recipe newRecipe = recipeRepository.createRecipe(createRecipeJson);
         Recipe getNewRecipe = recipeRepository.getRecipe(newRecipe.id.toString());
@@ -137,5 +138,26 @@ public class ServerTest {
         String loginError = userRepository.login(incorrectLoginRequest);
 
         assertEquals("Invalid Login Credentials", loginError);
+    }
+
+    @Test
+    void testShare() {
+        String sharedRecipe = recipeRepository.shareRecipe("655db6ee0eba1d4d1da76c4d");
+
+        StringBuilder htmlBuilder = new StringBuilder();
+
+        htmlBuilder.append("<!DOCTYPE html>\n");
+        htmlBuilder.append("<html>\n");
+        htmlBuilder.append("<head>\n");
+        htmlBuilder.append("<title>").append(recipe1.name).append(" Recipe</title>\n");
+        htmlBuilder.append("</head>\n");
+        htmlBuilder.append("<body>\n");
+        htmlBuilder.append("<h1>").append(recipe1.name).append(" </h1>\n");
+        htmlBuilder.append("<h2>").append(recipe1.mealType).append(" </h2>\n");
+        htmlBuilder.append("<p>").append(recipe1.details.replaceAll("\n", "<br>")).append("</p>\n");
+        htmlBuilder.append("</body>\n");
+        htmlBuilder.append("</html>");
+
+        assertEquals(sharedRecipe, htmlBuilder.toString());
     }
 }

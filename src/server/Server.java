@@ -5,6 +5,7 @@ import com.sun.net.httpserver.*;
 import server.handlers.RecipeHandler;
 import server.handlers.RecipeListHandler;
 import server.handlers.UserHandler;
+import server.handlers.ShareHandler;
 import server.repositories.RecipeRepository;
 import server.repositories.UserRepository;
 
@@ -34,6 +35,7 @@ public class Server {
 
         server.createContext("/recipeList", new RecipeListHandler(recipeRepository));
         server.createContext("/recipe", new RecipeHandler(recipeRepository));
+        server.createContext("/recipe/share", new ShareHandler(recipeRepository));
         server.createContext("/user", new UserHandler(userRepository));
         server.setExecutor(threadPoolExecutor);
         server.start();
