@@ -51,12 +51,14 @@ public class RecipeRepository {
 
     public Recipe createRecipe(JSONObject createRecipeJSON) {
         Recipe recipe = new Recipe(createRecipeJSON);
+        System.out.println("yes");
         System.out.println(recipe.toJSON().toString());
         Document recipeDoc = new Document("_id", recipe.id);
         recipeDoc.append("name", recipe.name)
                 .append("mealType", recipe.mealType)
                 .append("details", recipe.details)
                 .append("userId", recipe.userId)
+                .append("image", recipe.image)
                 .append("createdAt", recipe.createdAt);
 
         recipeCollection.insertOne(recipeDoc);
