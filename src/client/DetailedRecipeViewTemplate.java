@@ -94,7 +94,8 @@ public class DetailedRecipeViewTemplate extends BorderPane implements DView {
             if (this.detailedInfo.getIsNewRecipe()) {
                 model.performPOSTRequestForRecipe(this.detailedInfo.getRecipeName(),
                         this.detailedInfo.getRecipeContent(),
-                        Base64.getEncoder().encodeToString(this.detailedInfo.getImageArray()));
+                        Base64.getEncoder().encodeToString(this.detailedInfo.getImageArray()),
+                        this.detailedInfo.getMealType());
                 this.detailedInfo.setIsNewRecipe(false);
             } else {
                 System.out.println(
@@ -123,6 +124,7 @@ public class DetailedRecipeViewTemplate extends BorderPane implements DView {
         detailedInfo.setRecipeContext(recipeData.getString("details"));
         detailedInfo.setCreatedAt(recipeData.getLong("createdAt"));
         detailedInfo.setImage(Base64.getDecoder().decode(recipeData.getString("image")));
+        detailedInfo.setMealType(recipeData.getString("mealType"));
         detailedInfo.setIsNewRecipe(false);
     }
 
