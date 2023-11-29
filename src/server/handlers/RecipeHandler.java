@@ -32,7 +32,7 @@ public class RecipeHandler implements HttpHandler {
             } else if (method.equals("DELETE")) {
                 response = handleDelete(httpExchange);
             } else {
-              throw new Exception("Not Valid Request Method");
+                throw new Exception("Not Valid Request Method");
             }
         } catch (Exception e) {
             System.out.println("An erroneous request");
@@ -40,12 +40,12 @@ public class RecipeHandler implements HttpHandler {
             e.printStackTrace();
         }
 
-        //Sending back response to the client
+        // Sending back response to the client
         httpExchange.sendResponseHeaders(200, response.length());
         OutputStream outStream = httpExchange.getResponseBody();
         outStream.write(response.getBytes());
         outStream.close();
-       
+
     }
 
     // Takes in the httpExchange and gets the body as a JSON
@@ -54,19 +54,23 @@ public class RecipeHandler implements HttpHandler {
         StringBuilder jsonBuff = new StringBuilder();
         String line = null;
         try {
-            Scanner scanner = new Scanner(inStream);;
-            while ((line = scanner.nextLine()) != null)
+            Scanner scanner = new Scanner(inStream);
+            while (scanner.hasNextLine()) {
+                line = scanner.nextLine();
                 jsonBuff.append(line);
+                //System.out.println(line);
+            }
+
             scanner.close();
-        } catch (Exception e) { /*error*/ 
+        } catch (Exception e) { /* error */
             e.printStackTrace();
         }
 
-        //System.out.println("Request JSON string :" + jsonBuff.toString());
-        //write the response here by getting JSON from jasonBuff.toString()
-
+        // System.out.println("Request JSON string :" + jsonBuff.toString());
+        // write the response here by getting JSON from jasonBuff.toString()
 
         JSONObject jsonObject = new JSONObject(jsonBuff.toString());
+        // System.out.println("no" + jsonBuff.toString());
         return jsonObject;
     }
 
@@ -75,10 +79,10 @@ public class RecipeHandler implements HttpHandler {
         String response = "Invalid GET request";
         URI uri = httpExchange.getRequestURI();
         String query = uri.getRawQuery();
-        
+
         if (query != null) {
             String recipeID = query.substring(query.indexOf("=") + 1);
-            
+
             Recipe recipe = this.recipeRepository.getRecipe(recipeID); // Retrieve data from hashmap
             if (recipe != null) {
                 response = recipe.toJSON().toString();
@@ -89,19 +93,19 @@ public class RecipeHandler implements HttpHandler {
             }
         }
         return response;
-    }     
+    }
 
     private String handlePost(HttpExchange httpExchange) throws IOException {
         JSONObject createRecipeRequest = parseJSON(httpExchange);
         Recipe recipe = this.recipeRepository.createRecipe(createRecipeRequest);
         return recipe.toJSON().toString();
-    }   
-    
+    }
+
     private String handlePut(HttpExchange httpExchange) throws IOException {
         JSONObject editRecipeRequest = parseJSON(httpExchange);
         Recipe recipe = this.recipeRepository.editRecipe(editRecipeRequest);
         return recipe.toJSON().toString();
-    }   
+    }
 
     private String handleDelete(HttpExchange httpExchange) {
         String response = "Invalid DELETE request";
@@ -110,12 +114,11 @@ public class RecipeHandler implements HttpHandler {
         if (query != null) {
             String recipeID = query.substring(query.indexOf("=") + 1);
             Recipe recipe = this.recipeRepository.getRecipe(recipeID);
-            if(recipe != null) {
+            if (recipe != null) {
                 this.recipeRepository.deleteRecipe(recipeID);
                 response = "Deleted entry {" + recipe.name + ", " + recipe.toJSON().toString() + "}";
                 System.out.println(response);
-            }
-            else {
+            } else {
                 response = "No data found for " + recipeID;
                 System.out.println(response);
             }
