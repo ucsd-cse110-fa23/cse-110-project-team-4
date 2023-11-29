@@ -29,4 +29,7 @@ public class CreateAccountViewController implements ViewController {
     cavcStage.close();
   }
 
+  public void transitionToLogin(){
+    this.mvc.closeCreateOpenLogin();
+  }
 }
