@@ -1,7 +1,5 @@
 package client;
 
-import java.io.IOException;
-import java.net.URISyntaxException;
 import java.util.Arrays;
 
 import javafx.scene.control.Button;

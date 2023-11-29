@@ -1,21 +1,9 @@
 package client;
 
-import java.io.BufferedReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import org.json.JSONObject;
-
 import javafx.geometry.Pos;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.net.HttpURLConnection;
-import java.net.URL;
 
-import org.json.JSONObject;
-
-import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.PasswordField;
@@ -113,6 +101,7 @@ public class LoginBody extends VBox {
         } else {
             // Login successful, you can handle the successful login here
             showInfoMessage("Login successful. Welcome, " + username + "!");
+            lvc.login(response);
             lvc.transitionToMultiple();
         }
     }

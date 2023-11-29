@@ -75,7 +75,7 @@ public class MultipleRecipeView extends BorderPane {
 
     public void loadRecipeList() {
         recipeListBody.getChildren().clear();
-        String response = model.performGETRequestForList();
+        String response = model.performGETRequestForList(this.mrvc.mvc.getUser());
         recipeArrayList = new ArrayList<JSONObject>();
         // System.out.println(response);
         if (response != null) {

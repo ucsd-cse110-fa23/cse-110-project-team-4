@@ -94,7 +94,8 @@ public class DetailedRecipeViewTemplate extends BorderPane implements DView {
             if (this.detailedInfo.getIsNewRecipe()) {
                 model.performPOSTRequestForRecipe(this.detailedInfo.getRecipeName(),
                         this.detailedInfo.getRecipeContent(),
-                        Base64.getEncoder().encodeToString(this.detailedInfo.getImageArray()));
+                        Base64.getEncoder().encodeToString(this.detailedInfo.getImageArray()),
+                        this.vc.mc.getUser());
                 this.detailedInfo.setIsNewRecipe(false);
             } else {
                 System.out.println(
