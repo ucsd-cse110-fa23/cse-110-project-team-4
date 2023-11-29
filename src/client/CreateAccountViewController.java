@@ -32,5 +32,4 @@ public class CreateAccountViewController implements ViewController {
   public void transitionToLogin(){
     this.mvc.closeCreateOpenLogin();
   }
-
 }
