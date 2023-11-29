@@ -17,9 +17,5 @@ public class DetailedNewRecipeView extends DetailedRecipeViewTemplate {
             System.out.println("Reload");
         });
     }
-
-
-
-    
     
 }

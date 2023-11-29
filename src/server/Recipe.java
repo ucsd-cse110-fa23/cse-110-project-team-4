@@ -10,15 +10,17 @@ public class Recipe {
     public String mealType;
     public String details;
     public ObjectId userId;
+    public String image;
     public long createdAt;
 
     // constructor from different parts
-    public Recipe(String id, String name, String mealType, String details, String userId, long createdAt){
+    public Recipe(String id, String name, String mealType, String details, String userId, String image, long createdAt){
         this.id = new ObjectId(id);
         this.name = name;
         this.mealType = mealType;
         this.details = details;
         this.userId = new ObjectId(userId);
+        this.image = image;
         this.createdAt = createdAt;
     }
 
@@ -29,6 +31,7 @@ public class Recipe {
         this.mealType = createRecipeJSON.getString("mealType");
         this.details = createRecipeJSON.getString("details");
         this.userId = new ObjectId(createRecipeJSON.getString("userId"));
+        this.image = createRecipeJSON.getString("image");
         this.createdAt = System.currentTimeMillis();
     }
 
@@ -39,6 +42,7 @@ public class Recipe {
         this.mealType = recipeDocument.getString("mealType");
         this.details = recipeDocument.getString("details");
         this.userId = recipeDocument.getObjectId("userId");
+        this.image = recipeDocument.getString("image");
         this.createdAt = recipeDocument.getLong("createdAt");
     }
 
@@ -49,6 +53,7 @@ public class Recipe {
         recipeJSON.put("mealType", this.mealType);
         recipeJSON.put("name", this.name);
         recipeJSON.put("id", this.id.toString());
+        recipeJSON.put("image", this.image);
         return recipeJSON;
     }
 
