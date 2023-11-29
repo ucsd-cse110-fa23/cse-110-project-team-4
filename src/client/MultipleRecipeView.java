@@ -1,8 +1,9 @@
 package client;
 
-import javafx.scene.control.*;
-import javafx.scene.layout.*;
-import models.Model;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -10,8 +11,12 @@ import org.json.JSONObject;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
-
-import java.util.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.VBox;
+import models.Model;
 
 public class MultipleRecipeView extends BorderPane {
     private Header header;
@@ -31,7 +36,9 @@ public class MultipleRecipeView extends BorderPane {
             "No Filter");
     ObservableList<String> sortOptions = FXCollections.observableArrayList(
             "Chronologically ASC",
-            "Chronologically DSC");
+            "Chronologically DSC",
+            "Alphabetically ASC",
+            "Alphabetically DSC");
     MultipleRecipeViewController mrvc;
 
     MultipleRecipeView(MultipleRecipeViewController mrvc) {
@@ -135,13 +142,13 @@ public class MultipleRecipeView extends BorderPane {
         sortDropdown.setMaxWidth(150);
 
         VBox rootSort = new VBox();
-        rootSort.getChildren().add(filterDropdown);
-        filterDropdown.showingProperty().addListener((observable, oldValue, showing) -> {
+        rootSort.getChildren().add(sortDropdown);
+        sortDropdown.showingProperty().addListener((observable, oldValue, showing) -> {
             if (showing) {
-                double comboBoxHeight = filterDropdown.getHeight();
-                filterDropdown.setTranslateY(-comboBoxHeight * 4);
+                double comboBoxHeight = sortDropdown.getHeight();
+                sortDropdown.setTranslateY(-comboBoxHeight * 4);
             } else {
-                filterDropdown.setTranslateY(0);
+                sortDropdown.setTranslateY(0);
             }
         });
     }
@@ -177,6 +184,10 @@ public class MultipleRecipeView extends BorderPane {
                     handleSortByTime(false);
                 } else if (sortOption == "Chronologically DSC") {
                     handleSortByTime(true);
+                } else if (sortOption == "Alphabetically ASC") {
+                    handleSortByName(false);
+                } else if (sortOption == "Alphabetically DSC") {
+                    handleSortByName(true);
                 }
                 // do sort alphabetically here
             } else {
@@ -201,7 +212,6 @@ public class MultipleRecipeView extends BorderPane {
 
     public void handleSortByTime(Boolean reverseOrder) {
         Collections.sort(recipeArrayList, new Comparator<JSONObject>() {
-            // You can change "Name" with "ID" if you want to sort by ID
             @Override
             public int compare(JSONObject a, JSONObject b) {
                 Long valA;
@@ -223,31 +233,26 @@ public class MultipleRecipeView extends BorderPane {
         generateButtons();
     }
 
-    // public void handleSort(String key, Boolean reverseOrder) {
-    // Collections.sort(recipeArrayList, new Comparator<JSONObject>() {
-    // // You can change "Name" with "ID" if you want to sort by ID
-    // @Override
-    // public int compare(JSONObject a, JSONObject b) {
-    // String valA = new String();
-    // String valB = new String();
+    public void handleSortByName(Boolean reverseOrder) {
+        Collections.sort(recipeArrayList, new Comparator<JSONObject>() {
+            @Override
+            public int compare(JSONObject a, JSONObject b) {
+                String valA;
+                String valB;
 
-    // try {
-    // valA = a.getString(key);
-    // valB = b.getString(key);
-    // } catch (JSONException e) {
-    // // do something
-    // }
+                valA = a.getString("name");
+                valB = b.getString("name");
 
-    // int comp = valA.compareTo(valB);
+                int comp = valA.compareTo(valB);
 
-    // return comp;
-    // }
-    // });
+                return comp;
+            }
+        });
 
-    // if (reverseOrder) {
-    // Collections.reverse(recipeArrayList);
-    // }
+        if (reverseOrder) {
+            Collections.reverse(recipeArrayList);
+        }
 
-    // }
-
+        generateButtons();
+    }
 }
