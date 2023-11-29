@@ -33,8 +33,8 @@ public class MainViewController {
         this.dvc1 = new DetailedViewController(drvStage1,screenSizeWidth,screenSizeHeight,this,affdv1);
         this.dvc2 = new DetailedViewController(drvStage2,screenSizeWidth,screenSizeHeight,this,affdv2);
         this.grvc = new GenerateRecipesViewController(grvStage, screenSizeWidth,screenSizeHeight, this);
-        this.lvc = new LoginViewController(lvcStage, screenSizeWidth, screenSizeHeight);
-        this.cavc = new CreateAccountViewController(cavcStage, screenSizeWidth, screenSizeHeight);
+        this.lvc = new LoginViewController(lvcStage, screenSizeWidth, screenSizeHeight, this);
+        this.cavc = new CreateAccountViewController(cavcStage, screenSizeWidth, screenSizeHeight, this);
         
         lvc.display();
         //

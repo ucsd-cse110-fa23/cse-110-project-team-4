@@ -108,7 +108,7 @@ public class Model {
         // Implement your HTTP request logic here and return the response
 
         try {
-            String urlString = "http://localhost:8100/recipeList?="+user;
+            String urlString = "http://localhost:8100/recipeList?=" + user;
 
             URL url = new URI(urlString).toURL();
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -118,6 +118,7 @@ public class Model {
             BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
             String response = in.readLine();
             in.close();
+
             return response;
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -152,11 +153,10 @@ public class Model {
 
     public String login(String username, String password) {
         try {
-            String urlString = "http://localhost:8100/User";  // Replace with your server's authentication endpoint
-
+            String urlString = "http://localhost:8100/user";  // Replace with your server's authentication endpoint
             URL url = new URI(urlString).toURL();
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            conn.setRequestMethod("POST");
+            conn.setRequestMethod("PUT");
             conn.setDoOutput(true);
 
             // Create a JSON object with username and password

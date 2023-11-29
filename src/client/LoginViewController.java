@@ -11,7 +11,7 @@ public class LoginViewController implements ViewController{
     private LoginView loginView;
     MainViewController mvc;
     
-    public LoginViewController(Stage stage, int screenWidth, int screenHeight) {
+    public LoginViewController(Stage stage, int screenWidth, int screenHeight, MainViewController mvc) {
         this.stage = stage;
         this.screenWidth = screenWidth;
         this.screenHeight = screenHeight;
@@ -20,6 +20,8 @@ public class LoginViewController implements ViewController{
         loginView = new LoginView(this);
         stage.setScene(new Scene(loginView, this.screenWidth, this.screenHeight));
         stage.setTitle("PantryPal");
+
+        this.mvc = mvc;
     }
 
     public void display() {
