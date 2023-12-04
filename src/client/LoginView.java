@@ -27,4 +27,10 @@ public class LoginView extends BorderPane {
         this.setCenter(loginBody);
         this.setBottom(footer);
     }
+
+    public LoginBody getLoginBody() {
+        System.out.println("b" + this.loginBody.getUserId());
+        return this.loginBody;
+    }
+
 }
