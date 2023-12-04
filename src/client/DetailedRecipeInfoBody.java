@@ -15,7 +15,7 @@ public class DetailedRecipeInfoBody extends VBox {
     private TextArea recipeContent;
     private String uuid;
     private long createdAt;
-
+    private TextField mealType;
     private byte[] imageArray;
 
     private Image image;
@@ -25,12 +25,21 @@ public class DetailedRecipeInfoBody extends VBox {
 
     DetailedRecipeInfoBody() {
         
+        mealType = new TextField();
+        mealType.setText("Breakfast");
+        mealType.setPrefSize(40, 40);
+        mealType.setAlignment(Pos.CENTER);
+        mealType.setEditable(false);
+        this.getChildren().add(mealType);
+
+
         recipeName = new TextField();
         recipeName.setText("Ramen");
         recipeName.setPrefSize(40, 40);
         recipeName.setAlignment(Pos.CENTER);
         recipeName.setEditable(false);
         this.getChildren().add(recipeName);
+
 
         imageView = new ImageView();
         HBox hbox = new HBox();
@@ -97,6 +106,14 @@ public class DetailedRecipeInfoBody extends VBox {
 
     public void setIsNewRecipe(boolean isNewRecipe) {
         this.isNewRecipe = isNewRecipe;
+    }
+
+    public void setMealType(String mealType){
+        this.mealType.setText(mealType);
+    }
+
+    public String getMealType(){
+        return this.mealType.getText();
     }
 
     public void setImage(byte[] imageArray) {

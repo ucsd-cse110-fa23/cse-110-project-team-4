@@ -24,7 +24,7 @@ public class GenerateRecipesLogic {
             return new GenerateRecipeContent("Cannot Generate Recipe Without Valid Voice Prompt", null, null);
         } else {
             try {
-                GenerateRecipeHandler grh = new GenerateRecipeHandler("Give me a recipe with no semicolons or commas" + this.prompt +
+                GenerateRecipeHandler grh = new GenerateRecipeHandler("Give me a recipe with " + this.prompt +
                         "in the format of title followed by ingredients, and then instructions for a recipe.");
                 String recipeInfo = grh.makeRequest();
                 String[] recipeInfoSplit = recipeInfo.split("\n");
@@ -34,8 +34,17 @@ public class GenerateRecipesLogic {
 
                 DallEImageGenerator dig = new DallEImageGenerator(recipeName);
                 byte[] imageArray = dig.generateImage();
-
-                GenerateRecipeContent grc = new GenerateRecipeContent(recipeName, recipeDetails, imageArray);
+                String mealType = null;
+                if(this.prompt.contains("dinner") || this.prompt.contains("Dinner") ){
+                    mealType = "Dinner";
+                }
+                else if(this.prompt.contains("breakfast") || this.prompt.contains("Breakfast")){
+                    mealType = "Breakfast";
+                }
+                else if(this.prompt.contains("lunch") || this.prompt.contains("Lunch")){
+                    mealType = "Lunch";
+                }
+                GenerateRecipeContent grc = new GenerateRecipeContent(recipeName, recipeDetails, imageArray, mealType);
                 return grc;
             } catch (Exception ex) {
                 ex.printStackTrace();
