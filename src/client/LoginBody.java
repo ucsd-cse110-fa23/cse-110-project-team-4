@@ -16,7 +16,6 @@ import javafx.scene.text.Text;
 
 import models.Model;
 
-
 public class LoginBody extends VBox {
     Text usernameText;
     Text passwordText;
@@ -67,8 +66,10 @@ public class LoginBody extends VBox {
         createAccountPrompt = new Text("Don't have an account? ");
         createAccountPrompt.setFont(Font.font(16));
         createAccountButton = new Button("Create one.");
-        createAccountButton.setOnAction(e -> {this.lvc.transitionToCreateAccount();
-          });;
+        createAccountButton.setOnAction(e -> {
+            this.lvc.transitionToCreateAccount();
+        });
+        ;
 
         createAccountRedirect = new HBox(10, createAccountPrompt, createAccountButton);
         createAccountRedirect.setAlignment(Pos.CENTER);
@@ -83,7 +84,8 @@ public class LoginBody extends VBox {
         String username = usernameField.getText();
         String password = passwordField.getText();
 
-        // You can add validation here to ensure that username and password are not empty
+        // You can add validation here to ensure that username and password are not
+        // empty
         if (username.isEmpty() || password.isEmpty()) {
             showErrorMessage("Username and password are required.");
             return;
@@ -100,7 +102,6 @@ public class LoginBody extends VBox {
             showErrorMessage("Invalid username or password.");
         } else {
             // Login successful, you can handle the successful login here
-            showInfoMessage("Login successful. Welcome, " + username + "!");
             lvc.login(response);
             lvc.transitionToMultiple();
         }
@@ -113,17 +114,5 @@ public class LoginBody extends VBox {
         alert.setContentText(message);
         alert.showAndWait();
     }
-
-    private void showInfoMessage(String message) {
-        Alert alert = new Alert(AlertType.INFORMATION);
-        alert.setTitle("Login Successful");
-        alert.setHeaderText(null);
-        alert.setContentText(message);
-        alert.showAndWait();
-    }
-    
-
-    
-
 
 }
