@@ -2,7 +2,6 @@ package client;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -95,7 +94,6 @@ public class MultipleRecipeView extends BorderPane {
         recipeListBody.getChildren().clear();
         String response = model.performGETRequestForList(this.mrvc.mvc.getUser());
         recipeArrayList = new ArrayList<JSONObject>();
-        System.out.println(response);
         if (response != null) {
 
             JSONArray recipeList = new JSONArray(response);

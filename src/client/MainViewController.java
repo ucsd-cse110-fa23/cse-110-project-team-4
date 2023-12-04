@@ -47,7 +47,6 @@ public class MainViewController {
 
     private void displayStartingWindow() {
         if(this.lvc.checkAutomaticLogin()) {
-            System.out.println("a" + this.lvc.getUserId());
             setUser(this.lvc.getUserId());
             mpvc.display();
         }
