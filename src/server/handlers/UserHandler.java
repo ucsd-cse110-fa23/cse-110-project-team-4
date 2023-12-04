@@ -64,7 +64,9 @@ public class UserHandler implements HttpHandler {
 
     private String handlePost(HttpExchange httpExchange) throws IOException {
         JSONObject createUserRequest = parseJSON(httpExchange);
-        this.userRepository.createUser(createUserRequest);
+        if (this.userRepository.createUser(createUserRequest) == null) {
+            return "Error: Invalid Request";
+        }
         return "Successfully created user: " + createUserRequest.getString("username");
     }
 
