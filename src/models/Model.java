@@ -10,8 +10,9 @@ import java.net.URL;
 import org.json.JSONObject;
 
 public class Model {
-    
-    public String performPOSTRequestForRecipe(String recipeName, String recipeContent, String recipeImage, String mealType,String user) {
+
+    public String performPOSTRequestForRecipe(String recipeName, String recipeContent, String recipeImage,
+            String mealType, String user) {
         // Implement your HTTP request logic here and return the response
 
         try {
@@ -49,7 +50,7 @@ public class Model {
         try {
             String urlString = "http://localhost:8100/recipe";
 
-            if(method.equals("GET") || method.equals("DELETE")) {
+            if (method.equals("GET") || method.equals("DELETE")) {
                 if (id != null) {
                     urlString += "?=" + id;
                 }
@@ -127,8 +128,6 @@ public class Model {
         }
     }
 
-    
-
     public String performGETRequestForRecipe(String query) {
         // Implement your HTTP request logic here and return the response
 
@@ -154,7 +153,7 @@ public class Model {
 
     public String login(String username, String password) {
         try {
-            String urlString = "http://localhost:8100/user";  // Replace with your server's authentication endpoint
+            String urlString = "http://localhost:8100/user"; // Replace with your server's authentication endpoint
             URL url = new URI(urlString).toURL();
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("PUT");
@@ -177,6 +176,40 @@ public class Model {
         } catch (Exception ex) {
             ex.printStackTrace();
             return "Error: " + ex.getMessage();
+        }
+    }
+
+    public String createAccount(String username, String password) {
+        try {
+            String urlString = "http://localhost:8100/user";
+            URL url = new URI(urlString).toURL();
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod("POST");
+            conn.setDoOutput(true);
+
+            OutputStreamWriter out = new OutputStreamWriter(conn.getOutputStream());
+            JSONObject createUserRequest = new JSONObject();
+            createUserRequest.put("username", username);
+            createUserRequest.put("password", password);
+            System.out.println(username + " " + password);
+            out.write(createUserRequest.toString());
+            out.flush();
+            out.close();
+
+            BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+            String response = in.readLine();
+            System.out.println("Response: " + response);
+            in.close();
+            if (response.contains("Successful")) {
+                return "Account Created";
+            } else {
+                return "Error";
+            }
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            System.out.println("Error" + ex.getMessage());
+            return "Error " + ex.getMessage();
         }
     }
 }
