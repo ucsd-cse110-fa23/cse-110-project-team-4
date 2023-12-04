@@ -202,7 +202,11 @@ public class Model {
             in.close();
             if (response.contains("Successful")) {
                 return "Account Created";
-            } else {
+            } 
+            else if(response.equals("com.mongodb.MongoSocketOpenException: Exception opening socket")){
+                return "Error Connection refused: connect";
+            }
+            else {
                 return "Error";
             }
 
