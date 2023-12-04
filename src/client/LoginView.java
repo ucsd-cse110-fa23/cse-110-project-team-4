@@ -29,7 +29,6 @@ public class LoginView extends BorderPane {
     }
 
     public LoginBody getLoginBody() {
-        System.out.println("b" + this.loginBody.getUserId());
         return this.loginBody;
     }
 
