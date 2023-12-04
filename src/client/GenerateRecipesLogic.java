@@ -21,7 +21,7 @@ public class GenerateRecipesLogic {
 
     public GenerateRecipeContent performGenerateButtonAction() {
         if (!validPromptFlag) {
-            return null;
+            return new GenerateRecipeContent("Cannot Generate Recipe Without Valid Voice Prompt", null, null);
         } else {
             try {
                 GenerateRecipeHandler grh = new GenerateRecipeHandler("Give me a recipe with no semicolons or commas" + this.prompt +
@@ -39,8 +39,10 @@ public class GenerateRecipesLogic {
                 return grc;
             } catch (Exception ex) {
                 ex.printStackTrace();
+                ServerErrorNotification.alertNoConn();
+                return new GenerateRecipeContent("Try again", null, null);
             }
-            return null;
+            
         }
     }
 
@@ -67,6 +69,7 @@ public class GenerateRecipesLogic {
             }
         } catch (Exception ex) {
             ex.printStackTrace();
+            ServerErrorNotification.alertNoConn();
         }
         return null;
     }
