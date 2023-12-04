@@ -2,6 +2,7 @@ package client;
 
 import com.mongodb.Function;
 
+import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
@@ -29,7 +30,7 @@ public class MultipleRecipeViewController implements ViewController{
         else{
             mrvcStage.show();
             ServerErrorNotification.alertNoConn();
-            this.display();
+            Platform.exit();
         }
         
     }
