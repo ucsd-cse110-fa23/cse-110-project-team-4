@@ -10,7 +10,8 @@ import java.net.URL;
 import org.json.JSONObject;
 
 public class Model {
-    public String performPOSTRequestForRecipe(String recipeName, String recipeContent, String recipeImage) {
+    
+    public String performPOSTRequestForRecipe(String recipeName, String recipeContent, String recipeImage, String mealType,String user) {
         // Implement your HTTP request logic here and return the response
 
         try {
@@ -23,10 +24,10 @@ public class Model {
             OutputStreamWriter out = new OutputStreamWriter(conn.getOutputStream());
             JSONObject createRecipeRequest = new JSONObject();
             createRecipeRequest.put("name", recipeName);
-            createRecipeRequest.put("mealType", "breakfast");
+            createRecipeRequest.put("mealType", mealType);
             createRecipeRequest.put("details", recipeContent);
             createRecipeRequest.put("image", recipeImage);
-            createRecipeRequest.put("userId", "65614b0c44879f466638921b");
+            createRecipeRequest.put("userId", user);
 
             out.write(createRecipeRequest.toString());
             out.flush();
@@ -104,11 +105,11 @@ public class Model {
         }
     }
 
-    public String performGETRequestForList() {
+    public String performGETRequestForList(String user) {
         // Implement your HTTP request logic here and return the response
 
         try {
-            String urlString = "http://localhost:8100/recipeList?=65614b0c44879f466638921b";
+            String urlString = "http://localhost:8100/recipeList?=" + user;
 
             URL url = new URI(urlString).toURL();
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -118,6 +119,7 @@ public class Model {
             BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
             String response = in.readLine();
             in.close();
+
             return response;
         } catch (Exception ex) {
             //ex.printStackTrace();
@@ -139,6 +141,34 @@ public class Model {
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("GET");
             conn.setDoOutput(true);
+
+            BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+            String response = in.readLine();
+            in.close();
+            return response;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return "Error: " + ex.getMessage();
+        }
+    }
+
+    public String login(String username, String password) {
+        try {
+            String urlString = "http://localhost:8100/user";  // Replace with your server's authentication endpoint
+            URL url = new URI(urlString).toURL();
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod("PUT");
+            conn.setDoOutput(true);
+
+            // Create a JSON object with username and password
+            JSONObject loginRequest = new JSONObject();
+            loginRequest.put("username", username);
+            loginRequest.put("password", password);
+
+            OutputStreamWriter out = new OutputStreamWriter(conn.getOutputStream());
+            out.write(loginRequest.toString());
+            out.flush();
+            out.close();
 
             BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
             String response = in.readLine();
