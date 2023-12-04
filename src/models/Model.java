@@ -110,6 +110,7 @@ public class Model {
 
         try {
             String urlString = "http://localhost:8100/recipeList?=" + user;
+            //System.out.println(user);
 
             URL url = new URI(urlString).toURL();
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();

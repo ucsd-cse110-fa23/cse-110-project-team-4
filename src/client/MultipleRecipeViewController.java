@@ -35,4 +35,8 @@ public class MultipleRecipeViewController implements ViewController{
     public void transitionToGenerate() {
         this.mvc.closeMultipleOpenGenerate();
     }
+
+    public void transitiontoLogin() {
+        this.mvc.closeMultipleOpenLogin();
+    }
 }

@@ -1,5 +1,8 @@
 package client;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -10,11 +13,13 @@ import org.json.JSONObject;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import models.Model;
 
@@ -28,6 +33,7 @@ public class MultipleRecipeView extends BorderPane {
     private ComboBox<String> sortDropdown;
     private String currFilter;
     private Model model;
+    private Button logoutButton;
 
     ObservableList<String> filterOptions = FXCollections.observableArrayList(
             "Breakfast",
@@ -46,7 +52,9 @@ public class MultipleRecipeView extends BorderPane {
 
         // Initialise the header Object
         header = new Header();
+        makeAndAddLogoutButton();
         header.setHeaderText("PantryPal");
+        header.setAlignment(Pos.CENTER_LEFT);
 
         // Create a recipeList Object to hold the recipes
         recipeListBody = new RecipeListBody();
@@ -73,11 +81,21 @@ public class MultipleRecipeView extends BorderPane {
         addListeners();
     }
 
+    private void makeAndAddLogoutButton() {
+        logoutButton = new Button("Logout");
+        HBox hb = new HBox();
+        hb.getChildren().add(logoutButton);
+        hb.setPadding(new Insets(15, 145, 10, 10));
+        hb.setAlignment(Pos.CENTER);
+        header.getChildren().add(hb);
+
+    }
+
     public void loadRecipeList() {
         recipeListBody.getChildren().clear();
         String response = model.performGETRequestForList(this.mrvc.mvc.getUser());
         recipeArrayList = new ArrayList<JSONObject>();
-        // System.out.println(response);
+        System.out.println(response);
         if (response != null) {
 
             JSONArray recipeList = new JSONArray(response);
@@ -162,6 +180,19 @@ public class MultipleRecipeView extends BorderPane {
             this.mrvc.transitionToGenerate();
         });
 
+        logoutButton.setOnAction(e -> {
+
+            try {
+                FileWriter fw = new FileWriter("src\\client\\AutomaticLoginToken\\AutomaticLoginToken.txt", true);
+                BufferedWriter bw = new BufferedWriter(fw);
+                bw.write("no");
+                bw.close();
+                this.mrvc.transitiontoLogin();
+            } catch (Exception e1) {
+                // TODO Auto-generated catch block
+                e1.printStackTrace();
+            }
+        });
         filterDropdown.setOnAction(e -> {
             String mealType = filterDropdown.getValue();
             System.out.println(mealType);
