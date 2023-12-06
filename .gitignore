@@ -1,5 +1,6 @@
 bin/
 build/
-src/client/audio/
+src/client/audio/RecordAudio.wav
 src/client/images/
-src/client/AutomaticLoginToken/
+src/client/AutomaticLoginToken/AutomaticLoginToken.txt
+src/client/AutomaticLoginToken/AutomaticLoginTokenTest.txt
