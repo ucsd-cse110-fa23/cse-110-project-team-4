@@ -1,4 +1,4 @@
-package client.FactoryForDetailedViews;
+package client.factoryForDetailedViews;
 
 import client.detailedView.DView;
 
