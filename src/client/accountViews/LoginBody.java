@@ -4,10 +4,10 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
+
 import javafx.geometry.Pos;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
-
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.PasswordField;
@@ -17,7 +17,6 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-
 import models.Model;
 
 public class LoginBody extends VBox {
@@ -67,21 +66,14 @@ public class LoginBody extends VBox {
         this.getChildren().add(rememberMeCheckBox);
 
         loginButton = new Button("Login");
-        loginButton.setOnAction(e -> {
-            if (this.rememberMeCheckBox.isSelected()) {
-                createAutomaticLoginToken();
-            }
-            performLogin();
-        });
+        
         this.getChildren().add(loginButton);
 
         createAccountPrompt = new Text("Don't have an account? ");
         createAccountPrompt.setFont(Font.font(16));
         createAccountButton = new Button("Create one.");
-        createAccountButton.setOnAction(e -> {
-            this.lvc.transitionToCreateAccount();
-        });
-        ;
+        
+        addListener();
 
         createAccountRedirect = new HBox(10, createAccountPrompt, createAccountButton);
         createAccountRedirect.setAlignment(Pos.CENTER);
@@ -95,7 +87,18 @@ public class LoginBody extends VBox {
         performAutomaticLogin();
 
     }
+    private void addListener(){
+        createAccountButton.setOnAction(e -> {
+            this.lvc.transitionToCreateAccount();
+        });
 
+        loginButton.setOnAction(e -> {
+            if (this.rememberMeCheckBox.isSelected()) {
+                createAutomaticLoginToken();
+            }
+            performLogin();
+        });
+    }
     private void performLogin() {
         // Retrieve the username and password entered by the user
         String username = usernameField.getText();
