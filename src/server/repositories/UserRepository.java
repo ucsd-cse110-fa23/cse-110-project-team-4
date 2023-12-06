@@ -22,15 +22,16 @@ public class UserRepository {
     private MongoCollection<Document> userCollection = pantryPalDB.getCollection("user");
 
     public UserRepository() {
-
     }
 
+    // change for testing
     public UserRepository(String test) {
         this.mongoClient = MongoClients.create(CONNECTION_URI);
         this.pantryPalDB = mongoClient.getDatabase("pantryPalTest");
         this.userCollection = pantryPalDB.getCollection("user");
     }
 
+    // validates a create request, checks non empty and non duplicate
     public boolean validCreateRequest(JSONObject createUserJSON) {
         String username = createUserJSON.getString("username");
         String password = createUserJSON.getString("password");
@@ -42,6 +43,7 @@ public class UserRepository {
         return true;
     }
     
+    // creates user if valid
     public User createUser(JSONObject createUserJSON) {
         if (!validCreateRequest(createUserJSON)) return null;
         
@@ -55,6 +57,7 @@ public class UserRepository {
         return user;
     }
 
+    // returns login token
     public String login(JSONObject loginRequest) {
         String username = loginRequest.getString("username");
         String password = loginRequest.getString("password");

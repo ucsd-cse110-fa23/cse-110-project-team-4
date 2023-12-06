@@ -75,7 +75,6 @@ public class RecipeHandler implements HttpHandler {
     }
 
     private String handleGet(HttpExchange httpExchange) throws IOException {
-
         String response = "Invalid GET request";
         URI uri = httpExchange.getRequestURI();
         String query = uri.getRawQuery();
@@ -83,7 +82,7 @@ public class RecipeHandler implements HttpHandler {
         if (query != null) {
             String recipeID = query.substring(query.indexOf("=") + 1);
 
-            Recipe recipe = this.recipeRepository.getRecipe(recipeID); // Retrieve data from hashmap
+            Recipe recipe = this.recipeRepository.getRecipe(recipeID); // Retrieve data from database
             if (recipe != null) {
                 response = recipe.toJSON().toString();
                 System.out.println("Queried for " + recipe.name + " and found " + recipe.details);
@@ -95,18 +94,21 @@ public class RecipeHandler implements HttpHandler {
         return response;
     }
 
+    // Handles create requests
     private String handlePost(HttpExchange httpExchange) throws IOException {
         JSONObject createRecipeRequest = parseJSON(httpExchange);
         Recipe recipe = this.recipeRepository.createRecipe(createRecipeRequest);
         return recipe.toJSON().toString();
     }
 
+    // Handles put requests
     private String handlePut(HttpExchange httpExchange) throws IOException {
         JSONObject editRecipeRequest = parseJSON(httpExchange);
         Recipe recipe = this.recipeRepository.editRecipe(editRecipeRequest);
         return recipe.toJSON().toString();
     }
 
+    // Handles delete requests if valid
     private String handleDelete(HttpExchange httpExchange) {
         String response = "Invalid DELETE request";
         URI uri = httpExchange.getRequestURI();
@@ -125,5 +127,4 @@ public class RecipeHandler implements HttpHandler {
         }
         return response;
     }
-
 }
