@@ -1,7 +1,10 @@
-package client;
+package client.detailedView;
 
 import java.util.Arrays;
 
+import client.openAIAPI.AudioTranscriber;
+import client.generateRecipes.GenerateRecipeHandler;
+import client.openAIAPI.DallEImageGenerator;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 

@@ -16,7 +16,7 @@ public class RecipeButton extends HBox {
     Button button;
     String uuid;
 
-    RecipeButton() {
+    public RecipeButton() {
         this.setSpacing(10);
         this.setStyle("-fx-background-color: #DAE5EA; -fx-border-width: 0; -fx-font-weight: bold;"); // sets background
         this.setPrefSize(Screen.getPrimary().getBounds().getWidth(), 30);

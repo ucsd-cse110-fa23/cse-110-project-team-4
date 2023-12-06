@@ -1,7 +1,9 @@
-package client;
+package client.openAIAPI;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
+
+import client.Transcriber;
 
 public class AudioTranscriberMock implements Transcriber{
     private String FILE_PATH;

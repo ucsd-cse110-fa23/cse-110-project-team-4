@@ -1,5 +1,7 @@
-package client;
+package client.generateRecipes;
 
+import client.Footer;
+import client.Header;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;

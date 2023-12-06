@@ -1,4 +1,7 @@
-package client;
+package client.generateRecipes;
+
+import client.openAIAPI.AudioRecorder;
+import client.openAIAPI.AudioTranscriberMock;
 
 public class GenerateRecipesLogicMock {
     

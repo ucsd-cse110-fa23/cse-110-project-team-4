@@ -1,5 +1,7 @@
-package client;
+package client.multipleView;
 
+import client.MainViewController;
+import client.ViewController;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
@@ -9,7 +11,7 @@ public class MultipleRecipeViewController implements ViewController{
     int screenSizeHeight;
     MainViewController mvc;
     MultipleRecipeView mrv;
-    MultipleRecipeViewController(Stage primaryStage,int screenSizeWidth,int screenSizeHeight, MainViewController mvc){
+    public MultipleRecipeViewController(Stage primaryStage,int screenSizeWidth,int screenSizeHeight, MainViewController mvc){
         this.mrvcStage = primaryStage;
         this.screenSizeWidth = screenSizeWidth;
         this.screenSizeHeight = screenSizeHeight;

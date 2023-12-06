@@ -1,4 +1,4 @@
-package client;
+package client.generateRecipes;
 
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
