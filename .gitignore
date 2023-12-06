@@ -2,3 +2,4 @@ bin/
 build/
 src/client/audio/
 src/client/images/
+.gradle/
