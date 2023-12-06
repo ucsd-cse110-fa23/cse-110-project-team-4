@@ -5,6 +5,20 @@
 2. Run the application itself by running the App.java file.
 3. The list of recipes that you have created while the server has been running will be displayed.
 
+## Creating an Account
+1. In order to create an account, click on the "Create one." button
+2. This will take you to the Create Account Window, where you can create an account
+3. Enter your desired username and password
+4. Click the "Create Account" button
+5. If the account information is not valid then an error message will display
+6. Once you have entered valid account information and clicked create account, the app will take you to the Login Window prompting you to login
+   
+## Logging into an Account
+1. In order to login to your account, first enter the correct account information
+2. If you want to save your account information and automatically login next time, check the remember me box and then click login
+3. Click on the "Login" button
+4. This will take you to the recipe list window with your saved recipies
+
 ## Creating a Recipe
 1. In order to create a new recipe, click on the "+" button at the bottom of the screen.
 2. This will take you to the Generate Recipes Window, where you can make a recipe using a voice recording.
@@ -30,3 +44,28 @@ Recipe and it will open a new window with its contents.
 ## Deleting a Recipe
 1. To delete a recipe that you no longer want, click on the recipe in the main window.
 2. Then, simply press the "Delete" button and the "Back" button and your recipe will no longer be there.
+
+## Sorting Recipe List
+1. In order to sort the recipe list alphabetically or chronologically in ascending or descending order, click on the drop down titled "Chronologically ASC"
+2. Choose your desired sorting option by clicking on one of the options of "Chronologically ASC," "Chronologically DSC." "Alphabetically ASC," and "Alphabetically DSC" 
+3. Once you have click the sorting option, the page will automatically reload to the sorted list with respect to the sort option
+
+## Filtering Recipe List
+1. In order to filter recipe list by meal type, click on the drop down titled "No Filter"
+2. Choose your desired filter option by clicking on one of the options of "Breakfast," "Lunch," "Dinner," and "No Filter"
+3. Once you have clicked the filtering option, the page will automatically reload to the filtered list with respect to the filter option
+
+## Reload Recipe
+1. In order to reload a generated recipe, click on the "Reload" button after generating a recipe
+2. The app will regenerate and reload the page to display the newly generated recipe
+
+## Share Recipe
+1. In order to share a recipe, click on the recipe you wish to share from the list of recipes
+2. Click on the "Share" button
+3. A popup will appear with a copyable link for that respective recipe
+4. Copy the link and click the "okay" button
+5. The popup will close and you now have a copied link to share
+6. In order to view to shared recipe link, past the link into the browser
+7. The window will display details about the shared recipe
+
+https://github.com/ucsd-cse110-fa23/cse-110-project-team-4
