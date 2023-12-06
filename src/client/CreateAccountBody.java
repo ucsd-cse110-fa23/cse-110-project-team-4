@@ -1,5 +1,6 @@
 package client;
 
+import javafx.application.Platform;
 import javafx.geometry.Pos;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -99,16 +100,21 @@ public class CreateAccountBody extends VBox {
       String status = model.createAccount(u, p);
       if (status.equals("Account Created")) {
         this.cavc.transitionToLogin();
-      } else {
+      } 
+      else if(status.equals("Error Connection refused: connect")){
+        ServerErrorNotification.alertNoConn();
+        Platform.exit();
+      }
+      else {
         // show error message here
         showErrorMessage("Could not create account");
         System.out.println("Could not create account");
       }
       System.out.println(status);
-      ;
     });
 
     loginPageButton.setOnAction(e -> {
+      this.cavc.transitionToLogin();
       this.cavc.transitionToLogin();
     });
   }
