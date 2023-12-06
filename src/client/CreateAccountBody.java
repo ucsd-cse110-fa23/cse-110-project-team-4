@@ -1,6 +1,8 @@
 package client;
 
 import javafx.geometry.Pos;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -10,33 +12,26 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.net.HttpURLConnection;
-import java.net.URI;
-import java.net.URL;
-
-import org.json.JSONObject;
+import models.Model;
 
 public class CreateAccountBody extends VBox {
-  GridPane grid;
-  Text welcomeText;
-  Text usernameText;
-  Text usernameErrorMessage;
-  Text passwordText;
-  Text passwordErrorMessage;
-  Text alreadyLoggedInText;
+  private Text usernameText;
+  private Text usernameErrorMessage;
+  private Text passwordText;
+  private Text passwordErrorMessage;
+  private Text alreadyLoggedInText;
+  private Model model;
 
-  TextField usernameField;
-  PasswordField passwordField;
-  Button createAccountButton;
-  Button loginPageButton;
-  HBox loginRedict;
+  private TextField usernameField;
+  private PasswordField passwordField;
+  private Button createAccountButton;
+  private Button loginPageButton;
+  private HBox loginRedict;
 
   CreateAccountViewController cavc;
 
   CreateAccountBody(CreateAccountViewController cavc) {
+    model = new Model();
     this.cavc = cavc;
 
     usernameText = new Text("Username: ");
@@ -100,38 +95,29 @@ public class CreateAccountBody extends VBox {
         this.usernameErrorMessage.setText("");
         this.passwordErrorMessage.setText("");
 
-        try {
-          String urlString = "http://localhost:8100/user";
-          URL url = new URI(urlString).toURL();
-          HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-          conn.setRequestMethod("POST");
-          conn.setDoOutput(true);
-
-          OutputStreamWriter out = new OutputStreamWriter(conn.getOutputStream());
-          JSONObject createUserRequest = new JSONObject();
-          createUserRequest.put("username", u);
-          createUserRequest.put("password", p);
-          System.out.println(u + " " + p);
-          out.write(createUserRequest.toString());
-          out.flush();
-          out.close();
-
-          BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-          // String response = in.readLine();
-          in.close();
-
-        } catch (Exception ex) {
-          ex.printStackTrace();
-          System.out.println("Error" + ex.getMessage());
-        }
-
       }
-
-      // then transition to login page
+      String status = model.createAccount(u, p);
+      if (status.equals("Account Created")) {
+        this.cavc.transitionToLogin();
+      } else {
+        // show error message here
+        showErrorMessage("Could not create account");
+        System.out.println("Could not create account");
+      }
+      System.out.println(status);
+      ;
     });
 
     loginPageButton.setOnAction(e -> {
-      this.cavc.transitionToLogin(); 
+      this.cavc.transitionToLogin();
     });
+  }
+
+  private void showErrorMessage(String message) {
+    Alert alert = new Alert(AlertType.ERROR);
+    alert.setTitle("Create Account Error");
+    alert.setHeaderText(null);
+    alert.setContentText(message);
+    alert.showAndWait();
   }
 }
