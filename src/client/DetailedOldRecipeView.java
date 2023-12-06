@@ -16,11 +16,9 @@ public class DetailedOldRecipeView extends DetailedRecipeViewTemplate{
     }
 
     public void addNewListeners() {
-        TextInputDialog dialogObj = creatURLDisplay();
+         
         shareButton.setOnAction(e -> {
-            System.out.println("Share");
-            dialogObj.getEditor().setText("localhost:8100/recipe/share?=" + super.getDetailedRecipeInfoBody().getUUID());
-            dialogObj.showAndWait();
+            creatURLDisplay();
         });
     }
 
@@ -36,8 +34,11 @@ public class DetailedOldRecipeView extends DetailedRecipeViewTemplate{
         //Adding buttons to the dialog pane
         dialog.getDialogPane().getButtonTypes().clear();
         dialog.getDialogPane().getButtonTypes().add(type);
-
+        dialog.getEditor().setText(RecipeShareLogic.createShareLinkString(super.getDetailedRecipeInfoBody().getUUID()));
+        dialog.showAndWait();
         return dialog;
     }
+
+    
     
 }
