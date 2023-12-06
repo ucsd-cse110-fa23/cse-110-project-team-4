@@ -103,7 +103,11 @@ public class MultipleRecipeView extends BorderPane {
                 createRecipeButton(recipe);
             }
         }
+        else{
+            return false;
+        }
         addListenersForButtons();
+        return true;
     }
 
     public void generateButtons() {
