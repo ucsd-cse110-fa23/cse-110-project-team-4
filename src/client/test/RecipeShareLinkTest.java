@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
-import client.RecipeShareLogic;
+import client.detailedView.RecipeShareLogic;
 
 public class RecipeShareLinkTest {
     String recipe1UUID = "655db6ee0eba1d4d1da76c4d";

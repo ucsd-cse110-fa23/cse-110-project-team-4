@@ -1,8 +1,8 @@
-package client.FactoryForDetailedViews;
+package client.factoryForDetailedViews;
 
-import client.DView;
-import client.DetailedOldRecipeView;
-import client.DetailedViewController;
+import client.detailedView.DView;
+import client.detailedView.DetailedOldRecipeView;
+import client.detailedView.DetailedViewController;
 
 public class FDRV1 extends AbstractFactoryForDetailedView<DetailedViewController> {
     @Override

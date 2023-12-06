@@ -1,8 +1,13 @@
 package client;
 
-import client.FactoryForDetailedViews.AbstractFactoryForDetailedView;
-import client.FactoryForDetailedViews.FDRV1;
-import client.FactoryForDetailedViews.FDRV2;
+import client.accountViews.CreateAccountViewController;
+import client.accountViews.LoginViewController;
+import client.detailedView.DetailedViewController;
+import client.factoryForDetailedViews.AbstractFactoryForDetailedView;
+import client.factoryForDetailedViews.FDRV1;
+import client.factoryForDetailedViews.FDRV2;
+import client.generateRecipes.GenerateRecipesViewController;
+import client.multipleView.MultipleRecipeViewController;
 import javafx.stage.Stage;
 
 public class MainViewController {
