@@ -11,6 +11,7 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.io.File;
 
 import server.User;
 import server.repositories.UserRepository;
@@ -49,10 +50,14 @@ public class AutomaticLoginTest {
         user2 = new User("65614b0c44879f477738921b", "arvinz", "pa55w0rd#");
         insertUser(user1);
         insertUser(user2);
-    }
 
-    @Test
-    void testCreateAutomaticLoginToken() {
+        File file = new File("src\\\\client\\\\AutomaticLoginToken\\\\AutomaticLoginTokenTest.txt");
+        if (file.delete()) { 
+            System.out.println("Deleted the file: " + file.getName());
+        } else {
+            System.out.println("Failed to delete the file.");
+        } 
+
         try {
             FileWriter fw = new FileWriter("src\\client\\AutomaticLoginToken\\AutomaticLoginTokenTest.txt");
             BufferedWriter bw = new BufferedWriter(fw);
@@ -65,6 +70,16 @@ public class AutomaticLoginTest {
             bw.newLine();
             bw.write("yes");
             bw.close();
+        } catch(Exception e) {
+
+        }
+    }
+
+    @Test
+    void testCreateAutomaticLoginToken() {
+        try {
+            String username = user1.toJSON().getString("username");
+            String password = user1.toJSON().getString("password");
 
             FileReader fr = new FileReader("src\\client\\AutomaticLoginToken\\AutomaticLoginTokenTest.txt");
             BufferedReader br = new BufferedReader(fr);
@@ -109,10 +124,10 @@ public class AutomaticLoginTest {
             bw.close();
 
             FileReader fr2 = new FileReader("src\\client\\AutomaticLoginToken\\AutomaticLoginTokenTest.txt");
-            BufferedReader br2 = new BufferedReader(fr);
-            br.readLine();
-            br.readLine();
-            String automaticLogin2 = br.readLine();
+            BufferedReader br2 = new BufferedReader(fr2);
+            br2.readLine();
+            br2.readLine();
+            String automaticLogin2 = br2.readLine();
             fr2.close();
             br2.close();
 
