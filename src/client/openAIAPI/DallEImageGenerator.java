@@ -28,9 +28,6 @@ public class DallEImageGenerator implements ImageGenerator {
         // Set request parameters
         int n = 1;
 
-        // String imagePath = "src/client/images/" + prompt + ".jpg";
-        // Files.deleteIfExists(Paths.get(imagePath));
-
         // Create a request body which you will pass into request object
         JSONObject requestBody = new JSONObject();
         requestBody.put("model", MODEL);
@@ -63,13 +60,14 @@ public class DallEImageGenerator implements ImageGenerator {
 
         System.out.println("DALL-E Response:");
         System.out.println(generatedImageURL);
-
+            
+        //Read the URL for the image into a BufferedImage
         BufferedImage bi = ImageIO.read(new URI(generatedImageURL).toURL());
         ByteArrayOutputStream b = new ByteArrayOutputStream();
+        //Convert BufferedImage into a byte array
         ImageIO.write(bi, "jpg", b);
 
         byte[] imageByteArray = b.toByteArray();
-        //String imageString = new String(imageByteArray);
         return imageByteArray;
 
     }
