@@ -104,8 +104,7 @@ public class MultipleRecipeView extends BorderPane {
                 recipeArrayList.add(recipeList.getJSONObject(i));
                 createRecipeButton(recipe);
             }
-        }
-        else{
+        } else {
             return false;
         }
         addListenersForButtons();
@@ -177,59 +176,66 @@ public class MultipleRecipeView extends BorderPane {
 
     public void addListeners() {
         addButton.setOnAction(e -> {
-
-            // Recipe recipe = new Recipe();
-            // recipe.setRecipeName("Recipe Name");
-            // recipeList.getChildren().add(recipe);
             this.mrvc.transitionToGenerate();
         });
 
         logoutButton.setOnAction(e -> {
-
-            try {
-                FileWriter fw = new FileWriter("src\\client\\AutomaticLoginToken\\AutomaticLoginToken.txt", true);
-                BufferedWriter bw = new BufferedWriter(fw);
-                bw.write("no");
-                bw.close();
-                this.mrvc.transitiontoLogin();
-            } catch (Exception e1) {
-                // TODO Auto-generated catch block
-                e1.printStackTrace();
-            }
+            this.performLogoutButtonAction();
         });
         filterDropdown.setOnAction(e -> {
-            String mealType = filterDropdown.getValue();
-            System.out.println(mealType);
-            if (mealType != null) {
-                System.out.println("Selected Item: " + mealType);
-                this.currFilter = mealType;
-                generateButtons();
-            } else {
-                System.out.println("No item selected.");
-            }
+            this.performFilterDropdownAction();
         });
 
         sortDropdown.setOnAction(e -> {
-            String sortOption = sortDropdown.getValue();
-            System.out.println(sortOption);
-            if (sortOption != null) {
-                System.out.println("Selected Item: " + sortOption);
-
-                if (sortOption == "Chronologically ASC") {
-                    handleSortByTime(false);
-                } else if (sortOption == "Chronologically DSC") {
-                    handleSortByTime(true);
-                } else if (sortOption == "Alphabetically ASC") {
-                    handleSortByName(false);
-                } else if (sortOption == "Alphabetically DSC") {
-                    handleSortByName(true);
-                }
-                // do sort alphabetically here
-            } else {
-                System.out.println("No item selected.");
-            }
+            this.performSortDropdownAction();
         });
 
+    }
+
+    public void performLogoutButtonAction() {
+        try {
+            FileWriter fw = new FileWriter("src\\client\\AutomaticLoginToken\\AutomaticLoginToken.txt", true);
+            BufferedWriter bw = new BufferedWriter(fw);
+            bw.write("no");
+            bw.close();
+            this.mrvc.transitiontoLogin();
+        } catch (Exception e1) {
+            // TODO Auto-generated catch block
+            e1.printStackTrace();
+        }
+    }
+
+    public void performFilterDropdownAction() {
+        String mealType = filterDropdown.getValue();
+        System.out.println(mealType);
+        if (mealType != null) {
+            System.out.println("Selected Item: " + mealType);
+            this.currFilter = mealType;
+            generateButtons();
+        } else {
+            System.out.println("No item selected.");
+        }
+    }
+
+    public void performSortDropdownAction() {
+        String sortOption = sortDropdown.getValue();
+        System.out.println(sortOption);
+        if (sortOption != null) {
+            System.out.println("Selected Item: " + sortOption);
+
+            if (sortOption == "Chronologically ASC") {
+                handleSortByTime(false);
+            } else if (sortOption == "Chronologically DSC") {
+                handleSortByTime(true);
+            } else if (sortOption == "Alphabetically ASC") {
+                handleSortByName(false);
+            } else if (sortOption == "Alphabetically DSC") {
+                handleSortByName(true);
+            }
+            // do sort alphabetically here
+        } else {
+            System.out.println("No item selected.");
+        }
     }
 
     public void addListenersForButtons() {

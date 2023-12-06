@@ -3,9 +3,10 @@ package client.generateRecipes;
 import client.Footer;
 import client.Header;
 import javafx.geometry.Insets;
-import javafx.scene.control.*;
-import javafx.scene.layout.*;
 import javafx.geometry.Pos;
+import javafx.scene.control.Button;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 
 /*
  * Class for all the contents of the Generate Recipes Window -- Header, body, and footer with buttons and their listeners
@@ -70,14 +71,7 @@ public class GenerateRecipesView extends BorderPane {
 
     public void addListeners() {
         generateButton.setOnAction(e -> {
-            GenerateRecipeContent recipeContent = this.grl.performGenerateButtonAction();
-            if (recipeContent.getRecipeDetails() != null) {
-                this.grvc.exportRecipeToDetailed(recipeContent.getRecipeName(), recipeContent.getRecipeDetails(), recipeContent.getImageByteArray(),recipeContent.getMealType());
-                this.grvc.transitionToDetailed();
-            }
-            else {
-                this.grb.setTranscription(recipeContent.getRecipeName());
-            }
+            this.performGenerateButtonAction();
         });
 
         startButton.setOnAction(e -> {
@@ -85,11 +79,26 @@ public class GenerateRecipesView extends BorderPane {
         });
 
         stopButton.setOnAction(e -> {
-            String prompt = this.grl.performStopButtonAction();
-            if(prompt != null) {
-                this.grb.setTranscription(prompt);
-            }
+            this.performStopButtonAction();
         });
 
+    }
+
+    public void performStopButtonAction() {
+        String prompt = this.grl.performStopButtonAction();
+        if (prompt != null) {
+            this.grb.setTranscription(prompt);
+        }
+    }
+
+    public void performGenerateButtonAction() {
+        GenerateRecipeContent recipeContent = this.grl.performGenerateButtonAction();
+        if (recipeContent.getRecipeDetails() != null) {
+            this.grvc.exportRecipeToDetailed(recipeContent.getRecipeName(), recipeContent.getRecipeDetails(),
+                    recipeContent.getImageByteArray(), recipeContent.getMealType());
+            this.grvc.transitionToDetailed();
+        } else {
+            this.grb.setTranscription(recipeContent.getRecipeName());
+        }
     }
 }
