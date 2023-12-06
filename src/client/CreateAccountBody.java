@@ -115,6 +115,7 @@ public class CreateAccountBody extends VBox {
 
     loginPageButton.setOnAction(e -> {
       this.cavc.transitionToLogin();
+      this.cavc.transitionToLogin();
     });
   }
 
