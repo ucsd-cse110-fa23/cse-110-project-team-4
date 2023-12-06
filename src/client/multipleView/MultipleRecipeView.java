@@ -93,6 +93,10 @@ public class MultipleRecipeView extends BorderPane {
     }
 
     public boolean loadRecipeList() {
+
+        sortDropdown.setValue("Chronologically ASC");
+        filterDropdown.setValue("No Filter");
+
         recipeListBody.getChildren().clear();
         String response = model.performGETRequestForList(this.mrvc.mvc.getUser());
         recipeArrayList = new ArrayList<JSONObject>();
