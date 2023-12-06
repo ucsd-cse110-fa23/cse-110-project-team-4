@@ -1,4 +1,4 @@
-package client;
+package client.detailedView;
 
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar.ButtonData;

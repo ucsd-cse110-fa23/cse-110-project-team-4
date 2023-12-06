@@ -1,9 +1,11 @@
-package client;
+package client.detailedView;
 
 import java.util.Base64;
 
 import org.json.JSONObject;
 
+import client.Footer;
+import client.Header;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;

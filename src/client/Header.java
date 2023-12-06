@@ -4,7 +4,7 @@ import javafx.scene.text.*;
 import javafx.scene.layout.*;
 import javafx.geometry.Pos;
 
-class Header extends HBox {
+public class Header extends HBox {
 
     public Header() {
         this.setPrefSize(500, 60); // Size of the header

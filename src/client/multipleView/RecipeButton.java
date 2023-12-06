@@ -1,4 +1,4 @@
-package client;
+package client.multipleView;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;

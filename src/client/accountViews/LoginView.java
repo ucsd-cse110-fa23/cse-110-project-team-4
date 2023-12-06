@@ -1,5 +1,7 @@
-package client;
+package client.accountViews;
 
+import client.Footer;
+import client.Header;
 import javafx.scene.layout.*;
 
 public class LoginView extends BorderPane {

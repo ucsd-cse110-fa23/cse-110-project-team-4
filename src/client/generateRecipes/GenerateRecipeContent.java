@@ -1,4 +1,4 @@
-package client;
+package client.generateRecipes;
 
 public class GenerateRecipeContent {
     private String recipeName;

@@ -1,4 +1,4 @@
-package client;
+package client.accountViews;
 
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;

@@ -10,8 +10,6 @@ import org.json.JSONObject;
 
 import client.Footer;
 import client.Header;
-import client.RecipeButton;
-import client.RecipeListBody;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Pos;

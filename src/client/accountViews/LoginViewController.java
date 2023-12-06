@@ -1,5 +1,7 @@
-package client;
+package client.accountViews;
 
+import client.MainViewController;
+import client.ViewController;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
