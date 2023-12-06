@@ -12,7 +12,7 @@ import java.awt.image.BufferedImage;
 
 import org.json.JSONObject;
 
-public class DallEImageGenerator {
+public class DallEImageGenerator implements ImageGenerator {
     private static final String API_ENDPOINT = "https://api.openai.com/v1/images/generations";
     private static final String API_KEY = ***REMOVED***;
     private static final String MODEL = "dall-e-2";
