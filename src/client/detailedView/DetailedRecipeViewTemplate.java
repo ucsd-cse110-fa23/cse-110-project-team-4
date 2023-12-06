@@ -93,7 +93,19 @@ public class DetailedRecipeViewTemplate extends BorderPane implements DView {
         });
 
         saveButton.setOnAction(e -> {
-            if (this.detailedInfo.getIsNewRecipe()) {
+            performSaveButtonAction();
+        });
+
+        deleteButton.setOnAction(e -> {
+            model.recipeRequest("DELETE", this.detailedInfo.getUUID(), this.detailedInfo.getRecipeName(),
+                    this.detailedInfo.getRecipeContent(),
+                    Base64.getEncoder().encodeToString(this.detailedInfo.getImageArray()),
+                    this.detailedInfo.getCreatedAt());
+        });
+    }
+
+    public void performSaveButtonAction(){
+        if (this.detailedInfo.getIsNewRecipe()) {
                 model.performPOSTRequestForRecipe(this.detailedInfo.getRecipeName(),
                         this.detailedInfo.getRecipeContent(),
                         Base64.getEncoder().encodeToString(this.detailedInfo.getImageArray()),
@@ -107,15 +119,6 @@ public class DetailedRecipeViewTemplate extends BorderPane implements DView {
                                 Base64.getEncoder().encodeToString(this.detailedInfo.getImageArray()),
                                 this.detailedInfo.getCreatedAt()));
             }
-
-        });
-
-        deleteButton.setOnAction(e -> {
-            model.recipeRequest("DELETE", this.detailedInfo.getUUID(), this.detailedInfo.getRecipeName(),
-                    this.detailedInfo.getRecipeContent(),
-                    Base64.getEncoder().encodeToString(this.detailedInfo.getImageArray()),
-                    this.detailedInfo.getCreatedAt());
-        });
     }
 
     public void getAndSetInfo(String uuid) {
