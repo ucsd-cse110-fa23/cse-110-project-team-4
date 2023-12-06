@@ -25,18 +25,20 @@ public class RecipeRepository {
     private MongoDatabase pantryPalDB;
     private MongoCollection<Document> recipeCollection;
 
-
     public RecipeRepository() {
         this.mongoClient = MongoClients.create(CONNECTION_URI);
         this.pantryPalDB = mongoClient.getDatabase("pantryPal");
         this.recipeCollection = pantryPalDB.getCollection("recipe");
     }
 
+    // test constructor
     public RecipeRepository(String test) {
         this.mongoClient = MongoClients.create(CONNECTION_URI);
         this.pantryPalDB = mongoClient.getDatabase("pantryPalTest");
         this.recipeCollection = pantryPalDB.getCollection("recipe");
     }
+
+    // gets recipe list by user
     public ArrayList<Recipe> getRecipeList(String userId) {
         Bson filter = eq("userId", new ObjectId(userId));
 
@@ -49,10 +51,13 @@ public class RecipeRepository {
         return recipeList;
     }
 
+    // creates recipe in database
     public Recipe createRecipe(JSONObject createRecipeJSON) {
         Recipe recipe = new Recipe(createRecipeJSON);
         System.out.println("yes");
         System.out.println(recipe.toJSON().toString());
+
+        // creates the recipe document to be inserted
         Document recipeDoc = new Document("_id", recipe.id);
         recipeDoc.append("name", recipe.name)
                 .append("mealType", recipe.mealType)
@@ -65,13 +70,14 @@ public class RecipeRepository {
         return recipe;
     }
 
+    // gets recipe by id
     public Recipe getRecipe(String id) {
         Document recipeDocument = recipeCollection.find(new Document("_id", new ObjectId(id))).first();
         Recipe recipe = new Recipe(recipeDocument);
         return recipe;
     }
 
-
+    // edits recipe
     public Recipe editRecipe(JSONObject editRecipeRequest) {
         ObjectId id = new ObjectId(editRecipeRequest.getString("id"));
         Bson filter = eq("_id", id);
@@ -83,6 +89,7 @@ public class RecipeRepository {
         return new Recipe(recipeCollection.find(filter).first());
     }
 
+    // deletes recipe
     public Recipe deleteRecipe(String id) {
         Bson filter = eq("_id", new ObjectId(id));
         Recipe recipe = new Recipe(recipeCollection.find(filter).first());
@@ -90,6 +97,7 @@ public class RecipeRepository {
         return recipe;
     }
 
+    // share recipe
     public String shareRecipe(String id) {
         Bson filter = eq("_id", new ObjectId(id));
         Document recipeDocument = recipeCollection.find(filter).first();
@@ -100,6 +108,7 @@ public class RecipeRepository {
         Recipe recipe = new Recipe(recipeDocument);
         StringBuilder htmlBuilder = new StringBuilder();
 
+        // creates the html file
         htmlBuilder.append("<!DOCTYPE html>\n");
         htmlBuilder.append("<html>\n");
         htmlBuilder.append("<head>\n");

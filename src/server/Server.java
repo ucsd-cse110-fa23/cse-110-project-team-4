@@ -33,6 +33,7 @@ public class Server {
             0
         );
 
+        // creates all the contexts and handlers
         server.createContext("/recipeList", new RecipeListHandler(recipeRepository));
         server.createContext("/recipe", new RecipeHandler(recipeRepository));
         server.createContext("/recipe/share", new ShareHandler(recipeRepository));
