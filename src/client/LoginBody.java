@@ -1,5 +1,9 @@
 package client;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
 import javafx.geometry.Pos;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -28,6 +32,9 @@ public class LoginBody extends VBox {
     Text createAccountPrompt;
     Button createAccountButton;
     HBox createAccountRedirect;
+    Model model;
+    boolean automaticLoginFlag;
+    String userId;
 
     LoginViewController lvc;
 
@@ -60,7 +67,12 @@ public class LoginBody extends VBox {
         this.getChildren().add(rememberMeCheckBox);
 
         loginButton = new Button("Login");
-        loginButton.setOnAction(e -> performLogin());
+        loginButton.setOnAction(e -> {
+            if (this.rememberMeCheckBox.isSelected()) {
+                createAutomaticLoginToken();
+            }
+            performLogin();
+        });
         this.getChildren().add(loginButton);
 
         createAccountPrompt = new Text("Don't have an account? ");
@@ -77,6 +89,11 @@ public class LoginBody extends VBox {
 
         this.setSpacing(10);
         this.setAlignment(Pos.CENTER);
+
+        model = new Model();
+        userId = "";
+        performAutomaticLogin();
+
     }
 
     private void performLogin() {
@@ -92,7 +109,6 @@ public class LoginBody extends VBox {
         }
 
         // You can make an HTTP request to your backend server for authentication
-        Model model = new Model();
         String response = model.login(username, password);
 
         // Check the response from the server
@@ -107,12 +123,70 @@ public class LoginBody extends VBox {
         }
     }
 
+    private void performAutomaticLogin() {
+        FileReader fr;
+        try {
+            fr = new FileReader("src\\client\\AutomaticLoginToken\\AutomaticLoginToken.txt");
+            BufferedReader br = new BufferedReader(fr);
+            String username = br.readLine();
+            String password = br.readLine();
+            String automaticLogin = br.readLine();
+            br.close();
+            if (automaticLogin.equals("yes")) {
+                String response = model.login(username, password);
+                if (!(response.startsWith("Error") || response.equals("Invalid Login Credentials"))) {
+                    this.automaticLoginFlag = true;
+                    this.userId = response.replace("\n", "");
+                    // System.out.println(this.userId);
+                }
+            } else {
+                this.automaticLoginFlag = false;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    private void createAutomaticLoginToken() {
+        try {
+            FileWriter fw = new FileWriter("src\\client\\AutomaticLoginToken\\AutomaticLoginToken.txt");
+            BufferedWriter bw = new BufferedWriter(fw);
+            String username = usernameField.getText();
+            String password = passwordField.getText();
+            bw.write(username);
+            bw.newLine();
+            bw.write(password);
+            bw.newLine();
+            bw.write("yes");
+            bw.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     private void showErrorMessage(String message) {
         Alert alert = new Alert(AlertType.ERROR);
         alert.setTitle("Login Error");
         alert.setHeaderText(null);
         alert.setContentText(message);
         alert.showAndWait();
+    }
+  
+    private void showInfoMessage(String message) {
+        Alert alert = new Alert(AlertType.INFORMATION);
+        alert.setTitle("Login Successful");
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+
+    public boolean getAutomaticLoginFlag() {
+        return this.automaticLoginFlag;
+    }
+
+    public String getUserId() {
+        return this.userId;
     }
 
 }

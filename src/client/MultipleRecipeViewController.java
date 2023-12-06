@@ -1,7 +1,5 @@
 package client;
 
-import com.mongodb.Function;
-
 import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -45,5 +43,9 @@ public class MultipleRecipeViewController implements ViewController{
 
     public void transitionToGenerate() {
         this.mvc.closeMultipleOpenGenerate();
+    }
+
+    public void transitiontoLogin() {
+        this.mvc.closeMultipleOpenLogin();
     }
 }

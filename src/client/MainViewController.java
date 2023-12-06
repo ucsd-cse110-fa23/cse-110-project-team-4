@@ -36,13 +36,23 @@ public class MainViewController {
         this.lvc = new LoginViewController(lvcStage, screenSizeWidth, screenSizeHeight, this);
         this.cavc = new CreateAccountViewController(cavcStage, screenSizeWidth, screenSizeHeight, this);
         
-        lvc.display();
-        //
+        displayStartingWindow();
+        //lvc.display();
         //grvc.display();
         //mpvc.display();
         //dvc1.display();
         //dvc2.display();
         //dvc.display();
+    }
+
+    private void displayStartingWindow() {
+        if(this.lvc.checkAutomaticLogin()) {
+            setUser(this.lvc.getUserId());
+            mpvc.display();
+        }
+        else {
+            lvc.display();
+        }
     }
 
     public void closeGenerateOpenDetailed() {
@@ -91,5 +101,10 @@ public class MainViewController {
 
     public String getUser(){
         return this.currentUser;
+    }
+
+    public void closeMultipleOpenLogin() {
+        this.mpvc.closeDisplay();
+        this.lvc.display();
     }
 }

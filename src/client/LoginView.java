@@ -27,4 +27,9 @@ public class LoginView extends BorderPane {
         this.setCenter(loginBody);
         this.setBottom(footer);
     }
+
+    public LoginBody getLoginBody() {
+        return this.loginBody;
+    }
+
 }
