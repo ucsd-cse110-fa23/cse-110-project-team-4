@@ -1,5 +1,9 @@
 package client.accountViews;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
 import javafx.geometry.Pos;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -16,7 +20,6 @@ import javafx.scene.text.Text;
 
 import models.Model;
 
-
 public class LoginBody extends VBox {
     Text usernameText;
     Text passwordText;
@@ -29,6 +32,9 @@ public class LoginBody extends VBox {
     Text createAccountPrompt;
     Button createAccountButton;
     HBox createAccountRedirect;
+    Model model;
+    boolean automaticLoginFlag;
+    String userId;
 
     LoginViewController lvc;
 
@@ -61,14 +67,21 @@ public class LoginBody extends VBox {
         this.getChildren().add(rememberMeCheckBox);
 
         loginButton = new Button("Login");
-        loginButton.setOnAction(e -> performLogin());
+        loginButton.setOnAction(e -> {
+            if (this.rememberMeCheckBox.isSelected()) {
+                createAutomaticLoginToken();
+            }
+            performLogin();
+        });
         this.getChildren().add(loginButton);
 
         createAccountPrompt = new Text("Don't have an account? ");
         createAccountPrompt.setFont(Font.font(16));
         createAccountButton = new Button("Create one.");
-        createAccountButton.setOnAction(e -> {this.lvc.transitionToCreateAccount();
-          });;
+        createAccountButton.setOnAction(e -> {
+            this.lvc.transitionToCreateAccount();
+        });
+        ;
 
         createAccountRedirect = new HBox(10, createAccountPrompt, createAccountButton);
         createAccountRedirect.setAlignment(Pos.CENTER);
@@ -76,6 +89,11 @@ public class LoginBody extends VBox {
 
         this.setSpacing(10);
         this.setAlignment(Pos.CENTER);
+
+        model = new Model();
+        userId = "";
+        performAutomaticLogin();
+
     }
 
     private void performLogin() {
@@ -83,14 +101,14 @@ public class LoginBody extends VBox {
         String username = usernameField.getText();
         String password = passwordField.getText();
 
-        // You can add validation here to ensure that username and password are not empty
+        // You can add validation here to ensure that username and password are not
+        // empty
         if (username.isEmpty() || password.isEmpty()) {
             showErrorMessage("Username and password are required.");
             return;
         }
 
         // You can make an HTTP request to your backend server for authentication
-        Model model = new Model();
         String response = model.login(username, password);
 
         // Check the response from the server
@@ -102,6 +120,48 @@ public class LoginBody extends VBox {
             // Login successful, you can handle the successful login here
             lvc.login(response);
             lvc.transitionToMultiple();
+        }
+    }
+
+    private void performAutomaticLogin() {
+        FileReader fr;
+        try {
+            fr = new FileReader("src\\client\\AutomaticLoginToken\\AutomaticLoginToken.txt");
+            BufferedReader br = new BufferedReader(fr);
+            String username = br.readLine();
+            String password = br.readLine();
+            String automaticLogin = br.readLine();
+            br.close();
+            if (automaticLogin.equals("yes")) {
+                String response = model.login(username, password);
+                if (!(response.startsWith("Error") || response.equals("Invalid Login Credentials"))) {
+                    this.automaticLoginFlag = true;
+                    this.userId = response.replace("\n", "");
+                    // System.out.println(this.userId);
+                }
+            } else {
+                this.automaticLoginFlag = false;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    private void createAutomaticLoginToken() {
+        try {
+            FileWriter fw = new FileWriter("src\\client\\AutomaticLoginToken\\AutomaticLoginToken.txt");
+            BufferedWriter bw = new BufferedWriter(fw);
+            String username = usernameField.getText();
+            String password = passwordField.getText();
+            bw.write(username);
+            bw.newLine();
+            bw.write(password);
+            bw.newLine();
+            bw.write("yes");
+            bw.close();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
