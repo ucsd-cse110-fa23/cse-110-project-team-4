@@ -6,7 +6,7 @@ public class GenerateRecipeContent {
     private byte[] imageByteArray;
     private String mealType;
 
-    GenerateRecipeContent(String recipeName, String recipeDetails, byte[] imageByteArray, String mealType) {
+    public GenerateRecipeContent(String recipeName, String recipeDetails, byte[] imageByteArray, String mealType) {
         this.recipeName = recipeName;
         this.recipeDetails = recipeDetails;
         this.imageByteArray = imageByteArray;

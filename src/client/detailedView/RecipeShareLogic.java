@@ -1,4 +1,4 @@
-package client;
+package client.detailedView;
 
 public class RecipeShareLogic {
     public static String createShareLinkString(String uuid){

@@ -39,6 +39,4 @@ public class DetailedOldRecipeView extends DetailedRecipeViewTemplate{
         return dialog;
     }
 
-    
-    
 }
