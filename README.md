@@ -55,11 +55,11 @@ Recipe and it will open a new window with its contents.
 2. Choose your desired filter option by clicking on one of the options of "Breakfast," "Lunch," "Dinner," and "No Filter"
 3. Once you have clicked the filtering option, the page will automatically reload to the filtered list with respect to the filter option
 
-# Reload Recipe
+## Reload Recipe
 1. In order to reload a generated recipe, click on the "Reload" button after generating a recipe
 2. The app will regenerate and reload the page to display the newly generated recipe
 
-# Share Recipe
+## Share Recipe
 1. In order to share a recipe, click on the recipe you wish to share from the list of recipes
 2. Click on the "Share" button
 3. A popup will appear with a copyable link for that respective recipe
@@ -67,3 +67,5 @@ Recipe and it will open a new window with its contents.
 5. The popup will close and you now have a copied link to share
 6. In order to view to shared recipe link, past the link into the browser
 7. The window will display details about the shared recipe
+
+https://github.com/ucsd-cse110-fa23/cse-110-project-team-4
