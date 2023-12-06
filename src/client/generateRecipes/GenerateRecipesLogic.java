@@ -30,15 +30,19 @@ public class GenerateRecipesLogic {
             try {
                 GenerateRecipeHandler grh = new GenerateRecipeHandler("Give me a recipe with " + this.prompt +
                         "in the format of title followed by ingredients, and then instructions for a recipe.");
+                //Generate recipe based on prompt
                 String recipeInfo = grh.makeRequest();
                 String[] recipeInfoSplit = recipeInfo.split("\n");
                 String recipeName = recipeInfoSplit[2];
                 String recipeDetails = String.join("\n",
                         Arrays.copyOfRange(recipeInfoSplit, 3, recipeInfoSplit.length));
 
+                //Generate image for recipe based on the name of the recipe
                 DallEImageGenerator dig = new DallEImageGenerator(recipeName);
                 byte[] imageArray = dig.generateImage();
                 String mealType = null;
+
+                //Set mealtype of recipe based on prompt
                 if(this.prompt.contains("dinner") || this.prompt.contains("Dinner") ){
                     mealType = "Dinner";
                 }
@@ -48,6 +52,7 @@ public class GenerateRecipesLogic {
                 else if(this.prompt.contains("lunch") || this.prompt.contains("Lunch")){
                     mealType = "Lunch";
                 }
+                //Export the details of the recipe
                 GenerateRecipeContent grc = new GenerateRecipeContent(recipeName, recipeDetails, imageArray, mealType);
                 return grc;
             } catch (Exception ex) {
@@ -72,6 +77,7 @@ public class GenerateRecipesLogic {
         at = new AudioTranscriber("src/client/audio/RecordAudio.wav");
         try {
             this.prompt = at.generateTranscription();
+            //Check for valid meal type
             if (prompt.contains("dinner") || prompt.contains("Dinner") || prompt.contains("breakfast") ||
                     prompt.contains("Breakfast") || prompt.contains("lunch") || prompt.contains("Lunch")) {
                 this.validPromptFlag = true;
