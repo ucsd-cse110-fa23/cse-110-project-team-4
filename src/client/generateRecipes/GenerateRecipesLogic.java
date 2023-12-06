@@ -2,9 +2,9 @@ package client.generateRecipes;
 
 import java.util.Arrays;
 
-import client.AudioRecorder;
-import client.AudioTranscriber;
-import client.DallEImageGenerator;
+import client.openAIAPI.AudioRecorder;
+import client.openAIAPI.AudioTranscriber;
+import client.openAIAPI.DallEImageGenerator;
 
 
 /*

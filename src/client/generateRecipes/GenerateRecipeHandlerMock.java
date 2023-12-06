@@ -1,6 +1,6 @@
 package client.generateRecipes;
 
-import client.ChatGPTHandler;
+import client.openAIAPI.ChatGPTHandler;
 
 public class GenerateRecipeHandlerMock implements ChatGPTHandler{
 

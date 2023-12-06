@@ -1,4 +1,4 @@
-package client;
+package client.openAIAPI;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;

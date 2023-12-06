@@ -1,4 +1,4 @@
-package client;
+package client.detailedView;
 
 import java.io.ByteArrayInputStream;
 import javafx.geometry.Pos;
