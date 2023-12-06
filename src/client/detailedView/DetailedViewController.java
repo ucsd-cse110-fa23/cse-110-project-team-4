@@ -2,7 +2,7 @@ package client.detailedView;
 
 import client.MainViewController;
 import client.ViewController;
-import client.factoryForDetailedViews.AbstractFactoryForDetailedView;
+import client.FactoryForDetailedViews.AbstractFactoryForDetailedView;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
