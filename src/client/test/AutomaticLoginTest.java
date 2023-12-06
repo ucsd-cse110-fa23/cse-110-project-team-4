@@ -90,6 +90,7 @@ public class AutomaticLoginTest {
             String readUsername = br.readLine();
             String readPassword = br.readLine();
             String automaticLogin = br.readLine();
+            fr.close();
             br.close();
 
             assertEquals("yes", automaticLogin);
@@ -112,6 +113,7 @@ public class AutomaticLoginTest {
             br.readLine();
             br.readLine();
             String automaticLogin2 = br.readLine();
+            fr2.close();
             br2.close();
 
             assertNotEquals("yes", automaticLogin2);
