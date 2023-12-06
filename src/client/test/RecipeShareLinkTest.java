@@ -13,7 +13,6 @@ public class RecipeShareLinkTest {
     @Test
     void testLink(){
         String link = RecipeShareLogic.createShareLinkString(recipe1UUID);
-
         assertEquals("localhost:8100/recipe/share?=655db6ee0eba1d4d1da76c4d", link);
     }
 
