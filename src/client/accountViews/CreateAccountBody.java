@@ -1,5 +1,6 @@
 package client.accountViews;
 
+import client.ServerErrorNotification;
 import javafx.application.Platform;
 import javafx.geometry.Pos;
 import javafx.scene.control.Alert;
@@ -13,7 +14,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import models.Model;
-import client.ServerErrorNotification;
 
 public class CreateAccountBody extends VBox {
   private Text usernameText;
@@ -75,48 +75,49 @@ public class CreateAccountBody extends VBox {
 
   public void addListeners() {
     createAccountButton.setOnAction(e -> {
-      // get data
-      String u = this.usernameField.getText();
-      String p = this.passwordField.getText();
-
-      // check that neither username nor password is emtpy
-      // if empty reload, display, error, otherwise make user, redirect
-      if (u.equals("") || p.equals("")) {
-        if (u.equals("")) {
-          this.usernameErrorMessage.setText("Error: Username cannot be empty");
-        } else {
-          this.usernameErrorMessage.setText("");
-        }
-        if (p.equals("")) {
-          this.passwordErrorMessage.setText("Error: Username cannot be empty");
-        } else {
-          this.passwordErrorMessage.setText("");
-        }
-      } else {
-        this.usernameErrorMessage.setText("");
-        this.passwordErrorMessage.setText("");
-
-      }
-      String status = model.createAccount(u, p);
-      if (status.equals("Account Created")) {
-        this.cavc.transitionToLogin();
-      } 
-      else if(status.equals("Error Connection refused: connect")){
-        ServerErrorNotification.alertNoConn();
-        Platform.exit();
-      }
-      else {
-        // show error message here
-        showErrorMessage("Could not create account");
-        System.out.println("Could not create account");
-      }
-      System.out.println(status);
+      performCreateAccountButtonAction();
     });
 
     loginPageButton.setOnAction(e -> {
       this.cavc.transitionToLogin();
-      this.cavc.transitionToLogin();
     });
+  }
+
+  public void performCreateAccountButtonAction() {
+    // get data
+    String u = this.usernameField.getText();
+    String p = this.passwordField.getText();
+
+    // check that neither username nor password is emtpy
+    // if empty reload, display, error, otherwise make user, redirect
+    if (u.equals("") || p.equals("")) {
+      if (u.equals("")) {
+        this.usernameErrorMessage.setText("Error: Username cannot be empty");
+      } else {
+        this.usernameErrorMessage.setText("");
+      }
+      if (p.equals("")) {
+        this.passwordErrorMessage.setText("Error: Username cannot be empty");
+      } else {
+        this.passwordErrorMessage.setText("");
+      }
+    } else {
+      this.usernameErrorMessage.setText("");
+      this.passwordErrorMessage.setText("");
+
+    }
+    String status = model.createAccount(u, p);
+    if (status.equals("Account Created")) {
+      this.cavc.transitionToLogin();
+    } else if (status.equals("Error Connection refused: connect")) {
+      ServerErrorNotification.alertNoConn();
+      Platform.exit();
+    } else {
+      // show error message here
+      showErrorMessage("Could not create account");
+      System.out.println("Could not create account");
+    }
+    System.out.println(status);
   }
 
   private void showErrorMessage(String message) {
