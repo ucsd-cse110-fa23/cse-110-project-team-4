@@ -45,4 +45,15 @@ public class LoginViewController implements ViewController{
     public void login(String user) {
         this.mvc.setUser(user);
     }
+
+    public boolean checkAutomaticLogin() {
+        if(this.loginView.getLoginBody().getAutomaticLoginFlag()) {
+            return true;
+        }
+        else return false;
+    }
+
+    public String getUserId() {
+        return this.loginView.getLoginBody().getUserId();
+    }
 }

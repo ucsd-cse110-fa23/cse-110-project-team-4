@@ -7,6 +7,7 @@ import client.generateRecipes.GenerateRecipeHandler;
 import client.openAIAPI.DallEImageGenerator;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
+import client.ServerErrorNotification;
 
 public class DetailedNewRecipeView extends DetailedRecipeViewTemplate {
     Button reloadButton = new Button("Reload");
@@ -25,10 +26,18 @@ public class DetailedNewRecipeView extends DetailedRecipeViewTemplate {
         reloadButton.setOnAction(e -> {
             reloadButton.setVisible(false);
             newReloadedRecipe = this.performReloadButtonActionRecipe();
-            byte[] image = performReloadButtonActionImage(newReloadedRecipe[0]);
-            super.getDetailedRecipeInfoBody().setImage(image);
-            super.getDetailedRecipeInfoBody().setRecipeNAme(newReloadedRecipe[0]);
-            super.getDetailedRecipeInfoBody().setRecipeContext(newReloadedRecipe[1]);
+            byte[] image = null;
+            if(newReloadedRecipe!=null){
+                image = performReloadButtonActionImage(newReloadedRecipe[0]);
+            }
+            if(image!=null){
+                super.getDetailedRecipeInfoBody().setImage(image);
+                super.getDetailedRecipeInfoBody().setRecipeNAme(newReloadedRecipe[0]);
+                super.getDetailedRecipeInfoBody().setRecipeContext(newReloadedRecipe[1]);
+            }
+            else{
+                ServerErrorNotification.alertNoConn();
+            }
             reloadButton.setVisible(true);
 
         });

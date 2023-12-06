@@ -2,8 +2,10 @@ package client.multipleView;
 
 import client.MainViewController;
 import client.ViewController;
+import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import client.ServerErrorNotification;
 
 public class MultipleRecipeViewController implements ViewController{
     Stage mrvcStage;
@@ -22,8 +24,16 @@ public class MultipleRecipeViewController implements ViewController{
     }
 
     public void display(){
-        this.mrv.loadRecipeList();
-        mrvcStage.show();
+        
+        if (this.mrv.loadRecipeList()) {
+            mrvcStage.show();
+        }
+        else{
+            mrvcStage.show();
+            ServerErrorNotification.alertNoConn();
+            Platform.exit();
+        }
+        
     }
 
     public void closeDisplay(){
@@ -36,5 +46,9 @@ public class MultipleRecipeViewController implements ViewController{
 
     public void transitionToGenerate() {
         this.mvc.closeMultipleOpenGenerate();
+    }
+
+    public void transitiontoLogin() {
+        this.mvc.closeMultipleOpenLogin();
     }
 }
