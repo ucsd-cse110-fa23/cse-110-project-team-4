@@ -153,6 +153,7 @@ public class ServerTest {
         htmlBuilder.append("</head>\n");
         htmlBuilder.append("<body>\n");
         htmlBuilder.append("<h1>").append(recipe1.name).append(" </h1>\n");
+        htmlBuilder.append("<img src=").append("data:image/png;base64,null").append(">\n");
         htmlBuilder.append("<h2>").append(recipe1.mealType).append(" </h2>\n");
         htmlBuilder.append("<p>").append(recipe1.details.replaceAll("\n", "<br>")).append("</p>\n");
         htmlBuilder.append("</body>\n");

@@ -118,7 +118,6 @@ public class LoginBody extends VBox {
             showErrorMessage("Invalid username or password.");
         } else {
             // Login successful, you can handle the successful login here
-            showInfoMessage("Login successful. Welcome, " + username + "!");
             lvc.login(response);
             lvc.transitionToMultiple();
         }
@@ -173,7 +172,7 @@ public class LoginBody extends VBox {
         alert.setContentText(message);
         alert.showAndWait();
     }
-
+  
     private void showInfoMessage(String message) {
         Alert alert = new Alert(AlertType.INFORMATION);
         alert.setTitle("Login Successful");
