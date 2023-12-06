@@ -90,7 +90,7 @@ public class MultipleRecipeView extends BorderPane {
 
     }
 
-    public void loadRecipeList() {
+    public boolean loadRecipeList() {
         recipeListBody.getChildren().clear();
         String response = model.performGETRequestForList(this.mrvc.mvc.getUser());
         recipeArrayList = new ArrayList<JSONObject>();
