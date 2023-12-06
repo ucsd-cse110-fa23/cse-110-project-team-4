@@ -2,7 +2,9 @@ package client.test;
 
 import org.junit.jupiter.api.Test;
 
-import client.*;
+import client.generateRecipes.GenerateRecipeHandlerMock;
+import client.generateRecipes.GenerateRecipesLogicMock;
+import client.openAIAPI.AudioTranscriberMock;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;

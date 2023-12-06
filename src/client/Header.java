@@ -4,9 +4,9 @@ import javafx.scene.text.*;
 import javafx.scene.layout.*;
 import javafx.geometry.Pos;
 
-class Header extends HBox {
+public class Header extends HBox {
 
-    Header() {
+    public Header() {
         this.setPrefSize(500, 60); // Size of the header
         this.setStyle("-fx-background-color: #F0F8FF;");
 

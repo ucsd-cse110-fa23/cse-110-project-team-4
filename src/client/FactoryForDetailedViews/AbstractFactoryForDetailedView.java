@@ -1,6 +1,6 @@
-package client.FactoryForDetailedViews;
+package client.factoryForDetailedViews;
 
-import client.DView;
+import client.detailedView.DView;
 
 
 public abstract class AbstractFactoryForDetailedView<T> {

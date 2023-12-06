@@ -2,7 +2,9 @@ package client.test;
 
 import org.junit.jupiter.api.Test;
 
-import client.*;
+import client.openAIAPI.DallEImageGeneratorMock;
+import client.openAIAPI.ImageGenerator;
+
 import java.util.Base64;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
