@@ -1,7 +1,5 @@
 package client;
 
-import com.mongodb.Function;
-
 import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
