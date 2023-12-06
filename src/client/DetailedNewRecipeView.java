@@ -45,7 +45,7 @@ public class DetailedNewRecipeView extends DetailedRecipeViewTemplate {
             at = new AudioTranscriber("src/client/audio/RecordAudio.wav");
             this.prompt = at.generateTranscription();
             GenerateRecipeHandler grh = new GenerateRecipeHandler(
-                    "Give me a recipe with no semicolons or commas" + this.prompt +
+                    this.prompt +
                             "in the format of title followed by ingredients, and then instructions for a recipe.");
             String recipeInfo = grh.makeRequest();
             String[] recipeInfoSplit = recipeInfo.split("\n");
