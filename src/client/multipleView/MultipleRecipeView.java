@@ -1,4 +1,4 @@
-package client;
+package client.multipleView;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -8,6 +8,10 @@ import java.util.List;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import client.Footer;
+import client.Header;
+import client.RecipeButton;
+import client.RecipeListBody;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Pos;

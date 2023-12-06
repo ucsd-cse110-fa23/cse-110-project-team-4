@@ -1,5 +1,7 @@
-package client;
+package client.detailedView;
 
+import client.MainViewController;
+import client.ViewController;
 import client.FactoryForDetailedViews.AbstractFactoryForDetailedView;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
@@ -12,7 +14,7 @@ public class DetailedViewController implements ViewController{
     DView drv;
     MainViewController mc;
     AbstractFactoryForDetailedView<DetailedViewController> affdv;
-    DetailedViewController(Stage primaryStage,int screenSizeWidth,int screenSizeHeight,MainViewController mc, AbstractFactoryForDetailedView<DetailedViewController> affdv){
+    public DetailedViewController(Stage primaryStage,int screenSizeWidth,int screenSizeHeight,MainViewController mc, AbstractFactoryForDetailedView<DetailedViewController> affdv){
         this.mc = mc;
         this.dvcStage = primaryStage;
         this.screenSizeWidth = screenSizeWidth;

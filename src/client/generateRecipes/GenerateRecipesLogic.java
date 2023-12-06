@@ -1,6 +1,10 @@
-package client;
+package client.generateRecipes;
 
 import java.util.Arrays;
+
+import client.AudioRecorder;
+import client.AudioTranscriber;
+import client.DallEImageGenerator;
 
 
 /*

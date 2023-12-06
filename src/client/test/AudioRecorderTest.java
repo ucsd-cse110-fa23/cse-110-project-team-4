@@ -2,7 +2,7 @@ package client.test;
 
 import org.junit.jupiter.api.Test;
 
-import client.*;
+import client.openAIAPI.AudioRecorder;
 
 import org.junit.jupiter.api.BeforeEach;
 

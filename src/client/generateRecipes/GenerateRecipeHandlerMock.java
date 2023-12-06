@@ -1,4 +1,6 @@
-package client;
+package client.generateRecipes;
+
+import client.ChatGPTHandler;
 
 public class GenerateRecipeHandlerMock implements ChatGPTHandler{
 

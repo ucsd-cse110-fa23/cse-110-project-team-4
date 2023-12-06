@@ -1,5 +1,7 @@
-package client;
+package client.accountViews;
 
+import client.MainViewController;
+import client.ViewController;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
@@ -11,7 +13,7 @@ public class CreateAccountViewController implements ViewController {
     MainViewController mvc;
     CreateAccountView cav;
 
-    CreateAccountViewController(Stage primaryStage, int screenSizeWidth, int screenSizeHeight, MainViewController mvc) {
+    public CreateAccountViewController(Stage primaryStage, int screenSizeWidth, int screenSizeHeight, MainViewController mvc) {
         this.cavcStage = primaryStage;
         this.screenSizeWidth = screenSizeWidth;
         this.screenSizeHeight = screenSizeHeight;

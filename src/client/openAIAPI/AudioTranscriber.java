@@ -1,8 +1,10 @@
-package client;
+package client.openAIAPI;
 
 import java.io.*;
 import java.net.*;
 import org.json.*;
+
+import client.Transcriber;
 
 /*
  * Class to create a transcription of an audio recording. Code taken from Lab 4.

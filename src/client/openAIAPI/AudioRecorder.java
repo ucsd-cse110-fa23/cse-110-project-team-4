@@ -1,4 +1,4 @@
-package client;
+package client.openAIAPI;
 
 import javax.sound.sampled.*;
 

@@ -1,5 +1,9 @@
-package client;
+package client.generateRecipes;
 
+import client.MainViewController;
+import client.ViewController;
+import client.detailedView.DetailedRecipeInfoBody;
+import client.detailedView.DetailedViewController;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
@@ -13,7 +17,7 @@ public class GenerateRecipesViewController implements ViewController{
     int screenSizeWidth;
     int screenSizeHeight;
     MainViewController mvc;
-    GenerateRecipesViewController(Stage primaryStage,int screenSizeWidth,int screenSizeHeight, MainViewController mvc){
+    public GenerateRecipesViewController(Stage primaryStage,int screenSizeWidth,int screenSizeHeight, MainViewController mvc){
         this.grvcStage = primaryStage;
         this.screenSizeWidth = screenSizeWidth;
         this.screenSizeHeight = screenSizeHeight;
