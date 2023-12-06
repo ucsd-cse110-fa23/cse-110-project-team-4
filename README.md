@@ -15,7 +15,7 @@
    
 ## Logging into an Account
 1. In order to login to your account, first enter the correct account information
-2. If you want to save your account information, check the remember me box and then click login
+2. If you want to save your account information and automatically login next time, check the remember me box and then click login
 3. Click on the "Login" button
 4. This will take you to the recipe list window with your saved recipies
 
@@ -54,3 +54,16 @@ Recipe and it will open a new window with its contents.
 1. In order to filter recipe list by meal type, click on the drop down titled "No Filter"
 2. Choose your desired filter option by clicking on one of the options of "Breakfast," "Lunch," "Dinner," and "No Filter"
 3. Once you have clicked the filtering option, the page will automatically reload to the filtered list with respect to the filter option
+
+# Reload Recipe
+1. In order to reload a generated recipe, click on the "Reload" button after generating a recipe
+2. The app will regenerate and reload the page to display the newly generated recipe
+
+# Share Recipe
+1. In order to share a recipe, click on the recipe you wish to share from the list of recipes
+2. Click on the "Share" button
+3. A popup will appear with a copyable link for that respective recipe
+4. Copy the link and click the "okay" button
+5. The popup will close and you now have a copied link to share
+6. In order to view to shared recipe link, past the link into the browser
+7. The window will display details about the shared recipe
