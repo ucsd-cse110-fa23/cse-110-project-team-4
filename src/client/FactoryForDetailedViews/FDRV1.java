@@ -1,4 +1,4 @@
-package client.factoryForDetailedViews;
+package client.FactoryForDetailedViews;
 
 import client.detailedView.DView;
 import client.detailedView.DetailedOldRecipeView;
